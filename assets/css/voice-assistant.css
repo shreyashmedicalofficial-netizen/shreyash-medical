@@ -1,0 +1,207 @@
+/* Voice Assistant Overlay CSS */
+:root {
+    --voice-bg: rgba(255, 255, 255, 0.95);
+    --voice-accent: #2A6B42;
+    /* Deep Teal - Brand Primary */
+    --voice-secondary: #FFC107;
+    /* Warm Yellow */
+    --voice-text: #212529;
+    --voice-red: #dc3545;
+}
+
+/* Floating Launcher (Distinct from Chatbot) */
+#voice-assistant-fab {
+    position: fixed;
+    bottom: 100px;
+    right: 30px;
+    width: 56px;
+    height: 56px;
+    background: var(--voice-secondary);
+    border-radius: 50%;
+    color: var(--voice-text);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+    z-index: 100001;
+    /* Above chatbot */
+    transition: transform 0.3s ease;
+    border: 2px solid white;
+}
+
+#voice-assistant-fab:hover {
+    transform: scale(1.1);
+}
+
+#voice-assistant-fab i {
+    font-size: 24px;
+}
+
+/* Full Screen Overlay */
+.voice-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    background: var(--voice-bg);
+    backdrop-filter: blur(10px);
+    z-index: 100005;
+    /* Highest */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s ease;
+}
+
+.voice-overlay.active {
+    opacity: 1;
+    pointer-events: all;
+}
+
+/* Close Button */
+.voice-close-btn {
+    position: absolute;
+    top: 30px;
+    right: 30px;
+    font-size: 32px;
+    color: var(--voice-text);
+    cursor: pointer;
+    background: none;
+    border: none;
+    opacity: 0.6;
+    transition: opacity 0.2s;
+}
+
+.voice-close-btn:hover {
+    opacity: 1;
+}
+
+/* Visualizer / Microphone Center */
+.voice-visualizer {
+    width: 120px;
+    height: 120px;
+    background: var(--voice-accent);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 50px;
+    margin-bottom: 40px;
+    position: relative;
+    cursor: pointer;
+    transition: background 0.3s;
+}
+
+/* Pulse Animation for Listening */
+.voice-visualizer.listening {
+    background: var(--voice-red);
+    animation: pulse-ring 2s infinite;
+}
+
+.voice-visualizer.processing {
+    background: var(--voice-secondary);
+    color: var(--voice-text);
+    animation: spin 1s infinite linear;
+}
+
+@keyframes pulse-ring {
+    0% {
+        box-shadow: 0 0 0 0 rgba(220, 53, 69, 0.7);
+    }
+
+    70% {
+        box-shadow: 0 0 0 30px rgba(220, 53, 69, 0);
+    }
+
+    100% {
+        box-shadow: 0 0 0 0 rgba(220, 53, 69, 0);
+    }
+}
+
+@keyframes spin {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+/* Status Text */
+.voice-status {
+    font-size: 24px;
+    font-weight: 600;
+    margin-bottom: 16px;
+    color: var(--voice-accent);
+    min-height: 36px;
+}
+
+/* Transcript */
+.voice-transcript {
+    font-size: 32px;
+    font-weight: 300;
+    text-align: center;
+    max-width: 80%;
+    color: var(--voice-text);
+    margin-bottom: 40px;
+    min-height: 48px;
+}
+
+/* Result Card (Product) */
+.voice-result-card {
+    background: white;
+    border-radius: 16px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    max-width: 90%;
+    width: 400px;
+    transform: translateY(20px);
+    opacity: 0;
+    transition: all 0.4s ease;
+}
+
+.voice-result-card.show {
+    transform: translateY(0);
+    opacity: 1;
+}
+
+.voice-product-img {
+    width: 80px;
+    height: 80px;
+    object-fit: contain;
+    border-radius: 8px;
+}
+
+.voice-product-info h3 {
+    margin: 0 0 5px 0;
+    font-size: 18px;
+    font-weight: 700;
+}
+
+.voice-product-price {
+    font-size: 20px;
+    color: var(--voice-accent);
+    font-weight: bold;
+    display: block;
+    margin-bottom: 10px;
+}
+
+.voice-action-btn {
+    background: var(--voice-secondary);
+    border: none;
+    padding: 8px 16px;
+    border-radius: 20px;
+    font-weight: 600;
+    font-size: 14px;
+    cursor: pointer;
+}

@@ -1,0 +1,782 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Product Details - Shreyash Pharmacy</title>
+    <!-- Google Fonts -->
+    <link
+        href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Inter:wght@300;400;500;600&display=swap"
+        rel="stylesheet">
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- FontAwesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="assets/css/style.css">
+    <style>
+        .hover-zoom {
+            transition: transform 0.3s ease;
+        }
+
+        .hover-zoom:hover {
+            transform: scale(1.05);
+            /* Fallback if JS zoom inactive */
+        }
+
+        .cursor-pointer {
+            cursor: pointer;
+        }
+
+        .product-card-premium {
+            transition: all 0.3s ease;
+        }
+
+        .product-card-premium:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 .5rem 1rem rgba(0, 0, 0, .15) !important;
+        }
+
+        .active-thumb {
+            border-color: var(--primary-color) !important;
+            opacity: 1 !important;
+        }
+
+        .sticky-top-custom {
+            position: sticky;
+            top: 90px;
+            z-index: 100;
+        }
+
+        .nav-tabs .nav-link {
+            color: #6c757d;
+            font-weight: 600;
+        }
+
+        .nav-tabs .nav-link.active {
+            color: var(--primary-color);
+            border-bottom: 3px solid var(--primary-color);
+            border-top: 0;
+            border-left: 0;
+            border-right: 0;
+        }
+
+        .ls-1 {
+            letter-spacing: 1px;
+        }
+
+        /* Magnifying Lens */
+        .img-zoom-container {
+            position: relative;
+            overflow: hidden;
+            cursor: crosshair;
+        }
+
+        .img-zoom-lens {
+            position: absolute;
+            border: 1px solid #d4d4d4;
+            /*set the size of the lens:*/
+            width: 100px;
+            height: 100px;
+            background-color: rgba(255, 255, 255, 0.4);
+            visibility: hidden;
+        }
+
+        .img-zoom-result {
+            position: absolute;
+            width: 400px;
+            /* Width of result div */
+            height: 400px;
+            /* Height of result div */
+            z-index: 1000;
+            top: 0;
+            left: 105%;
+            /* Place to the right */
+            border: 1px solid #d4d4d4;
+            background-repeat: no-repeat;
+            display: none;
+            /* Hidden by default */
+            background-color: white;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+    </style>
+</head>
+
+<body class="d-flex flex-column min-vh-100 bg-white">
+
+    <!-- Header Container -->
+    <div id="header-container"></div>
+
+    <div id="loadingSpinner" class="d-flex align-items-center justify-content-center flex-grow-1"
+        style="min-height: 400px;">
+        <div class="spinner-border text-primary-custom" role="status">
+            <span class="visually-hidden">Loading...</span>
+        </div>
+    </div>
+
+    <div id="mainContent" class="flex-grow-1 d-none">
+
+        <!-- Breadcrumb -->
+        <div class="bg-light py-3 border-bottom">
+            <div class="container d-flex align-items-center">
+                <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb mb-0 small text-muted">
+                        <li class="breadcrumb-item"><a href="index.html"
+                                class="text-decoration-none text-muted">Home</a></li>
+                        <li class="breadcrumb-item"><a href="products.html" class="text-decoration-none text-muted"
+                                id="breadcrumbCategory">Category</a></li>
+                        <li class="breadcrumb-item active text-dark" aria-current="page" id="breadcrumbName">Product
+                            Name</li>
+                    </ol>
+                </nav>
+            </div>
+        </div>
+
+        <!-- Top Section: Gallery | Quick Info | Buy Box -->
+        <section class="py-3 border-bottom"> <!-- Reduced py-4 to py-3 -->
+            <div class="container">
+                <div class="row gx-lg-4">
+                    <!-- 1. Gallery -->
+                    <div class="col-lg-4 mb-4 mb-lg-0">
+                        <div id="productCarousel" class="carousel slide border rounded-4 overflow-hidden mb-3"
+                            data-bs-ride="carousel" style="box-shadow: 0 .125rem .25rem rgba(0,0,0,.075);">
+                            <div class="carousel-inner" id="carouselInner" style="height: 400px;">
+                                <!-- Carousel Items Injected via JS -->
+                            </div>
+                            <button class="carousel-control-prev" type="button" data-bs-target="#productCarousel"
+                                data-bs-slide="prev">
+                                <span class="carousel-control-prev-icon bg-dark rounded-circle p-3"
+                                    aria-hidden="true"></span>
+                                <span class="visually-hidden">Previous</span>
+                            </button>
+                            <button class="carousel-control-next" type="button" data-bs-target="#productCarousel"
+                                data-bs-slide="next">
+                                <span class="carousel-control-next-icon bg-dark rounded-circle p-3"
+                                    aria-hidden="true"></span>
+                                <span class="visually-hidden">Next</span>
+                            </button>
+
+                            <span id="discountBadge"
+                                class="position-absolute top-0 start-0 m-3 badge bg-danger fs-6 px-3 py-2 shadow-sm rounded-pill d-none"
+                                style="z-index: 10;">0% OFF</span>
+                        </div>
+
+                        <!-- Thumbnails (Indicators) -->
+                        <div class="row g-2" id="thumbnailContainer">
+                            <!-- Thumbnails injected here -->
+                        </div>
+                    </div>
+
+                    <!-- 2. Quick Info (Center) -->
+                    <div class="col-lg-5 mb-4 mb-lg-0">
+                        <h1 class="fw-bold text-dark mb-2"
+                            style="font-size: 1.75rem; font-family: var(--font-heading, sans-serif);" id="productName">
+                            Product Name</h1>
+
+                        <div class="d-flex flex-wrap align-items-center gap-3 mb-3">
+                            <span class="badge bg-success small px-2 py-1"><i class="fas fa-star me-1"></i> 4.5 <span
+                                    class="fw-normal opacity-75 ms-1">(892 Ratings)</span></span>
+                            <a href="#" class="text-primary-custom small fw-bold text-decoration-none">Read Reviews</a>
+                        </div>
+
+                        <div class="mb-4">
+                            <div class="d-flex mb-2 align-items-center">
+                                <span class="text-muted small fw-bold" style="width: 140px;">MARKETED BY</span>
+                                <span class="text-primary-custom fw-bold" id="productManufacturer">Shreyash
+                                    Pharmacy</span>
+                            </div>
+                            <div class="d-flex mb-2 align-items-center">
+                                <span class="text-muted small fw-bold" style="width: 140px;">SALT COMPOSITION</span>
+                                <span class="text-dark small" id="productComposition">N/A</span>
+                            </div>
+                            <div class="d-flex mb-2 align-items-center">
+                                <span class="text-muted small fw-bold" style="width: 140px;">ORIGIN</span>
+                                <span class="text-dark small" id="productOrigin">India</span>
+                            </div>
+
+                            <!-- Trust Badges -->
+                            <div class="d-flex gap-3 mt-4 flex-wrap">
+                                <div class="d-flex align-items-center border rounded-pill px-3 py-2 bg-light">
+                                    <i class="fas fa-certificate text-warning me-2"></i>
+                                    <span class="small fw-bold text-dark">100% Genuine</span>
+                                </div>
+                                <div class="d-flex align-items-center border rounded-pill px-3 py-2 bg-light">
+                                    <i class="fas fa-shield-alt text-success me-2"></i>
+                                    <span class="small fw-bold text-dark">Secure Payment</span>
+                                </div>
+                                <div class="d-flex align-items-center border rounded-pill px-3 py-2 bg-light">
+                                    <i class="fas fa-undo text-primary me-2"></i>
+                                    <span class="small fw-bold text-dark">Easy Returns</span>
+                                </div>
+                            </div>
+                            <!-- Prescription Badge Placeholder -->
+                            <div id="prescriptionBadge"
+                                class="d-none mt-3 p-2 bg-warning bg-opacity-10 border border-warning rounded align-items-center"
+                                style="width: fit-content;">
+                                <i class="fas fa-file-prescription text-warning-emphasis me-2"></i>
+                                <span class="text-warning-emphasis fw-bold small">Prescription Required</span>
+                            </div>
+                        </div>
+
+                        <hr class="text-secondary opacity-10">
+
+                        <div class="mb-4">
+                            <h6 class="fw-bold text-dark text-uppercase small ls-1 mb-3">Product Highlights</h6>
+                            <ul class="list-unstyled mb-0" id="productHighlights">
+                                <li class="mb-2 d-flex align-items-start text-secondary"><i
+                                        class="fas fa-check text-success mt-1 me-3 small"></i> Quality Tested</li>
+                                <li class="mb-2 d-flex align-items-start text-secondary"><i
+                                        class="fas fa-check text-success mt-1 me-3 small"></i> Genuine Product</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <!-- 3. Buy Box (Right Sticky) -->
+                    <div class="col-lg-3">
+                        <div class="card border-0 shadow-lg rounded-4 overflow-hidden sticky-top-custom"
+                            style="z-index: 90;">
+                            <!-- Price Header -->
+                            <div class="p-3 bg-light bg-opacity-50 border-bottom">
+                                <div class="d-flex align-items-baseline gap-2 mb-1">
+                                    <h2 class="fw-bold text-dark mb-0 fs-2" id="productPrice">₹0</h2>
+                                    <span id="mrpPrice"
+                                        class="text-muted text-decoration-line-through small d-none">₹0</span>
+                                    <span id="discountText" class="text-success fw-bold small d-none">0% OFF</span>
+                                </div>
+                                <div class="text-muted small">Inclusive of all taxes</div>
+                            </div>
+
+                            <div class="p-3 bg-white">
+                                <!-- Quantity & Add -->
+                                <div class="mb-4">
+                                    <label class="small fw-bold text-muted mb-2">Quantity</label>
+                                    <div class="d-flex gap-2">
+                                        <div class="input-group input-group-sm border rounded" style="width: 100px;">
+                                            <button class="btn btn-light px-2" onclick="window.updateQty(-1)">-</button>
+                                            <input type="text"
+                                                class="form-control text-center bg-white border-0 fw-bold" id="qtyInput"
+                                                value="1" readonly>
+                                            <button class="btn btn-light px-2" onclick="window.updateQty(1)">+</button>
+                                        </div>
+                                        <div class="text-success small fw-bold d-flex align-items-center ms-auto"
+                                            id="stockStatus">
+                                            <i class="fas fa-check-circle me-1"></i> In Stock
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="d-grid gap-2">
+                                    <button class="btn btn-primary-custom fw-bold py-2 shadow-sm hover-lift"
+                                        onclick="window.addToCart()">
+                                        <i class="fas fa-shopping-cart me-2"></i> Add to Cart
+                                    </button>
+                                    <button class="btn btn-outline-dark fw-bold py-2 hover-lift"
+                                        onclick="window.buyNow()">
+                                        Buy Now
+                                    </button>
+                                </div>
+
+                                <!-- Delivery Check -->
+                                <div class="mt-4 pt-4 border-top">
+                                    <label class="small fw-bold text-muted mb-2">Check Delivery</label>
+                                    <div class="input-group input-group-sm">
+                                        <span class="input-group-text bg-white border-end-0"><i
+                                                class="fas fa-map-marker-alt text-primary-custom"></i></span>
+                                        <input type="text" class="form-control border-start-0 ps-0"
+                                            placeholder="Enter Pincode">
+                                        <button
+                                            class="btn btn-link text-decoration-none fw-bold small text-primary-custom">CHECK</button>
+                                    </div>
+                                    <div class="small text-muted mt-2">
+                                        <i class="fas fa-truck me-1"></i> Delivery by <span
+                                            class="text-dark fw-bold">Tomorrow</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Bottom Section: Detailed Info Tabs -->
+        <section class="py-5 bg-light">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-9">
+                        <div class="card border-0 shadow-sm rounded-4 overflow-hidden bg-white">
+                            <div class="card-header bg-white border-bottom p-0">
+                                <ul class="nav nav-tabs card-header-tabs px-4 pt-3 border-bottom-0" id="infoTabs"
+                                    role="tablist">
+                                    <li class="nav-item" role="presentation">
+                                        <button class="nav-link active py-3 px-4" id="description-tab"
+                                            data-bs-toggle="tab" data-bs-target="#description-pane" type="button"
+                                            role="tab" aria-selected="true">Description</button>
+                                    </li>
+                                    <li class="nav-item" role="presentation">
+                                        <button class="nav-link py-3 px-4" id="safety-tab" data-bs-toggle="tab"
+                                            data-bs-target="#safety-pane" type="button" role="tab"
+                                            aria-selected="false">Safety Advice</button>
+                                    </li>
+                                    <li class="nav-item" role="presentation">
+                                        <button class="nav-link py-3 px-4" id="uses-tab" data-bs-toggle="tab"
+                                            data-bs-target="#uses-pane" type="button" role="tab"
+                                            aria-selected="false">Uses & Benefits</button>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="card-body p-5">
+                                <div class="tab-content" id="myTabContent">
+                                    <!-- Description Tab -->
+                                    <div class="tab-pane fade show active" id="description-pane" role="tabpanel"
+                                        aria-labelledby="description-tab">
+                                        <h4 class="fw-bold mb-4">Product Description</h4>
+                                        <p class="text-secondary lh-lg mb-0" id="fullDescription">No description
+                                            available.</p>
+                                        <p class="text-secondary lh-lg mt-3">Manufactured by <span
+                                                id="descManufacturer">Shreyash Healthcare</span>, this product adheres
+                                            to the highest medical standards. Ensure to keep it in a cool and dry place.
+                                        </p>
+
+                                        <div class="alert alert-primary border-0 mt-4 d-flex">
+                                            <i class="fas fa-info-circle fa-lg me-3 mt-1"></i>
+                                            <div>
+                                                <h6 class="fw-bold mb-1">Medical Disclaimer</h6>
+                                                <small>The contents of this website are for informational purposes only
+                                                    and not intended to be a substitute for professional medical advice,
+                                                    diagnosis, or treatment.</small>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!-- Safety Tab -->
+                                    <div class="tab-pane fade" id="safety-pane" role="tabpanel"
+                                        aria-labelledby="safety-tab">
+                                        <h4 class="fw-bold mb-4">Safety Advice</h4>
+                                        <div class="row g-4" id="safetyContainer">
+                                            <!-- Injected via JS -->
+                                            <div class="col-12">
+                                                <p class="text-muted">No specific safety warnings. Please read the label
+                                                    carefully.</p>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!-- Uses Tab -->
+                                    <div class="tab-pane fade" id="uses-pane" role="tabpanel"
+                                        aria-labelledby="uses-tab">
+                                        <h4 class="fw-bold mb-4">Uses & Benefits</h4>
+                                        <ul class="list-group list-group-flush" id="usesList">
+                                            <!-- Injected via JS -->
+                                            <li class="list-group-item border-0 px-0 py-2 text-muted">See product
+                                                description for details.</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Similar Products -->
+        <section class="py-5 bg-white border-top">
+            <div class="container">
+                <div class="d-flex justify-content-between align-items-center mb-4">
+                    <h3 class="fw-bold">Similar Products</h3>
+                    <a href="products.html" class="btn btn-outline-dark rounded-pill fw-bold btn-sm px-4">View All</a>
+                </div>
+                <div class="row row-cols-2 row-cols-lg-4 g-4" id="similarProductsContainer">
+                    <!-- Similar products injected here -->
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- Footer Container -->
+    <div id="footer-container"></div>
+
+    <!-- Toast -->
+    <div class="toast-container position-fixed bottom-0 end-0 p-3">
+        <div id="liveToast" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+            <div class="toast-header">
+                <strong class="me-auto">Notification</strong>
+                <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+            </div>
+            <div class="toast-body" id="toastMessage">
+                Action successful.
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+    <!-- App Logic -->
+    <script type="module">
+        import { db, ref, onValue, query, limitToFirst, orderByChild, equalTo } from '/medico-saas/assets/js/firebase-config.js';
+
+        // Load Header/Footer
+        fetch('includes/header.html').then(r => r.text()).then(h => document.getElementById('header-container').innerHTML = h);
+        fetch('includes/footer.html').then(r => r.text()).then(f => document.getElementById('footer-container').innerHTML = f);
+
+        const urlParams = new URLSearchParams(window.location.search);
+        const productId = urlParams.get('id');
+        let currentProduct = null;
+        let qty = 1;
+
+        // Verify ID
+        if (!productId) {
+            alert("No product specified.");
+            window.location.href = "products.html";
+        }
+
+        // Fetch Product
+        const productRef = ref(db, `products/${productId}`);
+        onValue(productRef, (snapshot) => {
+            const data = snapshot.val();
+            if (data) {
+                currentProduct = { id: productId, ...data };
+                renderProduct(currentProduct);
+                document.getElementById('loadingSpinner').classList.add('d-none');
+                document.getElementById('mainContent').classList.remove('d-none');
+
+                // Fetch Similar
+                fetchSimilarProducts(currentProduct.category);
+            } else {
+                document.getElementById('loadingSpinner').innerHTML = '<div class="text-center"><h3>Product not found</h3><a href="products.html" class="btn btn-primary mt-3">Back to Shop</a></div>';
+            }
+        });
+
+        // Zoom Logic
+        function imageZoom(imgID, resultID) {
+            let img, lens, result, cx, cy;
+            img = document.getElementById(imgID);
+            result = document.getElementById(resultID);
+            lens = document.getElementById("myLens");
+
+            // Calculate ratio
+            /*Cx and Cy are ratios of result size to lens size*/
+            // But we need to wait for image load to get dimensions usually. 
+            // In this case, we'll setup loop or event
+
+            function setup() {
+                cx = result.offsetWidth / lens.offsetWidth;
+                cy = result.offsetHeight / lens.offsetHeight;
+
+                result.style.backgroundImage = "url('" + img.src + "')";
+                result.style.backgroundSize = (img.width * cx) + "px " + (img.height * cy) + "px";
+
+                // Event Listeners
+                lens.addEventListener("mousemove", moveLens);
+                img.addEventListener("mousemove", moveLens);
+                lens.addEventListener("touchmove", moveLens);
+                img.addEventListener("touchmove", moveLens);
+
+                // Show/Hide
+                img.addEventListener("mouseenter", () => {
+                    result.style.display = "block";
+                    lens.style.visibility = "visible";
+                });
+                img.addEventListener("mouseleave", () => {
+                    result.style.display = "none";
+                    lens.style.visibility = "hidden";
+                });
+            }
+
+            if (img.complete) {
+                setup();
+            } else {
+                img.onload = setup;
+            }
+
+            function moveLens(e) {
+                let pos, x, y;
+                e.preventDefault();
+                pos = getCursorPos(e);
+                x = pos.x - (lens.offsetWidth / 2);
+                y = pos.y - (lens.offsetHeight / 2);
+
+                // Prevent lens from outside image
+                if (x > img.width - lens.offsetWidth) { x = img.width - lens.offsetWidth; }
+                if (x < 0) { x = 0; }
+                if (y > img.height - lens.offsetHeight) { y = img.height - lens.offsetHeight; }
+                if (y < 0) { y = 0; }
+
+                lens.style.left = x + "px";
+                lens.style.top = y + "px";
+                result.style.backgroundPosition = "-" + (x * cx) + "px -" + (y * cy) + "px";
+            }
+
+            function getCursorPos(e) {
+                let a, x = 0, y = 0;
+                e = e || window.event;
+                a = img.getBoundingClientRect();
+                x = e.pageX - a.left;
+                y = e.pageY - a.top;
+                x = x - window.pageXOffset;
+                y = y - window.pageYOffset;
+                return { x: x, y: y };
+            }
+        }
+
+        function renderProduct(p) {
+            // ... (previous rendering logic)
+            // Text Fields
+            document.title = `${p.name} - Shreyash Pharmacy`;
+            document.getElementById('breadcrumbName').innerText = p.name;
+            document.getElementById('breadcrumbCategory').innerText = p.category;
+            document.getElementById('productName').innerText = p.name;
+            document.getElementById('productPrice').innerText = `₹${p.price}`;
+
+            // Mock MRP/Discount logic if not in DB
+            const mrp = p.mrp || Math.round(p.price * 1.25);
+            const discount = p.discount || Math.round(((mrp - p.price) / mrp) * 100);
+
+            if (discount > 0) {
+                document.getElementById('mrpPrice').innerText = `₹${mrp}`;
+                document.getElementById('mrpPrice').classList.remove('d-none');
+                document.getElementById('discountText').innerText = `${discount}% OFF`;
+                document.getElementById('discountText').classList.remove('d-none');
+                document.getElementById('discountBadge').innerText = `${discount}% OFF`;
+                document.getElementById('discountBadge').classList.remove('d-none');
+            }
+
+            // Details
+            document.getElementById('productManufacturer').innerText = p.manufacturer || "Shreyash Pharmacy"; // Generic fallback or dynamic
+            document.getElementById('descManufacturer').innerText = p.manufacturer || "Shreyash Pharmacy";
+            document.getElementById('productComposition').innerText = p.composition || "N/A";
+            document.getElementById('productOrigin').innerText = p.origin || "India";
+            document.getElementById('fullDescription').innerText = p.description || p.name;
+
+            // Highlights
+            if (p.highlights && Array.isArray(p.highlights)) {
+                document.getElementById('productHighlights').innerHTML = p.highlights.map(h =>
+                    `<li class="mb-2 d-flex align-items-start text-secondary"><i class="fas fa-check text-success mt-1 me-3 small"></i> ${h}</li>`
+                ).join('');
+            }
+
+            // Benefits/Uses in Tabs
+            if (p.benefits && Array.isArray(p.benefits)) {
+                document.getElementById('usesList').innerHTML = p.benefits.map(b =>
+                    `<li class="list-group-item border-0 px-0 py-2 d-flex align-items-center"><i class="fas fa-check-circle text-success me-3"></i> ${b}</li>`
+                ).join('');
+            } else {
+                document.getElementById('usesList').innerHTML = `<li class="list-group-item border-0 px-0 py-2 d-flex align-items-center"><i class="fas fa-check-circle text-success me-3"></i> Effective for ${p.category}</li>`;
+            }
+
+            // Safety
+            if (p.safety && typeof p.safety === 'object') {
+                document.getElementById('safetyContainer').innerHTML = Object.entries(p.safety).map(([key, val]) => {
+                    let icon = 'check-circle';
+                    if (key.includes('Alcohol')) icon = 'wine-glass-alt';
+                    if (key.includes('Pregnancy')) icon = 'baby';
+                    if (key.includes('Driving')) icon = 'car';
+
+                    return `
+                    <div class="col-md-6">
+                        <div class="d-flex align-items-start border rounded-3 p-3 h-100">
+                            <div class="bg-light rounded-circle p-2 me-3 flex-shrink-0 text-center" style="width: 40px; height: 40px;">
+                                <i class="fas fa-${icon} text-dark"></i>
+                            </div>
+                            <div>
+                                <h6 class="fw-bold mb-1">${key}</h6>
+                                <p class="small text-muted mb-0">${val}</p>
+                            </div>
+                        </div>
+                    </div>
+                     `;
+                }).join('');
+            }
+
+            // Stock
+            const stockEl = document.getElementById('stockStatus');
+            if (p.stock > 0) {
+                stockEl.innerHTML = '<i class="fas fa-check-circle me-1"></i> In Stock';
+                stockEl.className = "text-success small fw-bold d-flex align-items-center ms-auto";
+            } else {
+                stockEl.innerHTML = '<i class="fas fa-times-circle me-1"></i> Out of Stock';
+                stockEl.className = "text-danger small fw-bold d-flex align-items-center ms-auto";
+            }
+
+            // Images (Carousel Logic)
+            let images = [];
+            if (p.images && Array.isArray(p.images)) {
+                images = p.images;
+            } else if (p.image) {
+                images = [p.image];
+            } else {
+                images = [`https://ui-avatars.com/api/?name=${encodeURIComponent(p.name)}&background=random&color=fff&size=400`];
+            }
+
+            // Populate Carousel Items
+            const carouselInner = document.getElementById('carouselInner');
+            carouselInner.innerHTML = images.map((img, idx) => `
+                <div class="carousel-item h-100 ${idx === 0 ? 'active' : ''}">
+                    <div class="d-flex align-items-center justify-content-center h-100 bg-white p-3">
+                        <img src="${img}" class="img-fluid" style="max-height: 100%; object-fit: contain;" alt="${p.name}">
+                    </div>
+                </div>
+            `).join('');
+
+            // Populate Thumbnails (Indicators)
+            const thumbContainer = document.getElementById('thumbnailContainer');
+            if (images.length > 1) {
+                thumbContainer.innerHTML = images.map((img, idx) => `
+                    <div class="col-3">
+                        <div class="border rounded-3 p-1 cursor-pointer bg-light h-100 d-flex align-items-center justify-content-center opacity-75 ${idx === 0 ? 'active-thumb' : ''}" 
+                             onclick="showSlide(${idx}, this)">
+                            <img src="${img}" class="img-fluid" style="max-height: 60px;">
+                        </div>
+                    </div>
+                `).join('');
+            } else {
+                thumbContainer.innerHTML = '';
+            }
+
+            // Expose slide function for thumbnails
+            window.showSlide = function (index, el) {
+                const carousel = bootstrap.Carousel.getOrCreateInstance(document.getElementById('productCarousel'));
+                carousel.to(index);
+
+                // Update active thumb styling
+                document.querySelectorAll('#thumbnailContainer > .col-3 > div').forEach(div => div.classList.remove('active-thumb'));
+                el.classList.add('active-thumb');
+            }
+
+            // Sync indicators on slide
+            document.getElementById('productCarousel').addEventListener('slide.bs.carousel', function (e) {
+                const index = e.to;
+                document.querySelectorAll('#thumbnailContainer > .col-3 > div').forEach((div, idx) => {
+                    if (idx === index) div.classList.add('active-thumb');
+                    else div.classList.remove('active-thumb');
+                });
+            });
+        }
+
+        // Global functions
+        window.addToCart = function (productToAdd) {
+            const target = productToAdd || currentProduct;
+            if (!target) return;
+
+            // Normalize
+            const itemToAdd = {
+                id: target.id,
+                name: target.name,
+                price: target.price,
+                image: target.images ? target.images[0] : (target.image || ''),
+                qty: productToAdd ? 1 : qty
+            };
+
+            let cart = JSON.parse(localStorage.getItem('cart') || '[]');
+            const existingItem = cart.find(item => item.id === itemToAdd.id);
+
+            if (existingItem) {
+                existingItem.qty += itemToAdd.qty;
+            } else {
+                cart.push(itemToAdd);
+            }
+
+            localStorage.setItem('cart', JSON.stringify(cart));
+
+            // Show Toast
+            const toastEl = document.getElementById('liveToast');
+            if (toastEl) {
+                const toastMsg = document.getElementById('toastMessage');
+                toastMsg.innerText = `${itemToAdd.name} added to cart!`;
+                const toast = new bootstrap.Toast(toastEl);
+                toast.show();
+            }
+
+            // Dispatch event for header update
+            window.dispatchEvent(new Event('cartUpdated'));
+        }
+
+        window.buyNow = function () {
+            window.addToCart();
+            window.location.href = 'cart.html';
+        }
+
+        function fetchSimilarProducts(category) {
+            if (!category) return;
+            const categoryLower = category.toLowerCase();
+
+            const productsRef = ref(db, 'products');
+            onValue(productsRef, (snapshot) => {
+                const data = snapshot.val();
+                if (!data) return;
+
+                let similar = [];
+                Object.keys(data).forEach(key => {
+                    const p = data[key];
+                    // Case insensitive category check
+                    if (key !== currentProduct.id && p.category && p.category.toLowerCase() === categoryLower) {
+                        similar.push({ id: key, ...p });
+                    }
+                });
+
+                similar = similar.sort(() => 0.5 - Math.random()).slice(0, 4);
+
+                const container = document.getElementById('similarProductsContainer');
+                if (similar.length === 0) {
+                    container.innerHTML = '<div class="col-12 text-center text-muted">No similar products found.</div>';
+                    return;
+                }
+
+                container.innerHTML = similar.map(p => {
+                    let img = p.image || `https://ui-avatars.com/api/?name=${encodeURIComponent(p.name)}&background=random&color=fff&size=150`;
+                    if (p.images && p.images.length > 0) img = p.images[0];
+
+                    const p_mrp = p.mrp || Math.round(p.price * 1.25);
+                    const p_discount = p.discount || Math.round(((p_mrp - p.price) / p_mrp) * 100);
+
+                    // Safe JSON stringify
+                    const pString = JSON.stringify({
+                        id: p.id,
+                        name: p.name,
+                        price: p.price,
+                        image: img
+                    }).replace(/"/g, '&quot;');
+
+                    return `
+                    <div class="col">
+                        <div class="card h-100 border-0 shadow-sm hover-lift product-card-premium overflow-hidden">
+                            <div class="position-relative">
+                                <a href="product_details.html?id=${p.id}" class="text-decoration-none d-block bg-white p-4 text-center" style="height: 220px;">
+                                    <img src="${img}" class="h-100 mw-100 object-fit-contain" alt="${p.name}">
+                                </a>
+                                ${p_discount > 0 ? `<div class="position-absolute top-0 start-0 m-2"><span class="badge bg-danger small">${p_discount}% OFF</span></div>` : ''}
+                            </div>
+                            
+                            <div class="card-body p-3 d-flex flex-column bg-white border-top">
+                                <small class="text-muted d-block mb-1 text-uppercase fw-bold" style="font-size: 0.7rem;">${p.category}</small>
+                                <h6 class="fw-bold text-dark mb-1 text-truncate">${p.name}</h6>
+                                <small class="text-muted d-block mb-3">${p.pack_size || '1 Unit'}</small>
+                                
+                                <div class="mt-auto">
+                                    <div class="d-flex flex-column gap-2 mb-3">
+                                        <div class="d-flex align-items-baseline">
+                                            <span class="fw-bold text-dark fs-5">₹${p.price}</span>
+                                            ${p_discount > 0 ? `<small class="text-muted text-decoration-line-through ms-2">₹${p_mrp}</small>` : ''}
+                                        </div>
+                                    </div>
+                                    <div class="d-grid">
+                                        <button class="btn btn-primary-custom fw-bold py-2 btn-sm shadow-sm hover-lift" onclick="window.addToCart(${pString})">
+                                            <i class="fas fa-shopping-cart me-2"></i> Add to Cart
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                     `;
+                }).join('');
+            }, { onlyOnce: true });
+        }
+
+    </script>
+</body>
+
+</html>

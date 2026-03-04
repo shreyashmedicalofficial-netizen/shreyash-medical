@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Order Placed - Shreyash Pharmacy</title>
+    <!-- Google Fonts -->
+    <link
+        href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Inter:wght@300;400;500;600&display=swap"
+        rel="stylesheet">
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- FontAwesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="assets/css/style.css">
+</head>
+
+<body class="bg-white">
+
+    <style>
+        /* Success Tick Animation */
+        .checkmark-circle {
+            width: 100px;
+            height: 100px;
+            position: relative;
+            display: inline-block;
+            vertical-align: top;
+            margin-bottom: 20px;
+        }
+
+        .checkmark-circle .background {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            background: #2A6B42;
+            position: absolute;
+        }
+
+        .checkmark-circle .checkmark {
+            border-radius: 5px;
+        }
+
+        .checkmark-circle .checkmark.draw:after {
+            animation-delay: 100ms;
+            animation-duration: 1s;
+            animation-timing-function: ease;
+            animation-name: checkmark;
+            transform: scaleX(-1) rotate(135deg);
+            animation-fill-mode: forwards;
+        }
+
+        .checkmark-circle .checkmark:after {
+            opacity: 1;
+            height: 50px;
+            width: 25px;
+            transform-origin: left top;
+            border-right: 10px solid white;
+            border-top: 10px solid white;
+            border-radius: 2.5px !important;
+            content: '';
+            left: 25px;
+            top: 50px;
+            position: absolute;
+        }
+
+        @keyframes checkmark {
+            0% {
+                height: 0;
+                width: 0;
+                opacity: 1;
+            }
+
+            20% {
+                height: 0;
+                width: 25px;
+                opacity: 1;
+            }
+
+            40% {
+                height: 50px;
+                width: 25px;
+                opacity: 1;
+            }
+
+            100% {
+                height: 50px;
+                width: 25px;
+                opacity: 1;
+            }
+        }
+
+        /* Confetti */
+        .confetti {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            overflow: hidden;
+            z-index: 999;
+        }
+
+        .confetti-piece {
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            background: #ffd300;
+            top: 0;
+            opacity: 0;
+        }
+
+        @keyframes fall {
+            0% {
+                top: -10%;
+                transform: translateX(0) rotate(0deg);
+                opacity: 1;
+            }
+
+            100% {
+                top: 100%;
+                transform: translateX(100px) rotate(360deg);
+                opacity: 0;
+            }
+        }
+    </style>
+
+    <div class="d-flex align-items-center justify-content-center min-vh-100 bg-white overflow-hidden position-relative">
+        <div class="confetti" id="confetti-container"></div>
+
+        <div class="text-center p-4 animate-up">
+            <!-- Tick Animation -->
+            <div class="checkmark-circle">
+                <div class="background"></div>
+                <div class="checkmark draw"></div>
+            </div>
+
+            <h1 class="display-4 fw-bold text-dark mb-2">Order Placed!</h1>
+            <p class="fs-5 text-muted mb-5">Thank you for your purchase. Your health is our priority.</p>
+
+            <div class="card border-0 shadow-lg rounded-4 text-start d-inline-block w-100" style="max-width: 450px;">
+                <div class="card-header bg-primary-custom text-white p-4 rounded-top-4">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <div>
+                            <small class="opacity-75 d-block text-uppercase ls-1">Order ID</small>
+                            <span class="fw-bold fs-5" id="order-id-disp">Loading...</span>
+                        </div>
+                        <i class="fas fa-receipt fa-2x opacity-50"></i>
+                    </div>
+                </div>
+                <div class="card-body p-4">
+                    <div class="d-flex justify-content-between mb-3 border-bottom pb-3">
+                        <span class="text-muted">Estimated Delivery</span>
+                        <span class="fw-bold text-primary-custom" id="delivery-date-disp">Calculating...</span>
+                    </div>
+
+                    <div class="d-flex justify-content-between align-items-center">
+                        <span class="text-muted">Payment Method</span>
+                        <span class="fw-bold text-dark"><i class="fas fa-money-bill-wave text-success me-2"></i> Cash on
+                            Delivery</span>
+                    </div>
+                </div>
+                <div class="card-footer bg-light p-4 rounded-bottom-4">
+                    <div class="d-grid gap-2">
+                        <a href="my_orders.html" class="btn btn-outline-dark fw-bold py-3">Track Order</a>
+                        <a href="index.html" class="btn btn-primary-custom fw-bold py-3">Continue Shopping</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Confetti Generation
+        const colors = ['#2A6B42', '#FFC107', '#DC3545', '#0d6efd'];
+        const container = document.getElementById('confetti-container');
+
+        for (let i = 0; i < 100; i++) {
+            const piece = document.createElement('div');
+            piece.classList.add('confetti-piece');
+            piece.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+            piece.style.left = Math.random() * 100 + '%';
+            piece.style.animation = `fall ${Math.random() * 3 + 2}s linear infinite`;
+            piece.style.animationDelay = Math.random() * 5 + 's';
+            container.appendChild(piece);
+        }
+
+        // Parse URL Param
+        const urlParams = new URLSearchParams(window.location.search);
+        const orderId = urlParams.get('id');
+
+        if (orderId) {
+            document.getElementById('order-id-disp').innerText = '#' + orderId.substring(0, 8);
+
+            // Estimated Delivery: +2 days
+            const date = new Date();
+            date.setDate(date.getDate() + 2);
+            document.getElementById('delivery-date-disp').innerText = date.toDateString();
+        } else {
+            document.getElementById('order-id-disp').innerText = 'N/A';
+            document.getElementById('delivery-date-disp').innerText = 'N/A';
+        }
+    </script>
+
+</body>
+
+</html>

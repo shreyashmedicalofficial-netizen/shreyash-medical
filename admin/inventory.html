@@ -1,0 +1,828 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Inventory - Shreyash Admin</title>
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- FontAwesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="assets/css/admin.css">
+</head>
+
+<body>
+
+    <!-- Mobile Overlay -->
+    <div class="sidebar-overlay" id="sidebarOverlay" onclick="toggleSidebar()"></div>
+
+    <!-- Sidebar -->
+    <aside class="sidebar" id="adminSidebar">
+        <div class="sidebar-header">
+            <a href="index.html" class="sidebar-brand">
+                <i class="fas fa-heartbeat text-warning"></i>
+                <span>Shreyash Admin</span>
+            </a>
+        </div>
+
+        <div class="sidebar-nav">
+            <div class="nav-category">Main</div>
+            <a href="index.html" class="nav-link">
+                <i class="fas fa-tachometer-alt"></i> Dashboard
+            </a>
+
+            <div class="nav-category">Management</div>
+            <a href="inventory.html" class="nav-link active">
+                <i class="fas fa-boxes"></i> Inventory
+            </a>
+            <a href="users.html" class="nav-link">
+                <i class="fas fa-users"></i> Users
+            </a>
+            <a href="stock_requests.html" class="nav-link">
+                <i class="fas fa-truck-loading"></i> Stock Requests
+            </a>
+            <a href="orders.html" class="nav-link">
+                <i class="fas fa-shopping-bag"></i> Orders
+            </a>
+            <a href="blogs.html" class="nav-link">
+                <i class="fas fa-blog"></i> Blogs
+            </a>
+
+            <div class="nav-category">Analytics</div>
+            <a href="reports.html" class="nav-link">
+                <i class="fas fa-chart-bar"></i> Reports
+            </a>
+
+            <!-- Super Admin Only -->
+            <div class="nav-category admin-only">Super Admin</div>
+            <a href="stores.html" class="nav-link admin-only">
+                <i class="fas fa-store"></i> Manage Stores
+            </a>
+        </div>
+
+        <div class="sidebar-footer">
+            <div class="user-profile">
+                <!-- Avatar dynamically set -->
+                <div class="user-avatar text-white">A</div>
+                <div class="user-info text-white">
+                    <div class="fw-bold" style="font-size: 0.9rem;">Admin</div>
+                    <small class="text-white-50" style="font-size: 0.75rem;">Loading...</small>
+                </div>
+            </div>
+            <a href="#" class="d-block mt-3 text-white-50 text-decoration-none hover-white" id="logoutBtn">
+                <i class="fas fa-sign-out-alt me-2"></i> Logout
+            </a>
+        </div>
+    </aside>
+
+    <div class="main-content">
+        <!-- Topbar -->
+        <!-- Topbar -->
+        <header class="topbar">
+            <button class="btn btn-link text-dark d-lg-none" onclick="toggleSidebar()">
+                <i class="fas fa-bars"></i>
+            </button>
+
+            <div class="d-flex align-items-center">
+                <h5 class="page-title">Inventory Management</h5>
+            </div>
+
+            <div class="d-flex align-items-center gap-3">
+                <!-- Notifications -->
+                <div class="dropdown">
+                    <a href="#" class="text-dark position-relative" data-bs-toggle="dropdown">
+                        <i class="far fa-bell fa-lg text-secondary"></i>
+                        <span
+                            class="position-absolute top-0 start-100 translate-middle p-1 bg-danger border border-light rounded-circle notification-dot d-none">
+                            <span class="visually-hidden">New alerts</span>
+                        </span>
+                    </a>
+                    <ul class="dropdown-menu dropdown-menu-end shadow-sm border-0 mt-2" style="width: 320px;">
+                        <li>
+                            <h6
+                                class="dropdown-header text-uppercase small fw-bold d-flex justify-content-between align-items-center">
+                                Notifications
+                            </h6>
+                        </li>
+                        <li>
+                            <div class="dropdown-item small text-muted text-center py-3">No new notifications</div>
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- User Menu -->
+                <div class="dropdown">
+                    <a href="#" class="d-flex align-items-center text-decoration-none dropdown-toggle"
+                        data-bs-toggle="dropdown">
+                        <div class="user-avatar"
+                            style="width: 35px; height: 35px; background: #e9ecef; color: var(--admin-primary);">A</div>
+                    </a>
+                    <ul class="dropdown-menu dropdown-menu-end shadow-sm border-0 mt-2">
+                        <li><a class="dropdown-item" href="../index.html"><i
+                                    class="fas fa-external-link-alt me-2 text-muted"></i> Visit Website</a></li>
+                        <li><a class="dropdown-item" href="profile.html"><i
+                                    class="fas fa-user-circle me-2 text-muted"></i>
+                                Profile</a></li>
+                        <li>
+                            <hr class="dropdown-divider">
+                        </li>
+                        <li><a class="dropdown-item text-danger" href="#" onclick="handleLogout()"><i
+                                    class="fas fa-sign-out-alt me-2"></i> Logout</a></li>
+                    </ul>
+                </div>
+            </div>
+        </header>
+
+        <div class="container-fluid p-4">
+
+            <!-- Toolbar -->
+            <div class="card border-0 shadow-sm rounded-4 mb-4">
+                <div class="card-body p-3">
+                    <div class="row align-items-center g-3">
+                        <div class="col-md-4">
+                            <div class="input-group">
+                                <span class="input-group-text bg-white border-end-0"><i
+                                        class="fas fa-search text-muted"></i></span>
+                                <input type="text" class="form-control border-start-0 ps-0"
+                                    placeholder="Search products...">
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <select class="form-select">
+                                <option>All Categories</option>
+                                <option>Medicine</option>
+                                <option>Wellness</option>
+                            </select>
+                        </div>
+                        <div class="col-md-5 text-md-end">
+                            <button class="btn btn-outline-dark me-2">
+                                <i class="fas fa-file-import me-2"></i> Import
+                            </button>
+                            <button class="btn btn-primary-custom" data-bs-toggle="modal"
+                                data-bs-target="#addProductModal">
+                                <i class="fas fa-plus me-2"></i> Add Product
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Inventory Table -->
+            <div class="table-card">
+                <div class="table-header">
+                    <div>
+                        <h5 class="mb-0 fw-bold">Product List</h5>
+                        <small class="text-muted">Manage your entire catalog</small>
+                    </div>
+                    <span class="badge bg-light text-dark border">Total: <span id="productCount">0</span></span>
+                </div>
+                <div class="table-responsive">
+                    <table class="table table-hover align-middle mb-0">
+                        <thead class="bg-light">
+                            <tr>
+                                <th class="ps-4">Product Name</th>
+                                <th>Category</th>
+                                <th>Price</th>
+                                <th>Stock</th>
+                                <th>Status</th>
+                                <th class="text-end pe-4">Action</th>
+                            </tr>
+                        </thead>
+                        <tbody id="inventoryList">
+                            <!-- Loading State -->
+                            <tr>
+                                <td colspan="6" class="text-center py-5">
+                                    <div class="spinner-border text-primary"></div>
+                                    <p class="text-muted mt-2 small">Loading inventory...</p>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <!-- Pagination Mock -->
+                <div class="p-3 border-top d-flex justify-content-between align-items-center">
+                    <small class="text-muted">Showing 1-10 of 50</small>
+                    <nav>
+                        <ul class="pagination pagination-sm mb-0">
+                            <li class="page-item disabled"><a class="page-link" href="#">Prev</a></li>
+                            <li class="page-item active"><a class="page-link bg-success border-success" href="#">1</a>
+                            </li>
+                            <li class="page-item"><a class="page-link text-success" href="#">2</a></li>
+                            <li class="page-item"><a class="page-link text-success" href="#">Next</a></li>
+                        </ul>
+                    </nav>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- Scripts -->
+
+    <!-- Add Product Modal -->
+    <div class="modal fade" id="addProductModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content border-0 shadow-lg rounded-4">
+                <div class="modal-header border-bottom-0 pb-0">
+                    <h5 class="modal-title fw-bold">Add New Product</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body p-4">
+                    <form id="addProductForm">
+                        <div class="mb-3">
+                            <label class="form-label small fw-bold text-muted">Product Name</label>
+                            <input type="text" class="form-control" id="productName" required>
+                        </div>
+                        <div class="row g-3 mb-3">
+                            <div class="col-6">
+                                <label class="form-label small fw-bold text-muted">Category</label>
+                                <select class="form-select" id="productCategory">
+                                    <option value="Medicine">Medicine</option>
+                                    <option value="Wellness">Wellness</option>
+                                    <option value="Personal Care">Personal Care</option>
+                                    <option value="Equipment">Equipment</option>
+                                </select>
+                            </div>
+                            <div class="col-6">
+                                <label class="form-label small fw-bold text-muted">Price (₹)</label>
+                                <input type="number" class="form-control" id="productPrice" required>
+                            </div>
+                        </div>
+                        <div class="row g-3 mb-3">
+                            <div class="col-6">
+                                <label class="form-label small fw-bold text-muted">Stock</label>
+                                <input type="number" class="form-control" id="productStock" required>
+                            </div>
+                            <div class="col-6">
+                                <label class="form-label small fw-bold text-muted">Pack Size</label>
+                                <input type="text" class="form-control" id="productPackSize" placeholder="e.g. 10 Tabs">
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label small fw-bold text-muted">Product Images</label>
+                            <input type="file" class="form-control" id="productImages" multiple accept="image/*">
+                            <div id="imagePreviewContainer" class="d-flex gap-2 mt-2 flex-wrap"></div>
+                            <!-- Hidden input to store current images state during edit -->
+                            <input type="hidden" id="existingImages" value="[]">
+                        </div>
+                        <div class="d-grid">
+                            <button type="submit" class="btn btn-primary-custom py-2 fw-bold">Save Product</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script type="module" src="assets/js/admin-utils.js"></script>
+    <script type="module">
+        import { db, ref, onValue, push, set, remove, update, auth } from '/medico-saas/assets/js/firebase-config.js';
+
+        const inventoryListEl = document.getElementById('inventoryList');
+        const productCountEl = document.getElementById('productCount');
+        const searchInput = document.querySelector('input[placeholder="Search products..."]');
+        const categorySelect = document.querySelector('.form-select');
+        const paginationNav = document.querySelector('nav ul.pagination');
+        const paginationInfo = document.querySelector('.table-card .p-3 small.text-muted');
+
+        // Add Category Button Logic
+        const categoryLabelRow = document.querySelector('#addProductModal .row .col-6 label').parentElement;
+        // Inject "Add New" link
+        const addCatLink = document.createElement('a');
+        addCatLink.href = "#";
+        addCatLink.className = "small text-primary float-end text-decoration-none";
+        addCatLink.innerText = "+ Add New";
+        addCatLink.onclick = (e) => {
+            e.preventDefault();
+            const newCat = prompt("Enter new category name:");
+            if (newCat && newCat.trim() !== "") {
+                saveCategory(newCat.trim());
+            }
+        };
+        categoryLabelRow.querySelector('label').appendChild(addCatLink);
+
+
+        let allProducts = [];
+        let allStores = [];
+        let allCategories = [];
+        let currentUserRole = 'Staff'; // Default
+        let currentUserBranch = null; // Default null (all) regarding logic, but for specific user it will be set.
+        let usersMap = {}; // Map email -> user data
+
+        let filteredRows = []; // Rows to render (flattened)
+        let currentPage = 1;
+        const itemsPerPage = 10;
+
+        // Image Handling State
+        let currentImages = [];
+        const IMGBB_API_KEY = '4235c428689a930d89ed78ee0c2cf942';
+
+        // --- Initialization ---
+
+        async function init() {
+            // 1. Fetch Categories
+            onValue(ref(db, 'categories'), (snapshot) => {
+                const data = snapshot.val();
+                allCategories = [];
+                if (data) {
+                    Object.keys(data).forEach(key => allCategories.push({ id: key, ...data[key] }));
+                }
+                updateCategoryDropdowns();
+            });
+
+            // 2. Fetch Stores
+            onValue(ref(db, 'stores'), (snapshot) => {
+                const data = snapshot.val();
+                allStores = [];
+                if (data) {
+                    Object.keys(data).forEach(key => allStores.push({ id: key, ...data[key] }));
+                }
+                // Trigger re-render if products already loaded to update branch names
+                if (allProducts.length > 0) filterAndRender();
+            });
+
+            // 3. Fetch Users & Auth Layout
+            onValue(ref(db, 'users'), (snapshot) => {
+                const data = snapshot.val();
+                if (data) {
+                    Object.values(data).forEach(u => {
+                        if (u.email) usersMap[u.email.toLowerCase()] = u;
+                    });
+                }
+                checkCurrentUser();
+            });
+
+            // 4. Fetch Products
+            onValue(ref(db, 'products'), (snapshot) => {
+                const data = snapshot.val();
+                allProducts = [];
+                if (data) {
+                    Object.keys(data).forEach(key => {
+                        allProducts.push({ id: key, ...data[key] });
+                    });
+                }
+                filterAndRender();
+            });
+        }
+
+        function checkCurrentUser() {
+            const user = auth.currentUser;
+            if (user && usersMap[user.email.toLowerCase()]) {
+                const dbUser = usersMap[user.email.toLowerCase()];
+                currentUserRole = dbUser.role || 'Staff';
+                // If role is Admin, they see all. If Manager, they might only see their branch.
+                // Assuming 'Admin' role allows seeing all. 'Manager' restricts to branch.
+                if (currentUserRole !== 'Admin') {
+                    // Find store ID by name if stored as name, or just use ID if stored as ID.
+                    // In users.html we saw 'Main Branch', 'Downtown' etc stored as strings (Names).
+                    // We need to map `dbUser.branch` (Name) to Store ID.
+                    const store = allStores.find(s => s.name === dbUser.branch);
+                    if (store) {
+                        currentUserBranch = store.id;
+                    } else if (dbUser.branch === 'Main Branch' || !dbUser.branch) {
+                        // Handle cases where branch might be 'Main Branch' but not in stores DB, or null
+                        // For this implementation, let's assume Super Admin sees all, others see specific.
+                        // If 'Admin', currentUserBranch remains null (all).
+                    }
+                }
+            } else {
+                // Fallback or not logged in fully (handled by admin-utils)
+            }
+            filterAndRender();
+        }
+
+        function updateCategoryDropdowns() {
+            const catSelect = document.getElementById('productCategory');
+            const filterSelect = document.querySelector('.form-select'); // The filter dropdown
+
+            // Save current selection
+            const currentVal = catSelect.value;
+            const currentFilter = filterSelect.value;
+
+            // Default Categories
+            const defaults = [
+                { name: "Medicine" },
+                { name: "Wellness" },
+                { name: "Personal Care" },
+                { name: "Equipment" }
+            ];
+
+            const cats = allCategories.length > 0 ? allCategories : defaults;
+
+            // Populate Modal Dropdown
+            catSelect.innerHTML = cats.map(c => `<option value="${c.name}">${c.name}</option>`).join('');
+
+            // Populate Filter Dropdown
+            filterSelect.innerHTML = '<option>All Categories</option>' +
+                cats.map(c => `<option>${c.name}</option>`).join('');
+
+            // Restore selection if possible
+            if (currentVal) catSelect.value = currentVal;
+            filterSelect.value = currentFilter;
+        }
+
+        async function saveCategory(name) {
+            try {
+                // Check if exists
+                const exists = allCategories.find(c => c.name.toLowerCase() === name.toLowerCase());
+                if (exists) return; // Already exists
+
+                await push(ref(db, 'categories'), { name: name });
+                // Dropdown updates automatically via onValue
+            } catch (e) {
+                console.error("Error saving category", e);
+                alert("Failed to save category");
+            }
+        }
+
+        // --- Core Rendering & Filtering ---
+
+        function filterAndRender() {
+            const term = searchInput.value.toLowerCase();
+            const category = categorySelect.value;
+
+            // Flatten products based on View (Super Admin vs Branch)
+            // Row Structure: { product: p, branchId: '...', branchName: '...', stock: N, status: '...' }
+            let rows = [];
+
+            allProducts.forEach(p => {
+                // Filter by Product details first
+                const matchesSearch = p.name.toLowerCase().includes(term) || (p.id && String(p.id).includes(term));
+                const matchesCategory = category === 'All Categories' || p.category === category;
+
+                if (!matchesSearch || !matchesCategory) return;
+
+                // Branch Logic
+                if (currentUserRole === 'Admin' || !currentUserBranch) {
+                    // Show ALL branches for this product
+                    // If no stores defined, show generic "Central" or something, but we need stores.
+                    if (allStores.length === 0) {
+                        // Fallback if no stores: display global stock
+                        rows.push({
+                            product: p,
+                            branchId: 'central',
+                            branchName: 'Main Inventory',
+                            stock: p.stock || 0
+                        });
+                    } else {
+                        allStores.forEach(s => {
+                            const bStock = (p.branch_stock && p.branch_stock[s.id]) ? p.branch_stock[s.id] : 0;
+                            rows.push({
+                                product: p,
+                                branchId: s.id,
+                                branchName: s.name,
+                                stock: bStock
+                            });
+                        });
+                    }
+                } else {
+                    // Show ONLY user's branch
+                    const s = allStores.find(st => st.id === currentUserBranch);
+                    const bName = s ? s.name : 'My Branch';
+                    const bStock = (p.branch_stock && p.branch_stock[currentUserBranch]) ? p.branch_stock[currentUserBranch] : 0;
+                    rows.push({
+                        product: p,
+                        branchId: currentUserBranch,
+                        branchName: bName,
+                        stock: bStock
+                    });
+                }
+            });
+
+            filteredRows = rows;
+            productCountEl.innerText = filteredRows.length; // Update count to show total branch-SKU combinations? Or just distinct products? 
+            // Request implies "show list", effectively row count. 
+
+            const totalPages = Math.ceil(filteredRows.length / itemsPerPage) || 1;
+            if (currentPage > totalPages) currentPage = 1;
+
+            renderPagination();
+        }
+
+        function renderTable(rows) {
+            // Update Headers if needed? The headers in HTML are: Product Name, Category, Price, Stock, Status, Action
+            // We need to insert "Branch" column.
+            const thead = document.querySelector('thead tr');
+            if (!thead.innerHTML.includes('Branch')) {
+                // Rewrite header to match request: Product | SKU | Category | Price | Branch | Stock Level | Status | Actions
+                thead.innerHTML = `
+                    <th class="ps-4">Product</th>
+                    <th>SKU</th>
+                    <th>Category</th>
+                    <th>Price</th>
+                    <th>Branch</th>
+                    <th>Stock Level</th>
+                    <th>Status</th>
+                    <th class="text-end pe-4">Actions</th>
+                 `;
+            }
+
+            if (rows.length === 0) {
+                inventoryListEl.innerHTML = '<tr><td colspan="8" class="text-center py-5 text-muted">No inventory found for criteria.</td></tr>';
+                return;
+            }
+
+            inventoryListEl.innerHTML = rows.map(row => {
+                const p = row.product;
+                const stock = row.stock;
+
+                // Status Badge
+                let stockBadge = '<span class="badge bg-success-subtle text-success border border-success-subtle">In Stock</span>';
+                if (stock < 10 && stock > 0) stockBadge = '<span class="badge bg-warning-subtle text-warning border border-warning-subtle">Low Stock</span>';
+                if (stock <= 0) stockBadge = '<span class="badge bg-danger-subtle text-danger border border-danger-subtle">Out of Stock</span>';
+
+                // Image
+                let displayImage = `https://ui-avatars.com/api/?name=${encodeURIComponent(p.name)}&background=random&color=fff&size=50`;
+                if (p.images && Array.isArray(p.images) && p.images.length > 0) {
+                    displayImage = p.images[0];
+                } else if (p.image && typeof p.image === 'string') displayImage = p.image;
+
+                const sku = p.id ? String(p.id).slice(-6).toUpperCase() : 'N/A';
+
+                return `
+                <tr>
+                    <td class="ps-4">
+                        <div class="d-flex align-items-center">
+                            <div class="avatar-md bg-white border rounded-3 me-3 d-flex align-items-center justify-content-center overflow-hidden">
+                                <img src="${displayImage}" width="40" height="40" style="object-fit:cover;">
+                            </div>
+                            <div class="fw-bold text-dark text-wrap" style="max-width: 200px;">${p.name}</div>
+                        </div>
+                    </td>
+                    <td class="small text-muted">${sku}</td>
+                    <td>${p.category || 'General'}</td>
+                    <td class="fw-bold">₹${p.price}</td>
+                    <td><span class="badge bg-light text-dark border">${row.branchName}</span></td>
+                    <td>
+                        <span class="${stock < 10 ? 'text-danger' : 'text-success'} fw-bold">${stock}</span>
+                    </td>
+                    <td>${stockBadge}</td>
+                    <td class="text-end pe-4">
+                         <div class="btn-group">
+                            <button class="btn btn-sm btn-light text-primary hover-lift" onclick="editProduct('${p.id}')" title="Edit Product"><i class="fas fa-edit"></i></button>
+                            <button class="btn btn-sm btn-light text-danger hover-lift btn-delete" data-id="${p.id}" title="Delete Product"><i class="fas fa-trash"></i></button>
+                        </div>
+                    </td>
+                </tr>
+                `;
+            }).join('');
+
+            // Attach Delete Listeners
+            document.querySelectorAll('.btn-delete').forEach(btn => {
+                btn.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    const id = btn.dataset.id;
+                    if (confirm('Are you sure you want to delete this product completely? This will remove it from ALL branches.')) {
+                        deleteProduct(id);
+                    }
+                });
+            });
+        }
+
+        // Pagination
+        function renderPagination() {
+            const totalItems = filteredRows.length;
+            const totalPages = Math.ceil(totalItems / itemsPerPage) || 1;
+            const start = (currentPage - 1) * itemsPerPage;
+            const end = start + itemsPerPage;
+            const paginatedItems = filteredRows.slice(start, end);
+
+            renderTable(paginatedItems);
+
+            const showStart = totalItems === 0 ? 0 : start + 1;
+            const showEnd = Math.min(end, totalItems);
+            if (paginationInfo) paginationInfo.innerText = `Showing ${showStart}-${showEnd} of ${totalItems}`;
+
+            if (paginationNav) {
+                let html = '';
+                // Prev
+                html += `<li class="page-item ${currentPage === 1 ? 'disabled' : ''}"><a class="page-link" href="#" onclick="changePage(${currentPage - 1})">Prev</a></li>`;
+                // Pages (Simpler logic for brevity)
+                for (let i = 1; i <= totalPages; i++) {
+                    if (totalPages > 10 && (i > 2 && i < totalPages - 1 && Math.abs(currentPage - i) > 2)) {
+                        if (!html.endsWith('...</li>')) html += '<li class="page-item disabled"><a class="page-link">...</a></li>';
+                        continue;
+                    }
+                    html += `<li class="page-item ${i === currentPage ? 'active' : ''}"><a class="page-link ${i === currentPage ? 'bg-success border-success' : 'text-success'}" href="#" onclick="changePage(${i})">${i}</a></li>`;
+                }
+                // Next
+                html += `<li class="page-item ${currentPage === totalPages ? 'disabled' : ''}"><a class="page-link" href="#" onclick="changePage(${currentPage + 1})">Next</a></li>`;
+                paginationNav.innerHTML = html;
+            }
+        }
+
+        window.changePage = function (page) {
+            if (page < 1 || page > Math.ceil(filteredRows.length / itemsPerPage)) return;
+            currentPage = page;
+            renderPagination();
+        }
+
+        // --- Add / Edit Logic ---
+
+        const addProductForm = document.getElementById('addProductForm');
+        const modalTitle = document.querySelector('.modal-title');
+        const saveBtn = addProductForm.querySelector('button[type="submit"]');
+        const productImagesInput = document.getElementById('productImages');
+        const imagePreviewContainer = document.getElementById('imagePreviewContainer');
+        const stockContainer = document.querySelector('#productStock').parentElement;
+
+        // Transform Stock Input in Modal
+        // We need to replace single stock input with dynamically generated branch inputs
+        // Retain original structure but clear inner HTML of the column
+        stockContainer.innerHTML = '<label class="form-label small fw-bold text-muted">Stock per Branch</label><div id="branchStockInputs" class="d-flex flex-column gap-2" style="max-height: 200px; overflow-y: auto;"></div>';
+
+        let isEditing = false;
+        let editId = null;
+
+        // Render Branch Stock Inputs
+        function renderBranchStockInputs(currentStocks = {}) {
+            const container = document.getElementById('branchStockInputs');
+            container.innerHTML = '';
+
+            const storesToRender = (currentUserRole === 'Admin' || !currentUserBranch)
+                ? allStores
+                : allStores.filter(s => s.id === currentUserBranch);
+
+            if (storesToRender.length === 0) {
+                container.innerHTML = '<small class="text-muted">No branches found. Please create a store first or contact admin.</small>';
+                return;
+            }
+
+            storesToRender.forEach(s => {
+                const val = currentStocks[s.id] || 0;
+                container.innerHTML += `
+                    <div class="input-group input-group-sm">
+                        <span class="input-group-text bg-light border-end-0" style="width: 120px;">${s.name}</span>
+                        <input type="number" class="form-control border-start-0 branch-stock-input" data-branch-id="${s.id}" value="${val}" min="0">
+                    </div>
+                `;
+            });
+        }
+
+
+        // Setup Listeners
+        searchInput.addEventListener('input', () => { currentPage = 1; filterAndRender(); });
+        categorySelect.addEventListener('change', () => { currentPage = 1; filterAndRender(); });
+
+        document.getElementById('addProductModal').addEventListener('hidden.bs.modal', () => {
+            addProductForm.reset();
+            isEditing = false;
+            editId = null;
+            currentImages = [];
+            imagePreviewContainer.innerHTML = '';
+            modalTitle.innerText = "Add New Product";
+            saveBtn.innerText = "Save Product";
+            saveBtn.disabled = false;
+            // Reset stock inputs
+            renderBranchStockInputs({});
+        });
+
+        // Show Modal Event to populate stock inputs
+        document.getElementById('addProductModal').addEventListener('show.bs.modal', () => {
+            // If not editing, it's adding. Render empty stocks.
+            if (!isEditing) {
+                renderBranchStockInputs({});
+            }
+        });
+
+        // Convert base64 helper (reused)
+        function convertToBase64(file) {
+            return new Promise((resolve, reject) => {
+                const reader = new FileReader();
+                reader.readAsDataURL(file);
+                reader.onload = (e) => resolve(e.target.result); // Simple version
+                reader.onerror = reject;
+            });
+        }
+
+        // Remove Image helper
+        window.removeImage = function (index) {
+            currentImages.splice(index, 1);
+            renderImagePreviews();
+        }
+
+        function renderImagePreviews() {
+            imagePreviewContainer.innerHTML = currentImages.map((url, index) => `
+                <div class="position-relative d-inline-block" style="width: 80px; height: 80px;">
+                    <img src="${url}" class="w-100 h-100 object-fit-cover rounded border">
+                    <button type="button" class="btn btn-xs btn-danger position-absolute top-0 end-0 translate-middle badge rounded-pill" onclick="removeImage(${index})"><i class="fas fa-times"></i></button>
+                </div>
+            `).join('');
+        }
+
+
+        addProductForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            saveBtn.disabled = true;
+            saveBtn.innerHTML = 'Saving...';
+
+            try {
+                // Images
+                const files = productImagesInput.files;
+                if (files.length > 0) {
+                    const promises = Array.from(files).map(convertToBase64);
+                    const newImgs = await Promise.all(promises);
+                    currentImages = [...currentImages, ...newImgs];
+                }
+
+                // Gather Stock Data
+                const branchStock = {};
+                let totalStock = 0;
+                document.querySelectorAll('.branch-stock-input').forEach(input => {
+                    const bid = input.dataset.branchId;
+                    const val = parseInt(input.value) || 0;
+                    branchStock[bid] = val;
+                });
+
+                // If editing, merge with existing branch stocks (important for Branch Admins who don't see other branches)
+                if (isEditing && editId) {
+                    const existingP = allProducts.find(p => String(p.id) === String(editId));
+                    if (existingP && existingP.branch_stock) {
+                        // Merge: keep existing that are NOT in current form, overwrite those that are
+                        Object.keys(existingP.branch_stock).forEach(bid => {
+                            if (branchStock[bid] === undefined) {
+                                branchStock[bid] = existingP.branch_stock[bid];
+                            }
+                        });
+                    }
+                }
+
+                // Recalculate Total Stock
+                totalStock = Object.values(branchStock).reduce((a, b) => a + b, 0);
+
+                const pData = {
+                    name: document.getElementById('productName').value,
+                    category: document.getElementById('productCategory').value,
+                    price: parseFloat(document.getElementById('productPrice').value),
+                    pack_size: document.getElementById('productPackSize').value,
+                    images: currentImages,
+                    image: currentImages.length > 0 ? currentImages[0] : '',
+                    branch_stock: branchStock,
+                    stock: totalStock, // Global total
+                    updatedAt: new Date().toISOString()
+                };
+
+                if (!isEditing) pData.createdAt = new Date().toISOString();
+
+                if (isEditing && editId) {
+                    await update(ref(db, `products/${editId}`), pData);
+                    alert('Product updated!');
+                } else {
+                    await set(push(ref(db, 'products')), pData);
+                    alert('Product added!');
+                }
+
+                bootstrap.Modal.getInstance(document.getElementById('addProductModal')).hide();
+
+            } catch (err) {
+                console.error(err);
+                alert("Error: " + err.message);
+            } finally {
+                saveBtn.disabled = false;
+                saveBtn.innerText = "Save Product";
+            }
+        });
+
+        window.editProduct = function (id) {
+            const p = allProducts.find(x => String(x.id) === String(id));
+            if (!p) return;
+
+            isEditing = true;
+            editId = id;
+
+            document.getElementById('productName').value = p.name;
+            document.getElementById('productCategory').value = p.category;
+            document.getElementById('productPrice').value = p.price;
+            document.getElementById('productPackSize').value = p.pack_size || '';
+
+            currentImages = p.images || (p.image ? [p.image] : []);
+            renderImagePreviews();
+
+            renderBranchStockInputs(p.branch_stock || {});
+
+            modalTitle.innerText = "Edit Product";
+            saveBtn.innerText = "Update Product";
+
+            new bootstrap.Modal(document.getElementById('addProductModal')).show();
+        }
+
+        window.deleteProduct = async function (id) {
+            try {
+                await remove(ref(db, `products/${id}`));
+            } catch (e) {
+                alert("Delete failed");
+            }
+        }
+
+        // Start
+        init();
+
+    </script>
+
+</body>
+
+</html>

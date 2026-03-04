@@ -1,0 +1,555 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Orders - Shreyash Admin</title>
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- FontAwesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="assets/css/admin.css">
+</head>
+
+<body>
+
+    <!-- Mobile Overlay -->
+    <div class="sidebar-overlay" id="sidebarOverlay" onclick="toggleSidebar()"></div>
+
+    <!-- Sidebar -->
+    <aside class="sidebar" id="adminSidebar">
+        <div class="sidebar-header">
+            <a href="index.html" class="sidebar-brand">
+                <i class="fas fa-heartbeat text-warning"></i>
+                <span>Shreyash Admin</span>
+            </a>
+        </div>
+
+        <div class="sidebar-nav">
+            <div class="nav-category">Main</div>
+            <a href="index.html" class="nav-link">
+                <i class="fas fa-tachometer-alt"></i> Dashboard
+            </a>
+
+            <div class="nav-category">Management</div>
+            <a href="inventory.html" class="nav-link">
+                <i class="fas fa-boxes"></i> Inventory
+            </a>
+            <a href="users.html" class="nav-link">
+                <i class="fas fa-users"></i> Users
+            </a>
+            <a href="stock_requests.html" class="nav-link">
+                <i class="fas fa-truck-loading"></i> Stock Requests
+            </a>
+            <a href="orders.html" class="nav-link active">
+                <i class="fas fa-shopping-bag"></i> Orders
+            </a>
+            <a href="blogs.html" class="nav-link">
+                <i class="fas fa-blog"></i> Blogs
+            </a>
+
+            <div class="nav-category">Analytics</div>
+            <a href="reports.html" class="nav-link">
+                <i class="fas fa-chart-bar"></i> Reports
+            </a>
+
+            <!-- Super Admin Only -->
+            <div class="nav-category admin-only">Super Admin</div>
+            <a href="stores.html" class="nav-link admin-only">
+                <i class="fas fa-store"></i> Manage Stores
+            </a>
+        </div>
+
+        <div class="sidebar-footer">
+            <div class="user-profile">
+                <!-- Avatar dynamically set -->
+                <div class="user-avatar text-white">A</div>
+                <div class="user-info text-white">
+                    <div class="fw-bold" style="font-size: 0.9rem;">Admin</div>
+                    <small class="text-white-50" style="font-size: 0.75rem;">Loading...</small>
+                </div>
+            </div>
+            <a href="#" class="d-block mt-3 text-white-50 text-decoration-none hover-white" id="logoutBtn">
+                <i class="fas fa-sign-out-alt me-2"></i> Logout
+            </a>
+        </div>
+    </aside>
+
+    <div class="main-content">
+        <!-- Topbar -->
+        <!-- Topbar -->
+        <header class="topbar">
+            <button class="btn btn-link text-dark d-lg-none" onclick="toggleSidebar()">
+                <i class="fas fa-bars"></i>
+            </button>
+
+            <div class="d-flex align-items-center">
+                <h5 class="page-title">Order Management</h5>
+            </div>
+
+            <div class="d-flex align-items-center gap-3">
+                <!-- Notifications -->
+                <div class="dropdown">
+                    <a href="#" class="text-dark position-relative" data-bs-toggle="dropdown">
+                        <i class="far fa-bell fa-lg text-secondary"></i>
+                        <span
+                            class="position-absolute top-0 start-100 translate-middle p-1 bg-danger border border-light rounded-circle notification-dot d-none">
+                            <span class="visually-hidden">New alerts</span>
+                        </span>
+                    </a>
+                    <ul class="dropdown-menu dropdown-menu-end shadow-sm border-0 mt-2" style="width: 320px;">
+                        <li>
+                            <h6
+                                class="dropdown-header text-uppercase small fw-bold d-flex justify-content-between align-items-center">
+                                Notifications</h6>
+                        </li>
+                        <li>
+                            <div class="dropdown-item small text-muted text-center py-3">No new notifications</div>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="dropdown">
+                    <a href="#" class="d-flex align-items-center text-decoration-none dropdown-toggle"
+                        data-bs-toggle="dropdown">
+                        <div class="user-avatar"
+                            style="width: 35px; height: 35px; background: #e9ecef; color: var(--admin-primary);">A</div>
+                    </a>
+                    <ul class="dropdown-menu dropdown-menu-end shadow-sm border-0 mt-2">
+                        <li><a class="dropdown-item" href="../index.html"><i
+                                    class="fas fa-external-link-alt me-2 text-muted"></i> Visit Website</a></li>
+                        <li><a class="dropdown-item" href="profile.html"><i
+                                    class="fas fa-user-circle me-2 text-muted"></i> Profile</a></li>
+                        <li>
+                            <hr class="dropdown-divider">
+                        </li>
+                        <li><a class="dropdown-item text-danger" href="#" onclick="handleLogout()"><i
+                                    class="fas fa-sign-out-alt me-2"></i> Logout</a></li>
+                    </ul>
+                </div>
+            </div>
+        </header>
+
+        <div class="container-fluid p-4">
+
+            <!-- Filters -->
+            <div class="card border-0 shadow-sm rounded-4 mb-4">
+                <div class="card-body p-3">
+                    <div class="d-flex justify-content-between align-items-center flex-wrap gap-2">
+                        <div class="d-flex align-items-center gap-2">
+                            <h5 class="mb-0 fw-bold">Order Management</h5>
+                        </div>
+
+                        <div class="d-flex gap-2">
+                            <!-- Date Filter -->
+                            <div class="input-group input-group-sm" style="width: 150px;">
+                                <span class="input-group-text bg-white"><i
+                                        class="fas fa-calendar-alt text-muted"></i></span>
+                                <input type="date" class="form-control border-start-0 ps-0" id="dateFilter">
+                            </div>
+
+                            <!-- Status Filter -->
+                            <select class="form-select form-select-sm" style="width: 130px;" id="statusFilter"
+                                onchange="applyFilters()">
+                                <option value="All">All Statuses</option>
+                                <option value="Pending">Pending</option>
+                                <option value="Processing">Processing</option>
+                                <option value="Shipped">Shipped</option>
+                                <option value="Delivered">Delivered</option>
+                                <option value="Completed">Completed</option>
+                                <option value="Cancelled">Cancelled</option>
+                            </select>
+
+                            <!-- Search -->
+                            <div class="input-group input-group-sm" style="width: 250px;">
+                                <span class="input-group-text bg-white border-end-0"><i
+                                        class="fas fa-search text-muted"></i></span>
+                                <input type="text" class="form-control border-start-0 border-end-0 ps-0"
+                                    id="searchInput" placeholder="Search Order ID or Name..." oninput="applyFilters()">
+                                <button class="btn bg-white border border-start-0 text-muted" type="button"
+                                    id="clearSearchBtn" onclick="clearSearch()" style="display: none;">
+                                    <i class="fas fa-times"></i>
+                                </button>
+                            </div>
+
+                            <!-- Reset Button -->
+                            <button class="btn btn-light btn-sm px-3 border" onclick="resetFilters()"
+                                title="Reset Filters">
+                                <i class="fas fa-undo-alt text-muted"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Orders Table -->
+            <div class="table-card">
+                <div class="table-responsive">
+                    <table class="table table-hover align-middle mb-0">
+                        <thead class="bg-light">
+                            <tr>
+                                <th class="ps-4">ORDER ID</th>
+                                <th>CUSTOMER</th>
+                                <th>BRANCH</th>
+                                <th>DATE</th>
+                                <th>TOTAL</th>
+                                <th>STATUS</th>
+                                <th class="text-end pe-4">ACTIONS</th>
+                            </tr>
+                        </thead>
+                        <tbody id="ordersList">
+                            <!-- Loader -->
+                            <tr>
+                                <td colspan="7" class="text-center py-5">
+                                    <div class="spinner-border text-primary" role="status"></div>
+                                    <p class="text-muted mt-2 small">Loading orders...</p>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Pagination -->
+            <div class="d-flex justify-content-between align-items-center mt-3" id="paginationControls">
+                <span class="text-muted small" id="pageInfo">Showing 0-0 of 0</span>
+                <div>
+                    <button class="btn btn-light btn-sm rounded-circle shadow-sm me-1" onclick="prevPage()"
+                        id="btnPrev"><i class="fas fa-chevron-left"></i></button>
+                    <button class="btn btn-light btn-sm rounded-circle shadow-sm" onclick="nextPage()" id="btnNext"><i
+                            class="fas fa-chevron-right"></i></button>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script type="module">
+        import { db, ref, onValue, update, query, limitToLast } from '/medico-saas/assets/js/firebase-config.js';
+        import { checkAuth } from './assets/js/admin-utils.js';
+
+        checkAuth();
+
+        const ordersListEl = document.getElementById('ordersList');
+        const dateFilter = document.getElementById('dateFilter');
+        const statusFilter = document.getElementById('statusFilter');
+        const searchInput = document.getElementById('searchInput');
+        const clearSearchBtn = document.getElementById('clearSearchBtn');
+
+        let allOrders = [];
+        let filteredOrders = [];
+        let storesMap = {};
+        let branchesMap = {};
+        let usersMap = {};        // keyed by Firebase Auth UID (push-key)
+        let usersByNumericId = {}; // keyed by numeric id for old orders
+
+        // Pagination State
+        let currentPage = 1;
+        const rowsPerPage = 10;
+
+        // 1a. Fetch Stores for Branch Names (Firebase push-key based)
+        const storesRef = ref(db, 'stores');
+        onValue(storesRef, (snapshot) => {
+            const data = snapshot.val();
+            if (data) {
+                Object.keys(data).forEach(key => {
+                    storesMap[key] = data[key].name;
+                });
+            }
+            if (allOrders.length > 0) renderTable();
+        });
+
+        // 1b. Fetch Branches for old orders with numeric branch_id
+        const branchesRef = ref(db, 'branches');
+        onValue(branchesRef, (snapshot) => {
+            const data = snapshot.val();
+            if (data) {
+                if (Array.isArray(data)) {
+                    data.forEach((branch, idx) => {
+                        if (branch && branch.name) branchesMap[idx] = branch.name;
+                    });
+                } else {
+                    Object.keys(data).forEach(key => {
+                        if (data[key] && data[key].name) branchesMap[key] = data[key].name;
+                    });
+                }
+            }
+            if (allOrders.length > 0) renderTable();
+        });
+
+        // 2. Fetch Users — build lookup by both UID key AND numeric id field
+        const usersRef = ref(db, 'users');
+        onValue(usersRef, (snapshot) => {
+            const data = snapshot.val();
+            usersMap = {};
+            usersByNumericId = {};
+            if (data) {
+                Object.keys(data).forEach(key => {
+                    const user = data[key];
+                    usersMap[key] = user;
+                    // Also index by numeric id if present (for old orders)
+                    if (user.id !== undefined && user.id !== null) {
+                        usersByNumericId[String(user.id)] = user;
+                    }
+                });
+            }
+            if (allOrders.length > 0) renderTable();
+        });
+
+        // Helper: get order date (handles both formats)
+        function getOrderDate(o) {
+            return o.createdAt || o.order_date || null;
+        }
+
+        // Helper: get order total (handles both formats + compute from items)
+        function getOrderTotal(o) {
+            const stored = Number(o.totalAmount || o.total_amount || 0);
+            if (stored > 0) return stored;
+            // Compute from items if stored total is 0
+            if (o.items && Array.isArray(o.items)) {
+                let computed = 0;
+                o.items.forEach(item => {
+                    if (item) {
+                        const price = Number(item.price || 0);
+                        const qty = Number(item.quantity || item.qty || 1);
+                        computed += price * qty;
+                    }
+                });
+                return computed;
+            }
+            return 0;
+        }
+
+        // Helper: get customer name with multiple fallbacks
+        function getCustomerName(o) {
+            const uid = o.userId || o.user_id;
+            if (uid) {
+                // Try Firebase Auth UID lookup first
+                if (usersMap[uid]) {
+                    return usersMap[uid].fullname || usersMap[uid].name || usersMap[uid].displayName || 'Customer';
+                }
+                // Try numeric id lookup (for old orders)
+                if (usersByNumericId[String(uid)]) {
+                    return usersByNumericId[String(uid)].fullname || usersByNumericId[String(uid)].name || 'Customer';
+                }
+            }
+            // Fallback: shippingAddress.fullname (new checkout format)
+            if (o.shippingAddress && o.shippingAddress.fullname) {
+                return o.shippingAddress.fullname;
+            }
+            if (o.customerName) return o.customerName;
+            // Last resort: show Customer #id
+            if (uid) return `Customer #${uid}`;
+            return 'Guest';
+        }
+
+        // Helper: get customer email if available
+        function getCustomerEmail(o) {
+            const uid = o.userId || o.user_id;
+            if (uid) {
+                if (usersMap[uid] && usersMap[uid].email) return usersMap[uid].email;
+                if (usersByNumericId[String(uid)] && usersByNumericId[String(uid)].email) return usersByNumericId[String(uid)].email;
+            }
+            return '';
+        }
+
+        // 3. Fetch Orders
+        const ordersRef = query(ref(db, 'orders'), limitToLast(50));
+
+        onValue(ordersRef, (snapshot) => {
+            const data = snapshot.val();
+            allOrders = [];
+            if (data) {
+                Object.keys(data).forEach(key => {
+                    allOrders.push({ id: key, ...data[key] });
+                });
+            }
+            // Sort by Date (Newest First)
+            allOrders.sort((a, b) => new Date(getOrderDate(b) || 0) - new Date(getOrderDate(a) || 0));
+            applyFilters();
+        });
+
+        // Filter Logic
+        window.applyFilters = function () {
+            const status = statusFilter.value;
+            const date = dateFilter.value;
+            const searchTerm = searchInput.value.toLowerCase();
+
+            clearSearchBtn.style.display = searchTerm.length > 0 ? 'block' : 'none';
+
+            filteredOrders = allOrders.filter(o => {
+                const oStatus = capitalize(o.status || 'Pending');
+                const matchesStatus = status === 'All' || oStatus === status;
+
+                let matchesDate = true;
+                const orderDateStr = getOrderDate(o);
+                if (date) {
+                    if (orderDateStr) {
+                        try {
+                            const orderDate = new Date(orderDateStr).toISOString().split('T')[0];
+                            matchesDate = orderDate === date;
+                        } catch (e) {
+                            matchesDate = false;
+                        }
+                    } else {
+                        matchesDate = false;
+                    }
+                }
+
+                const idStr = o.id ? String(o.id).toLowerCase() : '';
+                const custName = getCustomerName(o).toLowerCase();
+                const matchesSearch = idStr.includes(searchTerm) || custName.includes(searchTerm);
+
+                return matchesStatus && matchesDate && matchesSearch;
+            });
+
+            currentPage = 1;
+            renderTable();
+        }
+
+        window.clearSearch = function () {
+            searchInput.value = '';
+            applyFilters();
+        }
+
+        window.resetFilters = function () {
+            dateFilter.value = '';
+            statusFilter.value = 'All';
+            searchInput.value = '';
+            applyFilters();
+        }
+
+        // Pagination Controls
+        window.prevPage = function () {
+            if (currentPage > 1) { currentPage--; renderTable(); }
+        }
+
+        window.nextPage = function () {
+            const maxPage = Math.ceil(filteredOrders.length / rowsPerPage);
+            if (currentPage < maxPage) { currentPage++; renderTable(); }
+        }
+
+        function capitalize(str) {
+            if (!str) return '';
+            return str.charAt(0).toUpperCase() + str.slice(1).toLowerCase();
+        }
+
+        // Render Table with Pagination
+        function renderTable() {
+            const totalItems = filteredOrders.length;
+
+            if (totalItems === 0) {
+                ordersListEl.innerHTML = '<tr><td colspan="7" class="text-center py-5 text-muted">No orders found.</td></tr>';
+                document.getElementById('pageInfo').innerText = 'Showing 0-0 of 0';
+                document.getElementById('btnPrev').disabled = true;
+                document.getElementById('btnNext').disabled = true;
+                return;
+            }
+
+            const startIndex = (currentPage - 1) * rowsPerPage;
+            const endIndex = Math.min(startIndex + rowsPerPage, totalItems);
+            const ordersToDisplay = filteredOrders.slice(startIndex, endIndex);
+
+            document.getElementById('pageInfo').innerText = `Showing ${startIndex + 1}-${endIndex} of ${totalItems}`;
+            document.getElementById('btnPrev').disabled = currentPage === 1;
+            document.getElementById('btnNext').disabled = currentPage >= Math.ceil(totalItems / rowsPerPage);
+
+            ordersListEl.innerHTML = ordersToDisplay.map(o => {
+                const custName = getCustomerName(o);
+                const custEmail = getCustomerEmail(o);
+                const initial = custName.charAt(0).toUpperCase();
+
+                const displayStatus = capitalize(o.status || 'Pending');
+                const statusColors = {
+                    'Pending': 'warning', 'Processing': 'info', 'Shipped': 'primary',
+                    'Delivered': 'success', 'Completed': 'success', 'Cancelled': 'danger'
+                };
+                const statusColor = statusColors[displayStatus] || 'secondary';
+
+                const orderDateStr = getOrderDate(o);
+                const dateObj = orderDateStr ? new Date(orderDateStr) : new Date();
+                const dateDisplay = dateObj.toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' });
+                const timeDisplay = dateObj.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit' });
+
+                const safeId = o.id ? String(o.id) : '';
+                const displayId = safeId.startsWith('-') ? safeId.slice(-6).toUpperCase() : safeId;
+
+                // Branch Name
+                const bid = o.branchId || o.branch_id;
+                const branchName = storesMap[bid] || branchesMap[bid] || 'Shreyash Medical Main';
+
+                // Total
+                const orderTotal = getOrderTotal(o);
+
+                // Item count
+                const itemCount = o.items ? (Array.isArray(o.items) ? o.items.filter(Boolean).length : Object.keys(o.items).length) : 0;
+
+                // Payment method
+                const payment = (o.paymentMethod || o.payment_method || 'COD').toUpperCase();
+
+                return `
+                <tr>
+                    <td class="ps-4">
+                        <span class="fw-bold text-primary">#${displayId}</span>
+                    </td>
+                    <td>
+                        <div class="d-flex align-items-center">
+                            <div class="avatar-sm bg-primary-subtle text-primary rounded-circle me-2 d-flex align-items-center justify-content-center fw-bold small">${initial}</div>
+                            <div>
+                                <div class="fw-medium text-dark">${custName}</div>
+                                <small class="text-muted" style="font-size: 0.75rem;">${custEmail || (itemCount + ' item' + (itemCount !== 1 ? 's' : ''))}</small>
+                            </div>
+                        </div>
+                    </td>
+                    <td>
+                        <span class="badge bg-light text-dark border fw-normal">${branchName}</span>
+                    </td>
+                    <td>
+                        <div class="fw-medium text-dark">${dateDisplay}</div>
+                        <small class="text-muted">${timeDisplay}</small>
+                    </td>
+                    <td class="fw-bold">₹${orderTotal.toLocaleString()}</td>
+                    <td><span class="badge bg-${statusColor}-subtle text-${statusColor} border border-${statusColor}-subtle rounded-2 px-3 py-2">${displayStatus}</span></td>
+                    <td class="text-end pe-4">
+                        <div class="dropdown">
+                            <button class="btn btn-light btn-sm rounded-circle shadow-sm" type="button" data-bs-toggle="dropdown">
+                                <i class="fas fa-ellipsis-v text-muted"></i>
+                            </button>
+                            <ul class="dropdown-menu dropdown-menu-end border-0 shadow-lg">
+                                <li class="px-3 py-2 text-muted small fw-bold text-uppercase">Update Status</li>
+                                <li><a class="dropdown-item" href="#" onclick="updateStatus('${safeId}', 'Processing')"><i class="fas fa-spinner text-info me-2"></i> Mark Processing</a></li>
+                                <li><a class="dropdown-item" href="#" onclick="updateStatus('${safeId}', 'Shipped')"><i class="fas fa-truck text-primary me-2"></i> Mark Shipped</a></li>
+                                <li><a class="dropdown-item" href="#" onclick="updateStatus('${safeId}', 'Delivered')"><i class="fas fa-box-open text-success me-2"></i> Mark Delivered</a></li>
+                                <li><a class="dropdown-item" href="#" onclick="updateStatus('${safeId}', 'Completed')"><i class="fas fa-check-circle text-success me-2"></i> Mark Completed</a></li>
+                                <li><a class="dropdown-item" href="#" onclick="updateStatus('${safeId}', 'Cancelled')"><i class="fas fa-times-circle text-danger me-2"></i> Cancel Order</a></li>
+                                <li><hr class="dropdown-divider"></li>
+                                <li><a class="dropdown-item text-primary" href="order_details.html?id=${safeId}"><i class="fas fa-eye me-2"></i> View Details</a></li>
+                            </ul>
+                        </div>
+                    </td>
+                </tr>
+                `;
+            }).join('');
+        }
+
+        // Update Status
+        window.updateStatus = async function (id, newStatus) {
+            if (!confirm(`Are you sure you want to mark this order as ${newStatus}?`)) return;
+            try {
+                await update(ref(db, `orders/${id}`), {
+                    status: newStatus,
+                    updatedAt: new Date().toISOString()
+                });
+            } catch (err) {
+                console.error(err);
+                alert('Failed to update status');
+            }
+        }
+    </script>
+</body>
+
+</html>

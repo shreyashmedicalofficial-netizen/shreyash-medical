@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shreyash Pharmacy - Trusted Online Store</title>
+    <!-- Google Fonts -->
+    <link
+        href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Inter:wght@300;400;500;600&display=swap"
+        rel="stylesheet">
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- FontAwesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="assets/css/style.css">
+</head>
+
+<body class="d-flex flex-column min-vh-100">
+
+    <!-- Header Container -->
+    <div id="header-container"></div>
+
+    <!-- Hero Section -->
+    <section class="hero-wrapper">
+        <div class="container pt-2">
+            <div class="row align-items-center">
+                <div class="col-lg-9 mb-4 mb-lg-0">
+                    <!-- Main Carousel -->
+                    <div id="heroCarousel" class="carousel slide rounded-4 overflow-hidden shadow-lg"
+                        data-bs-ride="carousel" style="margin-top: -50px;">
+                        <div class="carousel-indicators">
+                            <button type="button" data-bs-target="#heroCarousel" data-bs-slide-to="0"
+                                class="active"></button>
+                            <button type="button" data-bs-target="#heroCarousel" data-bs-slide-to="1"></button>
+                            <button type="button" data-bs-target="#heroCarousel" data-bs-slide-to="2"></button>
+                        </div>
+                        <div class="carousel-inner">
+                            <div class="carousel-item active" data-bs-interval="4000">
+                                <div
+                                    style="height: 450px; background: linear-gradient(105deg, #E3F2FD 0%, #90CAF9 100%); position: relative;">
+                                    <div class="row h-100 align-items-center px-5">
+                                        <div class="col-md-7">
+                                            <span class="badge bg-primary-custom mb-3 px-3 py-2 rounded-pill">Special
+                                                Offer</span>
+                                            <h1 class="fw-bold mb-3 display-4 text-dark">Super Saver Medicine Sale</h1>
+                                            <p class="fs-5 text-dark mb-4">Flat <span class="fw-bold text-danger">25%
+                                                    OFF</span> on your first order. Genuine medicines delivered in
+                                                Kolhapur.</p>
+                                            <div class="d-flex gap-3">
+                                                <a href="products.html"
+                                                    class="btn btn-primary-custom px-4 py-2 shadow-sm fw-bold">Order
+                                                    Now</a>
+                                                <span class="align-self-center fw-bold text-dark">Use Code: <span
+                                                        class="text-primary-custom border-bottom border-primary border-2">SHREYASH25</span></span>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-5 text-end d-none d-md-block">
+                                            <img src="https://cdni.iconscout.com/illustration/premium/thumb/online-pharmacy-App-2868079-2396342.png"
+                                                alt="Pharmacy"
+                                                style="height: 350px; object-fit: contain; filter: drop-shadow(0px 10px 20px rgba(0,0,0,0.1));"
+                                                onerror="this.src='assets/images/hero1.jpg'">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="carousel-item" data-bs-interval="4000">
+                                <div
+                                    style="height: 450px; background: linear-gradient(105deg, #E8F5E9 0%, #A5D6A7 100%); position: relative;">
+                                    <div class="row h-100 align-items-center px-5">
+                                        <div class="col-md-7">
+                                            <span class="badge bg-success mb-3 px-3 py-2 rounded-pill">Ayurveda</span>
+                                            <h1 class="fw-bold mb-3 display-4 text-dark">Natural & Herbal Care</h1>
+                                            <p class="fs-5 text-dark mb-4">Boost your immunity with 100% organic
+                                                Ayurvedic products.</p>
+                                            <a href="#" class="btn btn-success px-4 py-2 shadow-sm fw-bold">Explore
+                                                Store</a>
+                                        </div>
+                                        <div class="col-md-5 text-end d-none d-md-block">
+                                            <img src="https://cdni.iconscout.com/illustration/premium/thumb/ayurveda-medicine-5654366-4713759.png"
+                                                alt="Ayurveda"
+                                                style="height: 350px; object-fit: contain; filter: drop-shadow(0px 10px 20px rgba(0,0,0,0.1));"
+                                                onerror="this.src='assets/images/hero2.jpg'">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-3">
+                    <!-- Floating Prescription Card -->
+                    <div class="upload-prescription-card h-100 d-flex flex-column justify-content-center border-0 shadow-lg"
+                        style="background: linear-gradient(to bottom, #ffffff, #f8f9fa); ">
+                        <div class="text-center mb-4">
+                            <div class="bg-primary-custom bg-opacity-10 rounded-circle d-inline-flex p-4 mb-3">
+                                <i class="fas fa-notes-medical fa-3x text-primary-custom"></i>
+                            </div>
+                            <h4 class="fw-bold text-dark">Quick Order</h4>
+                            <p class="text-muted small">Upload prescription & we will deliver to your doorstep!</p>
+                        </div>
+
+                        <a href="prescription.html"
+                            class="btn btn-secondary-custom w-100 mb-3 fw-bold text-dark py-3 rounded-pill shadow-sm hover-up text-decoration-none d-flex align-items-center justify-content-center">
+                            <i class="fas fa-camera me-2"></i> Upload Prescription
+                        </a>
+                        <div class="text-center small text-muted my-2 position-relative">
+                            <span class="bg-light px-2 position-relative z-1">OR</span>
+                            <hr class="position-absolute top-50 start-0 w-100 m-0 z-0">
+                        </div>
+                        <button class="btn btn-outline-dark w-100 fw-bold py-2 rounded-pill mt-2">
+                            <i class="fas fa-phone-alt me-2"></i> Call to Order
+                        </button>
+
+                        <div class="mt-4 pt-3 border-top text-center">
+                            <p class="small text-success fw-bold mb-0"><i class="fas fa-bolt me-1"></i> Delivery within
+                                2 Hours</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Strip -->
+    <div class="bg-white py-4 border-bottom border-top">
+        <div class="container">
+            <div class="row text-center g-4 justify-content-center">
+                <div class="col-6 col-md-3 border-end border-light-subtle">
+                    <i class="fas fa-shipping-fast text-secondary-custom fa-2x mb-2 d-block"></i>
+                    <h6 class="fw-bold mb-0">Express Delivery</h6>
+                    <small class="text-muted">In Kolhapur City</small>
+                </div>
+                <div class="col-6 col-md-3 border-end border-light-subtle">
+                    <i class="fas fa-shield-alt text-secondary-custom fa-2x mb-2 d-block"></i>
+                    <h6 class="fw-bold mb-0">100% Genuine</h6>
+                    <small class="text-muted">Trusted Pharmacy</small>
+                </div>
+                <div class="col-6 col-md-3 border-end border-light-subtle">
+                    <i class="fas fa-tags text-secondary-custom fa-2x mb-2 d-block"></i>
+                    <h6 class="fw-bold mb-0">Best Prices</h6>
+                    <small class="text-muted">Guaranteed Discounts</small>
+                </div>
+                <div class="col-6 col-md-3">
+                    <i class="fas fa-headset text-secondary-custom fa-2x mb-2 d-block"></i>
+                    <h6 class="fw-bold mb-0">24/7 Support</h6>
+                    <small class="text-muted">Expert Pharmacists</small>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Shop by Category -->
+    <section class="py-5 bg-light">
+        <div class="container">
+            <div class="d-flex justify-content-between align-items-end mb-4">
+                <div>
+                    <h2 class="section-title mb-0">Shop by Category</h2>
+                    <p class="text-muted mb-0 small">Explore our wide range of products</p>
+                </div>
+                <a href="products.html" class="text-primary-custom fw-bold small text-decoration-none">View All <i
+                        class="fas fa-arrow-right"></i></a>
+            </div>
+
+            <div class="row g-4 text-center">
+                <div class="col-4 col-md-2">
+                    <a href="products.html?cat=medicine" class="text-decoration-none text-dark d-block hover-lift">
+                        <div class="category-circle mb-3 d-flex align-items-center justify-content-center mx-auto shadow-sm"
+                            style="background-color: #E3F2FD; width: 100px; height: 100px; border-radius: 50%;">
+                            <img src="https://cdn-icons-png.flaticon.com/512/3022/3022137.png" width="50"
+                                alt="Medicine">
+                        </div>
+                        <h6 class="fw-bold small">Medicine</h6>
+                    </a>
+                </div>
+                <div class="col-4 col-md-2">
+                    <a href="products.html?cat=personal care" class="text-decoration-none text-dark d-block hover-lift">
+                        <div class="category-circle mb-3 d-flex align-items-center justify-content-center mx-auto shadow-sm"
+                            style="background-color: #F3E5F5; width: 100px; height: 100px; border-radius: 50%;">
+                            <img src="https://cdn-icons-png.flaticon.com/512/2646/2646126.png" width="50"
+                                alt="Personal Care">
+                        </div>
+                        <h6 class="fw-bold small">Personal Care</h6>
+                    </a>
+                </div>
+                <div class="col-4 col-md-2">
+                    <a href="products.html?cat=ayurveda" class="text-decoration-none text-dark d-block hover-lift">
+                        <div class="category-circle mb-3 d-flex align-items-center justify-content-center mx-auto shadow-sm"
+                            style="background-color: #E8F5E9; width: 100px; height: 100px; border-radius: 50%;">
+                            <img src="https://cdn-icons-png.flaticon.com/512/3354/3354174.png" width="50"
+                                alt="Ayurveda">
+                        </div>
+                        <h6 class="fw-bold small">Ayurveda</h6>
+                    </a>
+                </div>
+                <div class="col-4 col-md-2">
+                    <a href="products.html?cat=baby care" class="text-decoration-none text-dark d-block hover-lift">
+                        <div class="category-circle mb-3 d-flex align-items-center justify-content-center mx-auto shadow-sm"
+                            style="background-color: #FFF3E0; width: 100px; height: 100px; border-radius: 50%;">
+                            <img src="https://cdn-icons-png.flaticon.com/512/2641/2641695.png" width="50"
+                                alt="Baby Care">
+                        </div>
+                        <h6 class="fw-bold small">Baby Care</h6>
+                    </a>
+                </div>
+                <div class="col-4 col-md-2">
+                    <a href="products.html?cat=devices" class="text-decoration-none text-dark d-block hover-lift">
+                        <div class="category-circle mb-3 d-flex align-items-center justify-content-center mx-auto shadow-sm"
+                            style="background-color: #E0F2F1; width: 100px; height: 100px; border-radius: 50%;">
+                            <img src="https://cdn-icons-png.flaticon.com/512/2382/2382441.png" width="50" alt="Devices">
+                        </div>
+                        <h6 class="fw-bold small">Devices</h6>
+                    </a>
+                </div>
+                <div class="col-4 col-md-2">
+                    <a href="products.html?cat=vitamins" class="text-decoration-none text-dark d-block hover-lift">
+                        <div class="category-circle mb-3 d-flex align-items-center justify-content-center mx-auto shadow-sm"
+                            style="background-color: #FFF8E1; width: 100px; height: 100px; border-radius: 50%;">
+                            <img src="https://cdn-icons-png.flaticon.com/512/3050/3050153.png" width="50"
+                                alt="Vitamins">
+                        </div>
+                        <h6 class="fw-bold small">Vitamins</h6>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- New Arrivals Section -->
+    <section class="py-5 bg-white">
+        <div class="container">
+            <div class="d-flex justify-content-between align-items-center mb-4">
+                <div>
+                    <span class="badge bg-success mb-2 px-2 py-1">Just Landed</span>
+                    <h2 class="section-title mb-0">New Arrivals</h2>
+                    <p class="text-muted mb-0 small">Latest additions to our store</p>
+                </div>
+                <a href="products.html?sort=newest" class="btn btn-outline-dark rounded-pill px-4 btn-sm fw-bold">View
+                    All</a>
+            </div>
+
+            <div class="row g-4" id="new-arrivals-container">
+                <!-- Loading State -->
+                <div class="col-12 text-center py-5">
+                    <div class="spinner-border text-success" role="status">
+                        <span class="visually-hidden">Loading...</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Featured Products (Premium Cards) -->
+    <section class="py-5" style="background-color: #f4f6f8;">
+        <div class="container">
+            <div class="d-flex justify-content-between align-items-center mb-4">
+                <div>
+                    <span class="badge bg-danger mb-2 px-2 py-1">FLASH SALE</span>
+                    <h2 class="section-title mb-0">Trending Products</h2>
+                </div>
+                <a href="products.html" class="btn btn-outline-dark rounded-pill px-4 btn-sm fw-bold">View All</a>
+            </div>
+
+            <div class="row g-4" id="trending-products-container">
+                <!-- Loading State -->
+                <div class="col-12 text-center py-5">
+                    <div class="spinner-border text-primary-custom" role="status">
+                        <span class="visually-hidden">Loading...</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row mt-5">
+                <div class="col-12 text-center">
+                    <a href="products.html"
+                        class="btn btn-primary-custom px-5 py-3 rounded-pill shadow hover-lift fw-bold">
+                        View All Products <i class="fas fa-arrow-right ms-2"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Brand Promise Banner -->
+    <section class="py-5 bg-white">
+        <div class="container">
+            <div class="bg-primary-custom rounded-4 p-5 text-white overflow-hidden position-relative shadow-lg">
+                <div class="row align-items-center position-relative z-1">
+                    <div class="col-md-8">
+                        <h2 class="display-5 fw-bold mb-3">Your Health, Our Priority</h2>
+                        <p class="fs-5 mb-4 text-white-50">Shreyash Pharmacy has been serving Kolhapur with dedication
+                            and trust. We ensure 100% genuine medicines, 24/7 support, and the fastest delivery in the
+                            city.</p>
+                        <div class="d-flex gap-3">
+                            <a href="products.html"
+                                class="btn btn-light px-4 py-3 fw-bold rounded-pill shadow-sm hover-up text-primary-custom">
+                                <i class="fas fa-shopping-cart me-2"></i> Order Now
+                            </a>
+                            <a href="contact.html"
+                                class="btn btn-outline-light px-4 py-3 fw-bold rounded-pill shadow-sm hover-up">
+                                <i class="fas fa-phone-alt me-2"></i> Contact Us
+                            </a>
+                        </div>
+                    </div>
+                    <div class="col-md-4 d-none d-md-block text-center position-relative">
+                        <i class="fas fa-heartbeat fa-10x text-white opacity-25"
+                            style="transform: rotate(-15deg) scale(1.2);"></i>
+                    </div>
+                </div>
+                <!-- Decorative Circles -->
+                <div
+                    style="position: absolute; top: -100px; right: -100px; width: 400px; height: 400px; background: rgba(255,255,255,0.05); border-radius: 50%;">
+                </div>
+                <div
+                    style="position: absolute; bottom: -50px; left: -50px; width: 250px; height: 250px; background: rgba(255,255,255,0.05); border-radius: 50%;">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Health Articles -->
+    <section class="py-5 bg-light">
+        <div class="container">
+            <div class="d-flex justify-content-between align-items-end mb-4">
+                <div>
+                    <h2 class="section-title mb-0">Health Corner</h2>
+                    <p class="text-muted mb-0 small">Expert health tips & advice</p>
+                </div>
+                <a href="blogs.html" class="text-primary-custom fw-bold small text-decoration-none">View All Articles <i
+                        class="fas fa-arrow-right"></i></a>
+            </div>
+
+            <div class="row g-4" id="homepage-blog-list">
+                <!-- Loading State -->
+                <div class="col-12 text-center py-5">
+                    <div class="spinner-border text-primary-custom" role="status">
+                        <span class="visually-hidden">Loading...</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer Container -->
+    <div id="footer-container"></div>
+
+    <!-- Bootstrap Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Main App JS -->
+    <script type="module" src="assets/js/app.js"></script>
+
+</body>
+
+</html>

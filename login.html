@@ -1,0 +1,435 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - Shreyash Pharmacy</title>
+    <!-- Google Fonts -->
+    <link
+        href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Inter:wght@300;400;500;600&display=swap"
+        rel="stylesheet">
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- FontAwesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="assets/css/style.css">
+    <style>
+        body {
+            background-color: #f0f2f5;
+        }
+
+        .login-wrapper {
+            min-height: 100vh;
+            display: flex;
+            align-items: stretch;
+        }
+
+        .login-brand-section {
+            background: linear-gradient(135deg, #1E4D2F 0%, #2A6B42 100%);
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            padding: 4rem;
+            color: white;
+        }
+
+        .brand-pattern {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.05'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+        }
+
+        .login-form-section {
+            background: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem;
+            position: relative;
+        }
+
+        .login-card {
+            width: 100%;
+            max-width: 480px;
+            padding: 3rem;
+        }
+
+        .form-floating>.form-control {
+            border: 2px solid #e9ecef;
+            border-radius: 12px;
+            height: calc(3.5rem + 2px);
+        }
+
+        .form-floating>.form-control:focus {
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 0.25rem rgba(42, 107, 66, 0.1);
+        }
+
+        .btn-login {
+            padding: 1rem;
+            border-radius: 12px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+        }
+
+        .feature-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 1.5rem;
+            font-size: 1.1rem;
+        }
+
+        .feature-icon {
+            width: 48px;
+            height: 48px;
+            background: rgba(255, 255, 255, 0.15);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 1rem;
+            backdrop-filter: blur(5px);
+        }
+
+        /* Glass Effect Circle */
+        .glass-circle {
+            position: absolute;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 50%;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="row g-0 login-wrapper">
+        <!-- Left Side: Brand & Features -->
+        <div class="col-lg-6 d-none d-lg-flex login-brand-section">
+            <div class="brand-pattern"></div>
+
+            <!-- Animated Background Elements -->
+            <div class="glass-circle" style="width: 300px; height: 300px; top: -50px; left: -50px;"></div>
+            <div class="glass-circle" style="width: 200px; height: 200px; bottom: 100px; right: -50px;"></div>
+
+            <div class="position-relative z-2">
+                <a href="index.html" class="d-flex align-items-center text-white text-decoration-none mb-5">
+                    <div class="bg-white rounded-circle d-flex align-items-center justify-content-center me-3"
+                        style="width: 48px; height: 48px;">
+                        <i class="fas fa-heartbeat fa-lg text-primary-custom"></i>
+                    </div>
+                    <div>
+                        <h3 class="fw-bold mb-0">Shreyash</h3>
+                        <small class="text-white-50 fw-bold" style="letter-spacing: 2px;">PREMIUM PHARMACY</small>
+                    </div>
+                </a>
+
+                <div class="mt-5">
+                    <h1 class="display-4 fw-bold mb-4">Your Health,<br>Elevated.</h1>
+                    <p class="lead text-white-50 mb-5">Experience the new standard in healthcare management. Genuine
+                        products, express delivery, and 24/7 expert consultation.</p>
+
+                    <div class="features-list">
+                        <div class="feature-item">
+                            <div class="feature-icon"><i class="fas fa-shield-alt"></i></div>
+                            <div>
+                                <div class="fw-bold">100% Secure</div>
+                                <small class="text-white-50">Data protection guaranteed</small>
+                            </div>
+                        </div>
+                        <div class="feature-item">
+                            <div class="feature-icon"><i class="fas fa-rocket"></i></div>
+                            <div>
+                                <div class="fw-bold">Express Delivery</div>
+                                <small class="text-white-50">Within 2 hours in Kolhapur</small>
+                            </div>
+                        </div>
+                        <div class="feature-item">
+                            <div class="feature-icon"><i class="fas fa-user-md"></i></div>
+                            <div>
+                                <div class="fw-bold">Expert Support</div>
+                                <small class="text-white-50">Licensed pharmacists</small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="position-relative z-2 mt-auto pt-5">
+                <div class="d-flex align-items-center">
+                    <div class="d-flex me-3">
+                        <img src="https://randomuser.me/api/portraits/women/44.jpg"
+                            class="rounded-circle border border-2 border-white" width="40" height="40"
+                            style="margin-right: -15px;">
+                        <img src="https://randomuser.me/api/portraits/men/32.jpg"
+                            class="rounded-circle border border-2 border-white" width="40" height="40"
+                            style="margin-right: -15px;">
+                        <img src="https://randomuser.me/api/portraits/women/68.jpg"
+                            class="rounded-circle border border-2 border-white" width="40" height="40"
+                            style="margin-right: -15px;">
+                        <div class="rounded-circle bg-white text-primary-custom fw-bold d-flex align-items-center justify-content-center border border-2 border-white"
+                            style="width: 40px; height: 40px; font-size: 0.8rem;">+2k</div>
+                    </div>
+                    <div class="text-white-50 small">
+                        <span class="d-block text-white fw-bold">Joined this week</span>
+                        Shreyash family is growing
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Right Side: Login Form -->
+        <div class="col-lg-6 login-form-section">
+            <div class="login-card">
+                <div class="text-center mb-5">
+                    <a href="index.html"
+                        class="d-lg-none d-flex align-items-center justify-content-center text-decoration-none mb-4">
+                        <div class="bg-primary-custom text-white rounded-circle d-flex align-items-center justify-content-center me-2"
+                            style="width: 40px; height: 40px;">
+                            <i class="fas fa-heartbeat"></i>
+                        </div>
+                        <span class="fw-bold fs-3 text-dark">Shreyash</span>
+                    </a>
+                    <h2 class="fw-bold mb-1">Welcome Back!</h2>
+                    <p class="text-muted">Enter your credentials to access your account.</p>
+                </div>
+
+                <!-- Error/Success Alerts -->
+                <div id="loginAlert" class="alert d-none border-0 shadow-sm rounded-3 mb-4 d-flex align-items-center">
+                    <i id="loginAlertIcon" class="fas fa-exclamation-circle fs-4 me-3"></i>
+                    <div>
+                        <div id="loginAlertTitle" class="fw-bold">Notice</div>
+                        <small id="loginAlertMessage" class="text-muted">Message goes here</small>
+                    </div>
+                </div>
+
+                <form id="loginForm">
+                    <div class="form-floating mb-3">
+                        <input type="email" class="form-control" id="emailInput" name="email"
+                            placeholder="name@example.com" required>
+                        <label for="emailInput">Email Address</label>
+                    </div>
+
+                    <div class="form-floating mb-3">
+                        <input type="password" class="form-control" id="passwordInput" name="password"
+                            placeholder="Password" required>
+                        <label for="passwordInput">Password</label>
+                    </div>
+
+                    <div class="d-flex justify-content-between align-items-center mb-4">
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" id="rememberMe">
+                            <label class="form-check-label text-muted small" for="rememberMe">Remember me</label>
+                        </div>
+                        <a href="#" class="text-primary-custom fw-bold small text-decoration-none">Forgot Password?</a>
+                    </div>
+
+                    <div class="d-grid mb-4">
+                        <button type="submit" class="btn btn-primary-custom btn-login shadow-sm" id="loginBtn">
+                            Sign In <i class="fas fa-arrow-right ms-2"></i>
+                        </button>
+                        <!-- Loading Spinner (Hidden by default) -->
+                        <button class="btn btn-primary-custom btn-login shadow-sm d-none" type="button" id="loadingBtn"
+                            disabled>
+                            <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+                            Signing In...
+                        </button>
+                    </div>
+
+                    <div class="position-relative text-center mb-4">
+                        <hr class="text-muted opacity-25">
+                        <span
+                            class="bg-white px-3 text-muted small position-absolute top-50 start-50 translate-middle">OR
+                            LOGIN WITH</span>
+                    </div>
+
+                    <div class="row g-2 mb-4">
+                        <div class="col">
+                            <button type="button" id="googleLoginBtn"
+                                class="btn btn-light w-100 border py-2 fw-medium text-muted">
+                                <i class="fab fa-google text-danger me-2"></i> Google
+                            </button>
+                        </div>
+                        <div class="col">
+                            <button type="button" id="facebookLoginBtn"
+                                class="btn btn-light w-100 border py-2 fw-medium text-muted">
+                                <i class="fab fa-facebook text-primary me-2"></i> Facebook
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="text-center">
+                        <p class="text-muted mb-0">Don't have an account? <a href="register.html"
+                                class="text-primary-custom fw-bold text-decoration-none">Create Account</a></p>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Forgot Password Modal -->
+    <div class="modal fade" id="forgotPasswordModal" tabindex="-1">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content border-0 shadow-lg rounded-4">
+                <div class="modal-header border-0 pb-0">
+                    <h5 class="modal-title fw-bold">Reset Password</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body pt-4 pb-5 px-4">
+                    <div class="text-center mb-4">
+                        <div class="bg-primary-subtle text-primary-custom rounded-circle d-inline-flex align-items-center justify-content-center mb-3"
+                            style="width: 60px; height: 60px;">
+                            <i class="fas fa-lock-open fa-lg"></i>
+                        </div>
+                        <p class="text-muted small">Enter your registered email address and we'll send you instructions
+                            to
+                            reset your password.</p>
+                    </div>
+
+                    <div id="forgotAlert" class="alert d-none border-0 shadow-sm rounded-3 mb-3 small"></div>
+
+                    <form id="forgotPasswordForm">
+                        <div class="form-floating mb-3">
+                            <input type="email" class="form-control" id="forgotEmail" placeholder="name@example.com"
+                                required>
+                            <label for="forgotEmail">Email Address</label>
+                        </div>
+                        <div class="d-grid">
+                            <button type="submit" class="btn btn-primary-custom shadow-sm py-2" id="sendResetBtn">
+                                Send Reset Link
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap 5 JS Bundle -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+    <script type="module">
+        import { auth, signInWithEmailAndPassword, googleProvider, facebookProvider, signInWithPopup } from './assets/js/firebase-config.js';
+        import { getAuthErrorMessage, isValidEmail, handlePasswordReset } from './assets/js/auth-utils.js';
+
+        const loginForm = document.getElementById('loginForm');
+        const loginBtn = document.getElementById('loginBtn');
+        const loadingBtn = document.getElementById('loadingBtn');
+        const loginAlert = document.getElementById('loginAlert');
+        const googleLoginBtn = document.getElementById('googleLoginBtn');
+        const facebookLoginBtn = document.getElementById('facebookLoginBtn');
+
+        // Forgot Password Elements
+        const forgotLink = document.querySelector('.text-primary-custom.fw-bold.small.text-decoration-none'); // "Forgot Password?" link
+        const forgotModal = new bootstrap.Modal(document.getElementById('forgotPasswordModal'));
+        const forgotForm = document.getElementById('forgotPasswordForm');
+        const forgotAlert = document.getElementById('forgotAlert');
+        const sendResetBtn = document.getElementById('sendResetBtn');
+
+        // Attach Click to Forgot Link
+        if (forgotLink) {
+            forgotLink.addEventListener('click', (e) => {
+                e.preventDefault();
+                forgotModal.show();
+            });
+        }
+
+        function showAlert(element, type, title, message) {
+            element.className = `alert alert-${type} border-0 shadow-sm rounded-3 mb-4 d-flex align-items-center w-100`;
+            element.innerHTML = `
+                <i class="fas ${type === 'success' ? 'fa-check-circle' : 'fa-exclamation-circle'} fs-4 me-3 text-${type}"></i>
+                <div>
+                    <div class="fw-bold text-${type}">${title}</div>
+                    <small class="text-muted">${message}</small>
+                </div>
+            `;
+            element.classList.remove('d-none');
+        }
+
+        loginForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const email = document.getElementById('emailInput').value;
+            const password = document.getElementById('passwordInput').value;
+
+            if (!isValidEmail(email)) {
+                showAlert(loginAlert, 'danger', 'Invalid Email', 'Please enter a valid email address.');
+                return;
+            }
+
+            loginBtn.classList.add('d-none');
+            loadingBtn.classList.remove('d-none');
+            loginAlert.classList.add('d-none');
+
+            try {
+                await signInWithEmailAndPassword(auth, email, password);
+                showAlert(loginAlert, 'success', 'Success', 'Login successful! Redirecting...');
+                setTimeout(() => {
+                    const urlParams = new URLSearchParams(window.location.search);
+                    const redirect = urlParams.get('redirect');
+                    window.location.href = redirect ? redirect : 'index.html';
+                }, 1000);
+            } catch (error) {
+                console.error("Login error:", error);
+                showAlert(loginAlert, 'danger', 'Login Failed', getAuthErrorMessage(error.code));
+                loginBtn.classList.remove('d-none');
+                loadingBtn.classList.add('d-none');
+            }
+        });
+
+        // Social Login Handlers
+        async function handleSocialLogin(provider, name) {
+            try {
+                await signInWithPopup(auth, provider);
+                showAlert(loginAlert, 'success', 'Success', `${name} Login successful! Redirecting...`);
+                setTimeout(() => {
+                    const urlParams = new URLSearchParams(window.location.search);
+                    const redirect = urlParams.get('redirect');
+                    window.location.href = redirect ? redirect : 'index.html';
+                }, 1000);
+            } catch (error) {
+                console.error(`${name} Login error:`, error);
+                showAlert(loginAlert, 'danger', 'Login Failed', getAuthErrorMessage(error.code));
+            }
+        }
+
+        googleLoginBtn.addEventListener('click', () => handleSocialLogin(googleProvider, 'Google'));
+        facebookLoginBtn.addEventListener('click', () => handleSocialLogin(facebookProvider, 'Facebook'));
+
+        // Forgot Password Logic
+        forgotForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const email = document.getElementById('forgotEmail').value.trim();
+            const btnOriginal = sendResetBtn.innerHTML;
+
+            sendResetBtn.disabled = true;
+            sendResetBtn.innerHTML = '<span class="spinner-border spinner-border-sm me-2"></span>Sending...';
+            forgotAlert.classList.add('d-none');
+
+            try {
+                const res = await handlePasswordReset(email);
+                forgotAlert.className = 'alert alert-success border-0 shadow-sm rounded-3 mb-3 small';
+                forgotAlert.innerHTML = `<i class="fas fa-check-circle me-2"></i> ${res.message}`;
+                forgotAlert.classList.remove('d-none');
+                setTimeout(() => forgotModal.hide(), 3000);
+            } catch (err) {
+                forgotAlert.className = 'alert alert-danger border-0 shadow-sm rounded-3 mb-3 small';
+                forgotAlert.innerHTML = `<i class="fas fa-exclamation-circle me-2"></i> ${err.message}`;
+                forgotAlert.classList.remove('d-none');
+            } finally {
+                sendResetBtn.disabled = false;
+                sendResetBtn.innerHTML = btnOriginal;
+            }
+        });
+    </script>
+
+</body>
+
+</html>

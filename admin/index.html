@@ -1,0 +1,567 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shreyash Admin Dashboard</title>
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- FontAwesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="assets/css/admin.css">
+</head>
+
+<body>
+
+    <!-- Mobile Overlay -->
+    <div class="sidebar-overlay" id="sidebarOverlay" onclick="toggleSidebar()"></div>
+
+    <!-- Sidebar -->
+    <aside class="sidebar" id="adminSidebar">
+        <div class="sidebar-header">
+            <a href="index.html" class="sidebar-brand">
+                <i class="fas fa-heartbeat text-warning"></i>
+                <span>Shreyash Admin</span>
+            </a>
+        </div>
+
+        <div class="sidebar-nav">
+            <div class="nav-category">Main</div>
+            <a href="index.html" class="nav-link active">
+                <i class="fas fa-tachometer-alt"></i> Dashboard
+            </a>
+
+            <div class="nav-category">Management</div>
+            <a href="inventory.html" class="nav-link">
+                <i class="fas fa-boxes"></i> Inventory
+            </a>
+            <a href="users.html" class="nav-link">
+                <i class="fas fa-users"></i> Users
+            </a>
+            <a href="stock_requests.html" class="nav-link">
+                <i class="fas fa-truck-loading"></i> Stock Requests
+            </a>
+            <a href="orders.html" class="nav-link">
+                <i class="fas fa-shopping-bag"></i> Orders
+            </a>
+            <a href="blogs.html" class="nav-link">
+                <i class="fas fa-blog"></i> Blogs
+            </a>
+
+            <div class="nav-category">Analytics</div>
+            <a href="reports.html" class="nav-link">
+                <i class="fas fa-chart-bar"></i> Reports
+            </a>
+
+            <!-- Super Admin Only -->
+            <div class="nav-category admin-only">Super Admin</div>
+            <a href="stores.html" class="nav-link admin-only">
+                <i class="fas fa-store"></i> Manage Stores
+            </a>
+        </div>
+
+        <div class="sidebar-footer">
+            <div class="user-profile">
+                <div class="user-avatar text-white">A</div>
+                <div class="user-info text-white">
+                    <div class="fw-bold" style="font-size: 0.9rem;">Admin</div>
+                    <small class="text-white-50" style="font-size: 0.75rem;">Loading...</small>
+                </div>
+            </div>
+            <a href="#" class="d-block mt-3 text-white-50 text-decoration-none hover-white" id="logoutBtn">
+                <i class="fas fa-sign-out-alt me-2"></i> Logout
+            </a>
+        </div>
+    </aside>
+
+    <div class="main-content">
+        <!-- Topbar -->
+        <header class="topbar">
+            <button class="btn btn-link text-dark d-lg-none" onclick="toggleSidebar()">
+                <i class="fas fa-bars"></i>
+            </button>
+
+            <div class="d-flex align-items-center">
+                <h5 class="page-title">Dashboard</h5>
+                <span class="badge bg-primary-subtle text-primary ms-3 border border-primary-subtle">
+                    <i class="fas fa-shield-alt me-1"></i> Super Admin
+                </span>
+            </div>
+
+            <div class="d-flex align-items-center gap-3">
+                <!-- Notifications -->
+                <div class="dropdown">
+                    <a href="#" class="text-dark position-relative" data-bs-toggle="dropdown">
+                        <i class="far fa-bell fa-lg text-secondary"></i>
+                        <span
+                            class="position-absolute top-0 start-100 translate-middle p-1 bg-danger border border-light rounded-circle notification-dot d-none">
+                            <span class="visually-hidden">New alerts</span>
+                        </span>
+                    </a>
+                    <ul class="dropdown-menu dropdown-menu-end shadow-sm border-0 mt-2" style="width: 320px;">
+                        <li>
+                            <h6
+                                class="dropdown-header text-uppercase small fw-bold d-flex justify-content-between align-items-center">
+                                Notifications
+                            </h6>
+                        </li>
+                        <li>
+                            <div class="dropdown-item small text-muted text-center py-3">No new notifications</div>
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- User Menu -->
+                <div class="dropdown">
+                    <a href="#" class="d-flex align-items-center text-decoration-none dropdown-toggle"
+                        data-bs-toggle="dropdown">
+                        <div class="user-avatar"
+                            style="width: 35px; height: 35px; background: #e9ecef; color: var(--admin-primary);">A</div>
+                    </a>
+                    <ul class="dropdown-menu dropdown-menu-end shadow-sm border-0 mt-2">
+                        <li><a class="dropdown-item" href="../index.html"><i
+                                    class="fas fa-external-link-alt me-2 text-muted"></i> Visit Website</a></li>
+                        <li><a class="dropdown-item" href="profile.html"><i
+                                    class="fas fa-user-circle me-2 text-muted"></i>
+                                Profile</a></li>
+                        <li>
+                            <hr class="dropdown-divider">
+                        </li>
+                        <li><a class="dropdown-item text-danger" href="#" onclick="handleLogout()"><i
+                                    class="fas fa-sign-out-alt me-2"></i> Logout</a></li>
+                    </ul>
+                </div>
+            </div>
+        </header>
+
+        <div class="container-fluid p-4">
+            <!-- Welcome Hero (Dynamic) -->
+            <div class="d-flex justify-content-between align-items-end mb-4" id="dashboardHeader">
+                <div>
+                    <h2 class="fw-bold text-dark mb-1" id="dashTitle">
+                        Welcome back, <span class="text-primary admin-name">Admin</span>! 👋
+                    </h2>
+                    <p class="text-muted mb-0" id="dashSubtitle">Here's what's happening in your store today.</p>
+                </div>
+                <div class="d-flex align-items-center gap-2">
+                    <a href="stores.html" class="btn btn-outline-secondary btn-sm bg-white border shadow-sm d-none"
+                        id="backToStoresBtn">
+                        <i class="fas fa-arrow-left me-2"></i> Back to All Stores
+                    </a>
+                    <span
+                        class="badge bg-white border text-muted px-3 py-2 rounded-pill shadow-sm d-none d-md-inline-block">
+                        <i class="far fa-calendar-alt me-2"></i> <span id="currentDate"></span>
+                    </span>
+                </div>
+            </div>
+
+            <!-- Stats Row -->
+            <div class="row g-4 mb-4">
+                <div class="col-md-3">
+                    <div class="card border-0 shadow-sm rounded-4 h-100">
+                        <div class="card-body p-4">
+                            <div class="d-flex justify-content-between align-items-start mb-3">
+                                <div class="stat-icon bg-primary-subtle text-primary rounded-3 p-3">
+                                    <i class="fas fa-shopping-bag fa-lg"></i>
+                                </div>
+                                <span
+                                    class="badge bg-success-subtle text-success border border-success-subtle rounded-pill">+12%
+                                    <i class="fas fa-arrow-up small"></i></span>
+                            </div>
+                            <h6 class="text-muted text-uppercase small fw-bold mb-1">Total Orders</h6>
+                            <h2 class="fw-bold text-dark mb-0" id="totalOrders">...</h2>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="card border-0 shadow-sm rounded-4 h-100">
+                        <div class="card-body p-4">
+                            <div class="d-flex justify-content-between align-items-start mb-3">
+                                <div class="stat-icon bg-success-subtle text-success rounded-3 p-3">
+                                    <i class="fas fa-rupee-sign fa-lg"></i>
+                                </div>
+                                <span
+                                    class="badge bg-success-subtle text-success border border-success-subtle rounded-pill">+8.5%
+                                    <i class="fas fa-arrow-up small"></i></span>
+                            </div>
+                            <h6 class="text-muted text-uppercase small fw-bold mb-1">Total Revenue</h6>
+                            <h2 class="fw-bold text-dark mb-0" id="totalRevenue">₹...</h2>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="card border-0 shadow-sm rounded-4 h-100">
+                        <div class="card-body p-4">
+                            <div class="d-flex justify-content-between align-items-start mb-3">
+                                <div class="stat-icon bg-info-subtle text-info rounded-3 p-3">
+                                    <i class="fas fa-boxes fa-lg"></i>
+                                </div>
+                                <span class="badge bg-light text-muted border rounded-pill">Stable</span>
+                            </div>
+                            <h6 class="text-muted text-uppercase small fw-bold mb-1">Total Products</h6>
+                            <h2 class="fw-bold text-dark mb-0" id="totalProducts">...</h2>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="card border-0 shadow-sm rounded-4 h-100">
+                        <div class="card-body p-4">
+                            <div class="d-flex justify-content-between align-items-start mb-3">
+                                <div class="stat-icon bg-warning-subtle text-warning rounded-3 p-3">
+                                    <i class="fas fa-exclamation-triangle fa-lg"></i>
+                                </div>
+                                <span
+                                    class="badge bg-success-subtle text-success border border-success-subtle rounded-pill">All
+                                    Good</span>
+                            </div>
+                            <h6 class="text-muted text-uppercase small fw-bold mb-1">Low Stock Alerts</h6>
+                            <h2 class="fw-bold text-dark mb-0" id="lowStock">...</h2>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row g-4">
+                <!-- Sales Chart -->
+                <div class="col-lg-8">
+                    <div class="card border-0 shadow-sm rounded-4 h-100 p-4">
+                        <div class="d-flex justify-content-between align-items-center mb-4">
+                            <h5 class="fw-bold mb-0">Sales Overview (Last 7 Days)</h5>
+                        </div>
+                        <canvas id="salesChart" height="300"></canvas>
+                    </div>
+                </div>
+
+                <!-- Quick Actions -->
+                <div class="col-lg-4">
+                    <div class="card border-0 shadow-sm rounded-4 h-100">
+                        <div class="card-header bg-white py-3 border-bottom px-4">
+                            <h5 class="mb-0 fw-bold">Quick Actions</h5>
+                        </div>
+                        <div class="card-body p-4">
+                            <div class="d-grid gap-3">
+                                <a href="inventory.html"
+                                    class="btn btn-primary-custom p-3 border-0 bg-primary-subtle text-primary fw-bold text-start rounded-3 d-flex align-items-center">
+                                    <div class="bg-white rounded-circle p-2 me-3 shadow-sm text-center"
+                                        style="width: 40px; height: 40px;"><i class="fas fa-plus"></i></div>
+                                    Add New Product
+                                </a>
+                                <a href="stock_requests.html"
+                                    class="btn btn-success-custom p-3 border-0 bg-success-subtle text-success fw-bold text-start rounded-3 d-flex align-items-center">
+                                    <div class="bg-white rounded-circle p-2 me-3 shadow-sm text-center"
+                                        style="width: 40px; height: 40px;"><i class="fas fa-truck-loading"></i></div>
+                                    Create Stock Request
+                                </a>
+                                <a href="orders.html"
+                                    class="btn btn-dark-custom p-3 border-0 bg-secondary-subtle text-dark fw-bold text-start rounded-3 d-flex align-items-center">
+                                    <div class="bg-white rounded-circle p-2 me-3 shadow-sm text-center"
+                                        style="width: 40px; height: 40px;"><i class="fas fa-clipboard-list"></i></div>
+                                    Manage Orders
+                                </a>
+                                <a href="users.html"
+                                    class="btn btn-info-custom p-3 border-0 bg-info-subtle text-info fw-bold text-start rounded-3 d-flex align-items-center">
+                                    <div class="bg-white rounded-circle p-2 me-3 shadow-sm text-center"
+                                        style="width: 40px; height: 40px;"><i class="fas fa-user-plus"></i></div>
+                                    Register New Staff
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Recent Orders (Only show if not branch view or if branch view but simplified, kept same for now) -->
+            <div class="row mt-4">
+                <div class="col-12">
+                    <div class="table-card border-0 shadow-sm rounded-4">
+                        <div class="table-header p-4 border-bottom bg-white rounded-top-4">
+                            <div class="d-flex justify-content-between align-items-center">
+                                <div>
+                                    <h5 class="mb-0 fw-bold">Recent Orders</h5>
+                                    <small class="text-muted">Latest transactions from your store</small>
+                                </div>
+                                <a href="orders.html" class="btn btn-sm btn-light border text-primary fw-bold">View All
+                                    Orders</a>
+                            </div>
+                        </div>
+                        <div class="table-responsive">
+                            <table class="table table-hover align-middle mb-0">
+                                <thead class="bg-light">
+                                    <tr>
+                                        <th class="ps-4 text-uppercase small text-muted fw-bold border-0 py-3">Order ID
+                                        </th>
+                                        <th class="text-uppercase small text-muted fw-bold border-0 py-3">Customer</th>
+                                        <th class="text-uppercase small text-muted fw-bold border-0 py-3">Date</th>
+                                        <th class="text-uppercase small text-muted fw-bold border-0 py-3">Amount</th>
+                                        <th class="text-uppercase small text-muted fw-bold border-0 py-3">Status</th>
+                                        <th class="text-end pe-4 text-uppercase small text-muted fw-bold border-0 py-3">
+                                            Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="recentOrdersList">
+                                    <tr>
+                                        <td colspan="6" class="text-center py-5">
+                                            <div class="spinner-border text-primary" role="status"></div>
+                                            <p class="text-muted mt-2 small">Loading orders...</p>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- Firebase & Logic -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script type="module" src="assets/js/admin-utils.js"></script>
+    <script type="module">
+        import { db, ref, onValue, get, limitToLast, query } from '../assets/js/firebase-config.js';
+
+        // 1. Get Branch ID from URL
+        const urlParams = new URLSearchParams(window.location.search);
+        const branchId = urlParams.get('branch');
+
+        document.getElementById('currentDate').textContent = new Date().toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
+
+        // Users Map for customer name lookup
+        let usersMap = {};
+
+        // Chart Initialization
+        let salesChartInstance = null;
+        function initChart() {
+            const canvas = document.getElementById('salesChart');
+            if (canvas && typeof Chart !== 'undefined') {
+                const ctx = canvas.getContext('2d');
+                salesChartInstance = new Chart(ctx, {
+                    type: 'line',
+                    data: {
+                        labels: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
+                        datasets: [{
+                            label: 'Revenue (₹)',
+                            data: [0, 0, 0, 0, 0, 0, 0],
+                            borderColor: '#2A6B42',
+                            backgroundColor: 'rgba(42, 107, 66, 0.1)',
+                            borderWidth: 2,
+                            tension: 0.4,
+                            fill: true,
+                            pointBackgroundColor: '#ffffff',
+                            pointBorderColor: '#2A6B42',
+                            pointRadius: 4
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        plugins: { legend: { display: false } },
+                        scales: {
+                            y: {
+                                beginAtZero: true,
+                                grid: { borderDash: [5, 5] },
+                                ticks: { callback: function (value) { return '₹' + value; } }
+                            },
+                            x: { grid: { display: false } }
+                        }
+                    }
+                });
+            } else {
+                console.error("Chart.js not loaded or canvas missing");
+            }
+        }
+
+        // Initialize chart immediately
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', initChart);
+        } else {
+            initChart();
+        }
+
+        // 2. Fetch Store Details (if branch selected)
+        if (branchId) {
+            const storeRef = ref(db, `stores/${branchId}`);
+            onValue(storeRef, (snapshot) => {
+                const store = snapshot.val();
+                if (store) {
+                    const dashTitle = document.getElementById('dashTitle');
+                    if (dashTitle) dashTitle.innerHTML = `Dashboard: <span class="text-primary">${store.name}</span>`;
+
+                    const dashSubtitle = document.getElementById('dashSubtitle');
+                    if (dashSubtitle) dashSubtitle.textContent = "Viewing statistics for this specific branch.";
+
+                    const backBtn = document.getElementById('backToStoresBtn');
+                    if (backBtn) backBtn.classList.remove('d-none');
+                }
+            });
+        }
+
+        // Helper: get order total (handles both formats)
+        function getOrderTotal(o) {
+            return Number(o.totalAmount || o.total_amount || o.total || 0);
+        }
+
+        // Helper: get order date (handles both formats)
+        function getOrderDate(o) {
+            return o.createdAt || o.order_date || null;
+        }
+
+        // Helper: get customer name from order
+        function getCustomerName(o) {
+            const uid = o.userId || o.user_id;
+            if (uid && usersMap[uid]) {
+                return usersMap[uid].fullname || usersMap[uid].name || usersMap[uid].displayName || 'Unknown';
+            }
+            if (o.shippingAddress && o.shippingAddress.fullname) {
+                return o.shippingAddress.fullname;
+            }
+            return o.customerName || 'Guest';
+        }
+
+        // Helper: capitalize status
+        function capitalize(str) {
+            if (!str) return '';
+            return str.charAt(0).toUpperCase() + str.slice(1).toLowerCase();
+        }
+
+        // 2b. Fetch Users for customer name lookup
+        const usersRef = ref(db, 'users');
+        onValue(usersRef, (snapshot) => {
+            const data = snapshot.val();
+            usersMap = {};
+            if (data) {
+                Object.keys(data).forEach(key => {
+                    usersMap[key] = data[key];
+                });
+            }
+        });
+
+        // 3. Fetch Orders & Calculate Stats
+        const ordersRef = query(ref(db, 'orders'), limitToLast(100));
+
+        onValue(ordersRef, (snapshot) => {
+            try {
+                const data = snapshot.val();
+                let orders = [];
+                if (data) {
+                    Object.keys(data).forEach(key => {
+                        if (data[key]) orders.push({ id: key, ...data[key] });
+                    });
+                } else {
+                    console.log("No orders data found in Firebase.");
+                }
+
+                // FILTER: If branchId exists, filter orders by branchId
+                if (branchId) {
+                    orders = orders.filter(o => o.branchId === branchId || o.branch_id === branchId);
+                }
+
+                // Sort by Date (Newest First)
+                orders.sort((a, b) => new Date(getOrderDate(b) || 0) - new Date(getOrderDate(a) || 0));
+
+                // Update Stats
+                const totalOrders = orders.length;
+                const totalRevenue = orders.reduce((sum, o) => sum + getOrderTotal(o), 0);
+
+                const elTotalOrders = document.getElementById('totalOrders');
+                if (elTotalOrders) elTotalOrders.textContent = totalOrders.toLocaleString();
+
+                const elTotalRevenue = document.getElementById('totalRevenue');
+                if (elTotalRevenue) elTotalRevenue.textContent = `₹${(totalRevenue / 100000).toFixed(2)}L`;
+
+                // Update Recent Orders Table
+                const recentOrders = orders.slice(0, 5);
+                const tbody = document.getElementById('recentOrdersList');
+
+                if (tbody) {
+                    if (recentOrders.length === 0) {
+                        tbody.innerHTML = '<tr><td colspan="6" class="text-center py-4 text-muted">No recent orders found.</td></tr>';
+                    } else {
+                        tbody.innerHTML = recentOrders.map(o => {
+                            const safeId = String(o.id || 'Unknown').slice(-6).toUpperCase();
+                            // Safely parse date
+                            let dateDisplay = 'N/A';
+                            try {
+                                const orderDateStr = getOrderDate(o);
+                                const dateObj = orderDateStr ? new Date(orderDateStr) : new Date();
+                                if (!isNaN(dateObj)) {
+                                    dateDisplay = dateObj.toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
+                                }
+                            } catch (e) { }
+
+                            const displayStatus = capitalize(o.status || 'Pending');
+                            const statusColors = {
+                                'Pending': 'warning', 'Processing': 'info', 'Shipped': 'primary',
+                                'Delivered': 'success', 'Completed': 'success', 'Cancelled': 'danger'
+                            };
+                            const badgeColor = statusColors[displayStatus] || 'secondary';
+                            const orderTotal = getOrderTotal(o);
+                            const amount = orderTotal > 0 ? orderTotal.toLocaleString() : '0';
+                            const custName = getCustomerName(o);
+
+                            return `
+                            <tr>
+                                <td class="ps-4 fw-bold text-primary">#${safeId}</td>
+                                <td><span class="fw-medium">${custName}</span></td>
+                                <td class="text-muted small">${dateDisplay}</td>
+                                <td class="fw-bold">₹${amount}</td>
+                                <td><span class="badge bg-${badgeColor}-subtle text-${badgeColor} border border-${badgeColor}-subtle px-2 py-1 rounded-2">${displayStatus}</span></td>
+                                <td class="text-end pe-4">
+                                    <a href="order_details.html?id=${o.id}" class="btn btn-sm btn-light text-primary hover-lift"><i class="fas fa-eye"></i> View</a>
+                                </td>
+                            </tr>
+                            `;
+                        }).join('');
+                    }
+                }
+
+                // Update Chart Data
+                if (salesChartInstance) {
+                    const mockData = [0, 0, 0, 0, 0, 0, 0].map((_, i) => (i + 1) * 1000 + Math.floor(Math.random() * 500));
+                    salesChartInstance.data.datasets[0].data = mockData;
+                    salesChartInstance.update();
+                }
+
+            } catch (error) {
+                console.error("Error processing orders:", error);
+                const tbody = document.getElementById('recentOrdersList');
+                if (tbody) tbody.innerHTML = '<tr><td colspan="6" class="text-center py-4 text-danger">Error loading data. Check console.</td></tr>';
+            }
+        });
+
+        // 4. Fetch Products & Low Stock
+        const productsRef = ref(db, 'products');
+        onValue(productsRef, (snapshot) => {
+            const data = snapshot.val();
+            let totalProducts = 0;
+            let lowStockCount = 0;
+
+            if (data) {
+                totalProducts = Object.keys(data).length;
+                Object.values(data).forEach(p => {
+                    let stock = 0;
+                    if (branchId) {
+                        if (p.branch_stock && p.branch_stock[branchId]) {
+                            stock = parseInt(p.branch_stock[branchId]);
+                        }
+                    } else {
+                        stock = parseInt(p.total_stock || p.stock || 0);
+                    }
+                    if (stock < 10) lowStockCount++;
+                });
+            }
+
+            const elTotalProducts = document.getElementById('totalProducts');
+            if (elTotalProducts) elTotalProducts.textContent = totalProducts;
+
+            const elLowStock = document.getElementById('lowStock');
+            if (elLowStock) elLowStock.textContent = lowStockCount;
+        });
+
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+
+</html>

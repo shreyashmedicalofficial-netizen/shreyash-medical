@@ -1,0 +1,573 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Order Details - Shreyash Admin</title>
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- FontAwesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="assets/css/admin.css">
+</head>
+
+<body>
+
+    <!-- Mobile Overlay -->
+    <div class="sidebar-overlay" id="sidebarOverlay" onclick="toggleSidebar()"></div>
+
+    <!-- Sidebar -->
+    <aside class="sidebar" id="adminSidebar">
+        <div class="sidebar-header">
+            <a href="index.html" class="sidebar-brand">
+                <i class="fas fa-heartbeat text-warning"></i>
+                <span>Shreyash Admin</span>
+            </a>
+        </div>
+
+        <div class="sidebar-nav">
+            <div class="nav-category">Main</div>
+            <a href="index.html" class="nav-link">
+                <i class="fas fa-tachometer-alt"></i> Dashboard
+            </a>
+
+            <div class="nav-category">Management</div>
+            <a href="inventory.html" class="nav-link">
+                <i class="fas fa-boxes"></i> Inventory
+            </a>
+            <a href="users.html" class="nav-link">
+                <i class="fas fa-users"></i> Users
+            </a>
+            <a href="stock_requests.html" class="nav-link">
+                <i class="fas fa-truck-loading"></i> Stock Requests
+            </a>
+            <a href="orders.html" class="nav-link active">
+                <i class="fas fa-shopping-bag"></i> Orders
+            </a>
+            <a href="blogs.html" class="nav-link">
+                <i class="fas fa-blog"></i> Blogs
+            </a>
+
+            <div class="nav-category">Analytics</div>
+            <a href="reports.html" class="nav-link">
+                <i class="fas fa-chart-bar"></i> Reports
+            </a>
+
+            <!-- Super Admin Only -->
+            <div class="nav-category admin-only">Super Admin</div>
+            <a href="stores.html" class="nav-link admin-only">
+                <i class="fas fa-store"></i> Manage Stores
+            </a>
+        </div>
+
+        <div class="sidebar-footer">
+            <div class="user-profile">
+                <div class="user-avatar text-white">A</div>
+                <div class="user-info text-white">
+                    <div class="fw-bold" style="font-size: 0.9rem;">Admin</div>
+                    <small class="text-white-50" style="font-size: 0.75rem;">Loading...</small>
+                </div>
+            </div>
+            <a href="#" class="d-block mt-3 text-white-50 text-decoration-none hover-white" id="logoutBtn">
+                <i class="fas fa-sign-out-alt me-2"></i> Logout
+            </a>
+        </div>
+    </aside>
+
+    <div class="main-content">
+        <!-- Topbar -->
+        <header class="topbar">
+            <button class="btn btn-link text-dark d-lg-none" onclick="toggleSidebar()">
+                <i class="fas fa-bars"></i>
+            </button>
+
+            <div class="d-flex align-items-center gap-3">
+                <a href="orders.html" class="btn btn-light btn-sm rounded-circle shadow-sm"><i
+                        class="fas fa-arrow-left"></i></a>
+                <h5 class="page-title mb-0">Order Details</h5>
+            </div>
+
+            <div class="d-flex align-items-center gap-3">
+                <div class="dropdown">
+                    <a href="#" class="d-flex align-items-center text-decoration-none dropdown-toggle"
+                        data-bs-toggle="dropdown">
+                        <div class="user-avatar"
+                            style="width: 35px; height: 35px; background: #e9ecef; color: var(--admin-primary);">A</div>
+                    </a>
+                    <ul class="dropdown-menu dropdown-menu-end shadow-sm border-0 mt-2">
+                        <li><a class="dropdown-item text-danger" href="#" onclick="handleLogout()"><i
+                                    class="fas fa-sign-out-alt me-2"></i> Logout</a></li>
+                    </ul>
+                </div>
+            </div>
+        </header>
+
+        <div class="container-fluid p-4">
+
+            <!-- Loading State -->
+            <div id="loadingState" class="text-center py-5">
+                <div class="spinner-border text-primary" role="status"></div>
+                <p class="text-muted mt-2">Loading order details...</p>
+            </div>
+
+            <!-- Content (Hidden initially) -->
+            <div id="orderContent" class="d-none">
+                <!-- Header Card -->
+                <div class="card border-0 shadow-sm rounded-4 mb-4">
+                    <div class="card-body p-4">
+                        <div
+                            class="d-flex justify-content-between align-items-start align-items-md-center flex-column flex-md-row gap-3">
+                            <div>
+                                <h4 class="fw-bold mb-1" id="displayOrderId">#ORDER-ID</h4>
+                                <div class="d-flex align-items-center gap-3 text-muted small">
+                                    <span id="displayDate"><i class="far fa-calendar me-1"></i> -</span>
+                                    <span id="displayBranch"><i class="fas fa-store me-1"></i> -</span>
+                                </div>
+                            </div>
+                            <div class="d-flex align-items-center gap-3">
+                                <span class="badge bg-secondary p-2 px-3 rounded-pill"
+                                    id="displayStatusBadge">Loading...</span>
+                                <div class="dropdown">
+                                    <button class="btn btn-primary-custom dropdown-toggle" type="button"
+                                        data-bs-toggle="dropdown">
+                                        Update Status
+                                    </button>
+                                    <ul class="dropdown-menu dropdown-menu-end shadow-lg border-0">
+                                        <li><a class="dropdown-item" href="#"
+                                                onclick="updateOrderStatus('Processing')">Mark Processing</a></li>
+                                        <li><a class="dropdown-item" href="#"
+                                                onclick="updateOrderStatus('Shipped')">Mark Shipped</a></li>
+                                        <li><a class="dropdown-item" href="#"
+                                                onclick="updateOrderStatus('Delivered')">Mark Delivered</a></li>
+                                        <li><a class="dropdown-item" href="#"
+                                                onclick="updateOrderStatus('Completed')">Mark Completed</a></li>
+                                        <li>
+                                            <hr class="dropdown-divider">
+                                        </li>
+                                        <li><a class="dropdown-item text-danger" href="#"
+                                                onclick="updateOrderStatus('Cancelled')">Cancel Order</a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row g-4">
+                    <!-- Left Column: Order Items -->
+                    <div class="col-lg-8">
+                        <div class="card border-0 shadow-sm rounded-4 h-100">
+                            <div class="card-header bg-white border-0 pt-4 px-4 pb-0">
+                                <h6 class="fw-bold text-uppercase small text-muted mb-0">Order Items</h6>
+                            </div>
+                            <div class="card-body p-4">
+                                <div class="table-responsive">
+                                    <table class="table align-middle">
+                                        <thead class="bg-light">
+                                            <tr>
+                                                <th class="ps-3 py-3 border-bottom-0" style="width: 50%;">Product</th>
+                                                <th class="text-center py-3 border-bottom-0">Price</th>
+                                                <th class="text-center py-3 border-bottom-0">Quantity</th>
+                                                <th class="text-end pe-3 py-3 border-bottom-0">Total</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody id="orderItemsParams">
+                                            <!-- Items rendered here -->
+                                        </tbody>
+                                        <tfoot class="border-top">
+                                            <tr>
+                                                <td colspan="3" class="text-end pt-4 pb-1">Subtotal</td>
+                                                <td class="text-end pe-3 pt-4 pb-1 fw-medium" id="subtotalDisplay">₹0.00
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td colspan="3" class="text-end pb-1 text-muted">Shipping</td>
+                                                <td class="text-end pe-3 pb-1 text-success">Free</td>
+                                            </tr>
+                                            <tr>
+                                                <td colspan="3" class="text-end pt-2 fw-bold h5">Total</td>
+                                                <td class="text-end pe-3 pt-2 fw-bold h5 text-primary"
+                                                    id="totalDisplay">₹0.00</td>
+                                            </tr>
+                                        </tfoot>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Right Column: Customer & Info -->
+                    <div class="col-lg-4">
+                        <!-- Customer Details -->
+                        <div class="card border-0 shadow-sm rounded-4 mb-4">
+                            <div class="card-header bg-white border-0 pt-4 px-4 pb-0">
+                                <h6 class="fw-bold text-uppercase small text-muted mb-0">Customer Details</h6>
+                            </div>
+                            <div class="card-body p-4">
+                                <div class="d-flex align-items-center mb-4">
+                                    <div class="avatar-md bg-primary-subtle text-primary rounded-circle me-3 d-flex align-items-center justify-content-center fw-bold fs-4"
+                                        id="customerAvatar">C</div>
+                                    <div>
+                                        <h6 class="fw-bold mb-0 text-dark" id="customerName">Unknown Customer</h6>
+                                        <div class="small text-muted" id="customerId">ID: #--</div>
+                                    </div>
+                                </div>
+
+                                <div class="mb-3">
+                                    <small class="text-uppercase text-muted fw-bold" style="font-size: 0.7rem;">Email
+                                        Address</small>
+                                    <div class="text-dark fw-medium" id="customerEmail">-</div>
+                                </div>
+
+                                <div class="mb-3">
+                                    <small class="text-uppercase text-muted fw-bold" style="font-size: 0.7rem;">Phone
+                                        Number</small>
+                                    <div class="text-dark fw-medium" id="customerPhone">-</div>
+                                </div>
+
+                                <div>
+                                    <small class="text-uppercase text-muted fw-bold" style="font-size: 0.7rem;">Shipping
+                                        Address</small>
+                                    <div class="text-dark fw-medium" id="customerAddress">-</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Order Status / Info -->
+                        <div class="card border-0 shadow-sm rounded-4">
+                            <div class="card-header bg-white border-0 pt-4 px-4 pb-0">
+                                <h6 class="fw-bold text-uppercase small text-muted mb-0">Order Status</h6>
+                            </div>
+                            <div class="card-body p-4">
+                                <div class="d-flex align-items-center justify-content-between mb-2">
+                                    <span class="text-muted">Current Status</span>
+                                    <span class="fw-bold text-dark" id="currentStatusText">Pending</span>
+                                </div>
+                                <div class="progress mb-3" style="height: 6px;" id="progressBarContainer">
+                                    <div class="progress-bar bg-primary" id="progressBar" role="progressbar"
+                                        style="width: 0%"></div>
+                                </div>
+                                <small class="text-muted d-block text-center" id="statusDescription">Order is being
+                                    processed</small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script type="module">
+        import { db, ref, onValue, update, get } from '/medico-saas/assets/js/firebase-config.js';
+        import { checkAuth } from './assets/js/admin-utils.js';
+
+        checkAuth();
+
+        // Get ID from URL
+        const urlParams = new URLSearchParams(window.location.search);
+        const orderId = urlParams.get('id');
+
+        if (!orderId) {
+            alert('No Order ID provided');
+            window.location.href = 'orders.html';
+        }
+
+        let storesMap = {};
+        let branchesMap = {};
+        let usersMap = {};           // keyed by Firebase Auth UID (push-key)
+        let usersByNumericId = {};    // keyed by numeric id for old orders
+        let productsMap = {};        // keyed by product id (string)
+        let dataLoaded = { stores: false, branches: false, users: false, products: false };
+
+        function checkAllLoadedThenFetch() {
+            if (dataLoaded.stores && dataLoaded.branches && dataLoaded.users && dataLoaded.products) {
+                fetchOrder();
+            }
+        }
+
+        // Fetch Stores
+        onValue(ref(db, 'stores'), (snapshot) => {
+            const data = snapshot.val();
+            if (data) {
+                Object.keys(data).forEach(key => {
+                    storesMap[key] = data[key].name;
+                });
+            }
+            dataLoaded.stores = true;
+            checkAllLoadedThenFetch();
+        });
+
+        // Fetch Branches (for old orders with numeric branch_id)
+        onValue(ref(db, 'branches'), (snapshot) => {
+            const data = snapshot.val();
+            if (data) {
+                if (Array.isArray(data)) {
+                    data.forEach((branch, idx) => {
+                        if (branch && branch.name) branchesMap[idx] = branch.name;
+                    });
+                } else {
+                    Object.keys(data).forEach(key => {
+                        if (data[key] && data[key].name) branchesMap[key] = data[key].name;
+                    });
+                }
+            }
+            dataLoaded.branches = true;
+            checkAllLoadedThenFetch();
+        });
+
+        // Fetch Users — build lookup by both UID key AND numeric id field
+        onValue(ref(db, 'users'), (snapshot) => {
+            const data = snapshot.val();
+            usersMap = {};
+            usersByNumericId = {};
+            if (data) {
+                Object.keys(data).forEach(key => {
+                    const user = data[key];
+                    usersMap[key] = user;
+                    // Also index by numeric id if present (for old orders)
+                    if (user.id !== undefined && user.id !== null) {
+                        usersByNumericId[String(user.id)] = user;
+                    }
+                });
+            }
+            dataLoaded.users = true;
+            checkAllLoadedThenFetch();
+        });
+
+        // Fetch Products — build lookup by product id (handles both array and object)
+        onValue(ref(db, 'products'), (snapshot) => {
+            const data = snapshot.val();
+            productsMap = {};
+            if (data) {
+                if (Array.isArray(data)) {
+                    data.forEach((prod, idx) => {
+                        if (prod) productsMap[String(idx)] = prod;
+                    });
+                } else {
+                    Object.keys(data).forEach(key => {
+                        if (data[key]) productsMap[String(key)] = data[key];
+                    });
+                }
+            }
+            dataLoaded.products = true;
+            checkAllLoadedThenFetch();
+        });
+
+        // Helper: resolve customer data from uid
+        function resolveCustomer(uid) {
+            if (!uid) return null;
+            // Try Firebase Auth UID lookup first
+            if (usersMap[uid]) return usersMap[uid];
+            // Try numeric id lookup (for old orders)
+            if (usersByNumericId[String(uid)]) return usersByNumericId[String(uid)];
+            return null;
+        }
+
+        function fetchOrder() {
+            const orderRef = ref(db, `orders/${orderId}`);
+            onValue(orderRef, (snapshot) => {
+                const order = snapshot.val();
+                if (!order) {
+                    document.getElementById('loadingState').innerHTML = '<p class="text-danger">Order not found.</p>';
+                    return;
+                }
+
+                // Resolve customer
+                const uid = order.userId || order.user_id;
+                const customerData = resolveCustomer(uid);
+
+                // Resolve product names for items that only have product_id
+                let items = order.items || [];
+                // Convert object to array if needed
+                if (items && !Array.isArray(items)) {
+                    items = Object.values(items);
+                }
+
+                const resolvedItems = [];
+                for (let item of items) {
+                    if (item && !item.name && item.product_id !== undefined) {
+                        const prod = productsMap[String(item.product_id)];
+                        if (prod) {
+                            item.name = prod.name || `Product #${item.product_id}`;
+                            item.sku = prod.sku || item.sku;
+                            if (!item.image && prod.image) item.image = prod.image;
+                        } else {
+                            item.name = `Product #${item.product_id}`;
+                        }
+                    }
+                    if (item) resolvedItems.push(item);
+                }
+
+                renderOrder(order, customerData, resolvedItems);
+            });
+        }
+
+        function capitalize(str) {
+            if (!str) return '';
+            return str.charAt(0).toUpperCase() + str.slice(1).toLowerCase();
+        }
+
+        // Helper: get order date (handles both formats)
+        function getOrderDate(o) {
+            return o.createdAt || o.order_date || null;
+        }
+
+        // Helper: get order total (handles both formats)
+        function getOrderTotal(o) {
+            return Number(o.totalAmount || o.total_amount || 0);
+        }
+
+        // Helper: parse shipping address (handles both string and object)
+        function getShippingAddress(o) {
+            const addr = o.shippingAddress || o.shipping_address;
+            if (!addr) return 'N/A';
+            if (typeof addr === 'string') return addr;
+            // Object format from new checkout
+            const parts = [addr.address, addr.city, addr.zip].filter(Boolean);
+            return parts.join(', ') || 'N/A';
+        }
+
+        function renderOrder(order, customerData, items) {
+            document.getElementById('loadingState').classList.add('d-none');
+            document.getElementById('orderContent').classList.remove('d-none');
+
+            // Header Info
+            document.getElementById('displayOrderId').innerText = `#${String(order.id || orderId).slice(-6).toUpperCase()}`;
+            const orderDateStr = getOrderDate(order);
+            const dateObj = orderDateStr ? new Date(orderDateStr) : new Date();
+            document.getElementById('displayDate').innerHTML = `<i class="far fa-calendar me-1"></i> ${dateObj.toLocaleDateString()} ${dateObj.toLocaleTimeString()}`;
+
+            const bid = order.branchId || order.branch_id;
+            const branchName = storesMap[bid] || branchesMap[bid] || 'Shreyash Medical Main';
+            document.getElementById('displayBranch').innerHTML = `<i class="fas fa-store me-1"></i> ${branchName}`;
+
+            // Status Badge
+            const displayStatus = capitalize(order.status || 'Pending');
+            const statusColors = {
+                'Pending': 'warning',
+                'Processing': 'info',
+                'Shipped': 'primary',
+                'Delivered': 'success',
+                'Completed': 'success',
+                'Cancelled': 'danger'
+            };
+            const color = statusColors[displayStatus] || 'secondary';
+            const badge = document.getElementById('displayStatusBadge');
+            badge.className = `badge bg-${color}-subtle text-${color} p-2 px-3 rounded-pill border border-${color}-subtle`;
+            badge.innerText = displayStatus;
+
+            // Customer Details - from users node lookup, with shippingAddress fallback
+            const shippingAddr = order.shippingAddress;
+            const custName = customerData
+                ? (customerData.fullname || customerData.name || customerData.displayName || 'Unknown Customer')
+                : (shippingAddr && shippingAddr.fullname ? shippingAddr.fullname : 'Unknown Customer');
+            const custEmail = customerData ? (customerData.email || 'N/A') : 'N/A';
+            const custPhone = customerData ? (customerData.phone || 'N/A') : 'N/A';
+            const uid = order.userId || order.user_id || 'Guest';
+
+            // Also check shippingAddress for phone (new checkout format)
+            const displayPhone = custPhone !== 'N/A' ? custPhone : (shippingAddr && shippingAddr.phone ? shippingAddr.phone : 'N/A');
+
+            document.getElementById('customerName').innerText = custName;
+            document.getElementById('customerAvatar').innerText = custName.charAt(0).toUpperCase();
+            document.getElementById('customerId').innerText = `Customer ID: #${String(uid).slice(0, 8)}`;
+            document.getElementById('customerEmail').innerText = custEmail;
+            document.getElementById('customerPhone').innerText = displayPhone;
+            document.getElementById('customerAddress').innerText = getShippingAddress(order);
+
+            // Items Render
+            const itemsList = document.getElementById('orderItemsParams');
+            let subtotal = 0;
+
+            if (items && items.length > 0) {
+                itemsList.innerHTML = items.map(item => {
+                    const qty = item.quantity || item.qty || 1;
+                    const price = Number(item.price || 0);
+                    const lineTotal = price * qty;
+                    subtotal += lineTotal;
+
+                    const imgSrc = item.image || null;
+                    const imgHtml = imgSrc
+                        ? `<img src="${imgSrc}" class="rounded" width="50" height="50" style="object-fit: cover;">`
+                        : `<i class="fas fa-box text-muted"></i>`;
+
+                    return `
+                    <tr>
+                        <td class="ps-3 py-3">
+                            <div class="d-flex align-items-center">
+                                <div class="rounded bg-light d-flex align-items-center justify-content-center me-3" style="width: 50px; height: 50px;">
+                                    ${imgHtml}
+                                </div>
+                                <div>
+                                    <div class="fw-bold text-dark">${item.name || 'Unknown Product'}</div>
+                                    <div class="small text-muted">SKU: ${item.sku || 'N/A'}</div>
+                                </div>
+                            </div>
+                        </td>
+                        <td class="text-center py-3">₹${price.toLocaleString()}</td>
+                        <td class="text-center py-3">${qty}</td>
+                        <td class="text-end pe-3 py-3 fw-bold">₹${lineTotal.toLocaleString()}</td>
+                    </tr>
+                `;
+                }).join('');
+            } else {
+                itemsList.innerHTML = '<tr><td colspan="4" class="text-center py-4 text-muted">No items found</td></tr>';
+            }
+
+            // Totals - use calculated subtotal or stored total
+            const orderTotal = getOrderTotal(order);
+            const displaySubtotal = subtotal > 0 ? subtotal : orderTotal;
+            document.getElementById('subtotalDisplay').innerText = `₹${displaySubtotal.toLocaleString()}`;
+            document.getElementById('totalDisplay').innerText = `₹${(orderTotal > 0 ? orderTotal : displaySubtotal).toLocaleString()}`;
+
+            // Update Progress Bar
+            updateProgressBar(displayStatus);
+        }
+
+        function updateProgressBar(status) {
+            const bar = document.getElementById('progressBar');
+            const container = document.getElementById('progressBarContainer');
+            const label = document.getElementById('currentStatusText');
+            label.innerText = status;
+
+            let width = '0%';
+            let color = 'bg-primary';
+
+            switch (status) {
+                case 'Pending': width = '10%'; color = 'bg-warning'; break;
+                case 'Processing': width = '40%'; color = 'bg-info'; break;
+                case 'Shipped': width = '70%'; color = 'bg-primary'; break;
+                case 'Delivered': width = '100%'; color = 'bg-success'; break;
+                case 'Completed': width = '100%'; color = 'bg-success'; break;
+                case 'Cancelled': width = '100%'; color = 'bg-danger'; break;
+                default: width = '0%';
+            }
+
+            bar.style.width = width;
+            bar.className = `progress-bar ${color}`;
+        }
+
+        window.updateOrderStatus = async function (newStatus) {
+            if (!confirm(`Mark order as ${newStatus}?`)) return;
+
+            try {
+                await update(ref(db, `orders/${orderId}`), {
+                    status: newStatus,
+                    updatedAt: new Date().toISOString()
+                });
+                // Alert optional
+            } catch (e) {
+                console.error(e);
+                alert('Error updating status');
+            }
+        }
+
+    </script>
+</body>
+
+</html>

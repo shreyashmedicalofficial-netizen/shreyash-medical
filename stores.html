@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Our Stores - Shreyash Pharmacy</title>
+    <!-- Google Fonts -->
+    <link
+        href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Inter:wght@300;400;500;600&display=swap"
+        rel="stylesheet">
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- FontAwesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="assets/css/style.css">
+</head>
+
+<body class="d-flex flex-column min-vh-100">
+
+    <!-- Header Container -->
+    <div id="header-container"></div>
+
+    <div class="bg-light py-5">
+        <div class="container text-center">
+            <span class="badge bg-secondary-custom text-dark mb-2">LOCATE US</span>
+            <h1 class="fw-bold display-5 mb-3">Find a Store Near You</h1>
+            <p class="lead text-muted mx-auto" style="max-width: 600px;">Visit one of our branches for expert
+                consultation, genuine medicines, and health products. We are always nearby.</p>
+        </div>
+    </div>
+
+    <div class="container py-5">
+        <div class="row g-4">
+            <!-- Static Store Item 1 -->
+            <div class="col-md-6 col-lg-4">
+                <div class="card h-100 border-0 shadow-sm hover-lift"
+                    style="transition: all 0.3s ease; border-radius: 12px; overflow: hidden;">
+                    <div class="card-body p-4">
+                        <div class="d-flex align-items-center mb-4">
+                            <div class="bg-primary-custom text-white rounded-circle d-flex align-items-center justify-content-center flex-shrink-0"
+                                style="width: 50px; height: 50px;">
+                                <i class="fas fa-store fa-lg"></i>
+                            </div>
+                            <div class="ms-3">
+                                <h5 class="card-title fw-bold mb-0 text-dark">Kolhapur Main Branch</h5>
+                                <small class="text-success"><i class="fas fa-circle fa-xs me-1"></i> Open Now</small>
+                            </div>
+                        </div>
+
+                        <div class="mb-4">
+                            <div class="d-flex mb-3">
+                                <div class="text-primary-custom mt-1 me-3" style="width: 20px;"><i
+                                        class="fas fa-map-marker-alt"></i></div>
+                                <span class="text-muted small">UNIVERSITY ROAD, Hanuman Nagar,<br>Ujalaiwadi,
+                                    Kolhapur,<br>Maharashtra - 416004</span>
+                            </div>
+                            <div class="d-flex mb-3">
+                                <div class="text-primary-custom mt-1 me-3" style="width: 20px;"><i
+                                        class="fas fa-phone-alt"></i></div>
+                                <span class="text-muted small">+91 73850 57922</span>
+                            </div>
+                            <div class="d-flex">
+                                <div class="text-primary-custom mt-1 me-3" style="width: 20px;"><i
+                                        class="fas fa-envelope"></i></div>
+                                <span class="text-muted small">kolhapur@shreyashpharmacy.com</span>
+                            </div>
+                        </div>
+
+                        <div class="d-grid gap-2">
+                            <a href="tel:+917385057922" class="btn btn-outline-success fw-bold rounded-pill">
+                                <i class="fas fa-phone me-2"></i> Call Store
+                            </a>
+                            <a href="https://maps.google.com/?q=16.7050,74.2433" target="_blank"
+                                class="btn btn-primary-custom rounded-pill">
+                                <i class="fas fa-directions me-2"></i> Get Directions
+                            </a>
+                        </div>
+                    </div>
+                    <div class="card-footer bg-white border-top border-light p-3 text-center">
+                        <small class="text-muted"><i class="far fa-clock me-1"></i> 09:00 AM - 10:00 PM</small>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Map Section (Placeholder) -->
+    <section class="py-5 bg-white border-top">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-md-4 mb-4 mb-md-0">
+                    <h3 class="fw-bold mb-3">Can't find what you're looking for?</h3>
+                    <p class="text-muted mb-4">Our support team is available 24/7 to help you locate the nearest store
+                        or arrange a home delivery.</p>
+                    <a href="#" class="btn btn-dark btn-lg px-4">Contact Support</a>
+                </div>
+                <div class="col-md-8">
+                    <div class="rounded-4 overflow-hidden shadow-sm"
+                        style="height: 300px; background: #f8f9fa; display: flex; align-items:center; justify-content:center; border: 2px dashed #dee2e6;">
+                        <div class="text-center text-muted">
+                            <i class="fas fa-map-marked-alt fa-3x mb-3 text-secondary-custom"></i>
+                            <h5>Interactive Map Integration</h5>
+                            <p class="small">Google Maps API would render here</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer Container -->
+    <div id="footer-container"></div>
+
+    <!-- Bootstrap Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Main App JS -->
+    <script type="module" src="assets/js/app.js"></script>
+
+</body>
+
+</html>

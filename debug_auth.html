@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Auth Debugger - Shreyash Pharmacy</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            padding: 2rem;
+            background-color: #f0f2f5;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        .card {
+            border-radius: 15px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            border: none;
+        }
+
+        .log-box {
+            background: #1e1e1e;
+            color: #0f0;
+            padding: 15px;
+            border-radius: 8px;
+            font-family: monospace;
+            height: 150px;
+            overflow-y: auto;
+            font-size: 0.9rem;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container" style="max-width: 600px;">
+        <div class="card p-4">
+            <h3 class="fw-bold mb-3 text-center text-primary">Auth Debugger</h3>
+            <p class="text-center text-muted mb-4">Verify user existence in Firebase Realtime Database.</p>
+
+            <div class="mb-3">
+                <input type="email" id="email" class="form-control form-control-lg"
+                    placeholder="Enter Registration Email">
+            </div>
+
+            <button id="checkUserBtn" class="btn btn-primary w-100 btn-lg mb-3">Check Registration Status</button>
+            <button id="sendTestEmailBtn" class="btn btn-outline-success w-100 btn-lg mb-3">Send Test Email (Node
+                Server)</button>
+
+            <div id="resultArea" class="log-box d-none"></div>
+        </div>
+
+        <div class="text-center mt-4">
+            <p class="text-muted small"><strong>Requirement:</strong> You must have the local server running.<br>Run
+                <code>node server.js</code> in your terminal and keep it open.</p>
+        </div>
+    </div>
+
+    <!-- Load EmailJS SDK -->
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+
+    <script type="module">
+        import { app } from './assets/js/firebase-config.js';
+        import { getDatabase, ref, get } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-database.js";
+        import emailJsConfig from './assets/js/emailjs-config.js';
+        import { sendWelcomeEmail } from './assets/js/auth-utils.js';
+
+        const checkBtn = document.getElementById('checkUserBtn');
+        const sendEmailBtn = document.getElementById('sendTestEmailBtn');
+        const emailInput = document.getElementById('email');
+        const resultArea = document.getElementById('resultArea');
+
+        // Initialize EmailJS
+        if (emailJsConfig.publicKey !== "YOUR_PUBLIC_KEY") {
+            emailjs.init(emailJsConfig.publicKey);
+        }
+
+        sendEmailBtn.addEventListener('click', async () => {
+            const email = emailInput.value.trim();
+            if (!email) return alert('Enter an email address first');
+
+            sendEmailBtn.disabled = true;
+            sendEmailBtn.innerText = "Sending via Local Server...";
+
+            try {
+                // Call our local Node.js server
+                const response = await fetch('http://localhost:3000/send-email', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ email: email })
+                });
+
+                const result = await response.json();
+
+                if (result.success) {
+                    alert(`✅ ${result.message}`);
+                } else {
+                    alert(`❌ ${result.message}`);
+                    // If connection refused, likely server is not running
+                    if (result.message.includes("Failed to fetch")) {
+                        alert("Is the server running? Run 'node server.js' in your terminal.");
+                    }
+                }
+            } catch (error) {
+                console.error(error);
+                alert("❌ Connection Error: Is 'node server.js' running?");
+            } finally {
+                sendEmailBtn.disabled = false;
+                sendEmailBtn.innerText = "Send Test Email (Server)";
+            }
+        });
+
+        checkBtn.addEventListener('click', async () => {
+            const email = emailInput.value.trim();
+            if (!email) return alert('Enter an email');
+
+            checkBtn.disabled = true;
+            checkBtn.innerText = "Checking...";
+            resultArea.classList.remove('d-none');
+            resultArea.innerText = "Searching Database...";
+
+            try {
+                const db = getDatabase(app);
+                const snapshot = await get(ref(db, 'users'));
+
+                let found = false;
+                let details = "";
+
+                if (snapshot.exists()) {
+                    snapshot.forEach(child => {
+                        const val = child.val();
+                        if (val.email && val.email.toLowerCase() === email.toLowerCase()) {
+                            found = true;
+                            details = `UID: ${child.key}\nName: ${val.fullname}\nRole: ${val.role}`;
+                        }
+                    });
+                }
+
+                if (found) {
+                    resultArea.style.color = "#0f0";
+                    resultArea.innerText = `✅ USER FOUND\n\n${details}`;
+                } else {
+                    resultArea.style.color = "#ff4444";
+                    resultArea.innerText = `❌ USER NOT FOUND\n\nNo record matches this email in Realtime Database.`;
+                }
+            } catch (e) {
+                resultArea.style.color = "yellow";
+                resultArea.innerText = "Error: " + e.message;
+            } finally {
+                checkBtn.disabled = false;
+                checkBtn.innerText = "Check Registration Status";
+            }
+        });
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stock Requests - Shreyash Admin</title>
+    <!-- Bootstrap 5 -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- FontAwesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="assets/css/admin.css">
+</head>
+
+<body>
+
+    <!-- Mobile Overlay -->
+    <div class="sidebar-overlay" id="sidebarOverlay" onclick="toggleSidebar()"></div>
+
+    <!-- Sidebar -->
+    <aside class="sidebar" id="adminSidebar">
+        <div class="sidebar-header">
+            <a href="index.html" class="sidebar-brand">
+                <i class="fas fa-heartbeat text-warning"></i>
+                <span>Shreyash Admin</span>
+            </a>
+        </div>
+
+        <div class="sidebar-nav">
+            <div class="nav-category">Main</div>
+            <a href="index.html" class="nav-link">
+                <i class="fas fa-tachometer-alt"></i> Dashboard
+            </a>
+
+            <div class="nav-category">Management</div>
+            <a href="inventory.html" class="nav-link">
+                <i class="fas fa-boxes"></i> Inventory
+            </a>
+            <a href="users.html" class="nav-link">
+                <i class="fas fa-users"></i> Users
+            </a>
+            <a href="stock_requests.html" class="nav-link active">
+                <i class="fas fa-truck-loading"></i> Stock Requests
+            </a>
+            <a href="orders.html" class="nav-link">
+                <i class="fas fa-shopping-bag"></i> Orders
+            </a>
+            <a href="blogs.html" class="nav-link">
+                <i class="fas fa-blog"></i> Blogs
+            </a>
+
+            <div class="nav-category">Analytics</div>
+            <a href="reports.html" class="nav-link">
+                <i class="fas fa-chart-bar"></i> Reports
+            </a>
+
+            <!-- Super Admin Only -->
+            <div class="nav-category admin-only">Super Admin</div>
+            <a href="stores.html" class="nav-link admin-only">
+                <i class="fas fa-store"></i> Manage Stores
+            </a>
+        </div>
+
+        <div class="sidebar-footer">
+            <div class="user-profile">
+                <div class="user-avatar text-white">A</div>
+                <div class="user-info text-white">
+                    <div class="fw-bold" style="font-size: 0.9rem;">Admin</div>
+                    <small class="text-white-50" style="font-size: 0.75rem;">Loading...</small>
+                </div>
+            </div>
+            <a href="#" class="d-block mt-3 text-white-50 text-decoration-none hover-white" id="logoutBtn">
+                <i class="fas fa-sign-out-alt me-2"></i> Logout
+            </a>
+        </div>
+    </aside>
+
+    <div class="main-content">
+        <!-- Topbar -->
+        <!-- Topbar -->
+        <header class="topbar">
+            <button class="btn btn-link text-dark d-lg-none" onclick="toggleSidebar()">
+                <i class="fas fa-bars"></i>
+            </button>
+
+            <div class="d-flex align-items-center">
+                <h5 class="page-title">Stock Requests</h5>
+            </div>
+
+            <div class="d-flex align-items-center gap-3">
+                <!-- Notifications -->
+                <div class="dropdown">
+                    <a href="#" class="text-dark position-relative" data-bs-toggle="dropdown">
+                        <i class="far fa-bell fa-lg text-secondary"></i>
+                        <span
+                            class="position-absolute top-0 start-100 translate-middle p-1 bg-danger border border-light rounded-circle notification-dot d-none">
+                            <span class="visually-hidden">New alerts</span>
+                        </span>
+                    </a>
+                    <ul class="dropdown-menu dropdown-menu-end shadow-sm border-0 mt-2" style="width: 320px;">
+                        <li>
+                            <h6
+                                class="dropdown-header text-uppercase small fw-bold d-flex justify-content-between align-items-center">
+                                Notifications</h6>
+                        </li>
+                        <li>
+                            <div class="dropdown-item small text-muted text-center py-3">No new notifications</div>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="dropdown">
+                    <a href="#" class="d-flex align-items-center text-decoration-none dropdown-toggle"
+                        data-bs-toggle="dropdown">
+                        <div class="user-avatar"
+                            style="width: 35px; height: 35px; background: #e9ecef; color: var(--admin-primary);">A</div>
+                    </a>
+                    <ul class="dropdown-menu dropdown-menu-end shadow-sm border-0 mt-2">
+                        <li><a class="dropdown-item" href="../index.html"><i
+                                    class="fas fa-external-link-alt me-2 text-muted"></i> Visit Website</a></li>
+                        <li><a class="dropdown-item" href="profile.html"><i
+                                    class="fas fa-user-circle me-2 text-muted"></i>
+                                Profile</a></li>
+                        <li>
+                            <hr class="dropdown-divider">
+                        </li>
+                        <li><a class="dropdown-item text-danger" href="#" onclick="handleLogout()"><i
+                                    class="fas fa-sign-out-alt me-2"></i> Logout</a></li>
+                    </ul>
+                </div>
+            </div>
+        </header>
+
+        <div class="container-fluid p-4">
+
+            <div class="d-flex justify-content-between align-items-center mb-4">
+                <h4 class="fw-bold fs-5">Incoming Requests</h4>
+                <button class="btn btn-success text-white shadow-sm hover-lift">
+                    <i class="fas fa-plus me-2"></i> New Request
+                </button>
+            </div>
+
+            <div class="table-card">
+                <div class="table-header">
+                    <div>
+                        <h5 class="mb-0 fw-bold">Request Queue</h5>
+                        <small class="text-muted">Approve or reject inventory needs</small>
+                    </div>
+                </div>
+                <div class="table-responsive">
+                    <table class="table table-hover align-middle mb-0">
+                        <thead class="bg-light">
+                            <tr>
+                                <th class="ps-4">Request ID</th>
+                                <th>Product Name</th>
+                                <th>Quantity</th>
+                                <th>Requested By</th>
+                                <th>Date</th>
+                                <th>Status</th>
+                                <th class="text-end pe-4">Action</th>
+                            </tr>
+                        </thead>
+                        <tbody id="stockRequestsList">
+                            <!-- Loader -->
+                            <tr>
+                                <td colspan="7" class="text-center py-5">
+                                    <div class="spinner-border text-primary" role="status"></div>
+                                    <p class="text-muted mt-2 small">Loading requests...</p>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script type="module" src="assets/js/admin-utils.js"></script>
+    <script type="module">
+        import { db, ref, onValue, update } from '../assets/js/firebase-config.js';
+
+        const requestsListEl = document.getElementById('stockRequestsList');
+        let allRequests = [];
+
+        // 1. Fetch Requests
+        const requestsRef = ref(db, 'stock_requests');
+        onValue(requestsRef, (snapshot) => {
+            const data = snapshot.val();
+            allRequests = [];
+            if (data) {
+                Object.keys(data).forEach(key => {
+                    allRequests.push({ id: key, ...data[key] });
+                });
+            }
+            // Sort by Date (Newest First)
+            allRequests.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
+
+            renderTable(allRequests);
+        });
+
+        // 2. Render Table
+        function renderTable(requests) {
+            if (requests.length === 0) {
+                requestsListEl.innerHTML = '<tr><td colspan="7" class="text-center py-5 text-muted">No stock requests found.</td></tr>';
+                return;
+            }
+
+            requestsListEl.innerHTML = requests.map(r => {
+                const statusColors = {
+                    'Pending': 'warning',
+                    'Approved': 'success',
+                    'Rejected': 'danger'
+                };
+                const statusColor = statusColors[r.status] || 'secondary';
+                const dateDisplay = r.createdAt ? new Date(r.createdAt).toLocaleDateString() : 'N/A';
+
+                let actionButtons = '';
+                if (r.status === 'Pending') {
+                    actionButtons = `
+                        <button class="btn btn-sm btn-success text-white me-1 shadow-sm" onclick="updateStatus('${r.id}', 'Approved')"><i class="fas fa-check"></i></button>
+                        <button class="btn btn-sm btn-danger text-white shadow-sm" onclick="updateStatus('${r.id}', 'Rejected')"><i class="fas fa-times"></i></button>
+                    `;
+                }
+
+                return `
+                <tr>
+                    <td class="ps-4 fw-bold text-primary">#${String(r.id).slice(-6).toUpperCase()}</td>
+                    <td>${r.productName || 'Unknown Product'}</td>
+                    <td class="fw-bold">${r.quantity || 0} units</td>
+                    <td>
+                        <div class="d-flex align-items-center">
+                            <span class="badge bg-light text-dark border me-2">${r.requestedBy || 'Branch'}</span>
+                        </div>
+                    </td>
+                    <td class="text-muted small">${dateDisplay}</td>
+                    <td><span class="badge bg-${statusColor}-subtle text-${statusColor} border border-${statusColor}-subtle">${r.status || 'Pending'}</span></td>
+                    <td class="text-end pe-4">
+                        ${actionButtons}
+                    </td>
+                </tr>
+                `;
+            }).join('');
+        }
+
+        // 3. Update Status
+        window.updateStatus = async function (id, status) {
+            if (confirm(`Are you sure you want to mark this request as ${status}?`)) {
+                try {
+                    await update(ref(db, `stock_requests/${id}`), { status: status });
+                } catch (err) {
+                    console.error(err);
+                    alert('Error updating status.');
+                }
+            }
+        }
+
+    </script>
+</body>
+
+</html>

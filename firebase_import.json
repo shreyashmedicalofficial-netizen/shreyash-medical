@@ -1,0 +1,1693 @@
+{
+    "branches": {
+        "1": {
+            "id": 1,
+            "name": "Shreyash Medical Central",
+            "address": "123 Main St, Laxmipuri, Kolhapur",
+            "city": "",
+            "phone": 9876543210,
+            "latitude": 16.705,
+            "longitude": 74.2433,
+            "is_active": 1,
+            "created_at": "2026-02-18 01:20:32",
+            "email": "central@medico.com"
+        },
+        "2": {
+            "id": 2,
+            "name": "Shreyash Medical Rajarampuri",
+            "address": "45 2nd Lane, Rajarampuri, Kolhapur",
+            "city": "",
+            "phone": 9876543211,
+            "latitude": 16.699,
+            "longitude": 74.25,
+            "is_active": 1,
+            "created_at": "2026-02-18 01:20:32",
+            "email": "rajarampuri@medico.com"
+        },
+        "3": {
+            "id": 3,
+            "name": "Shreyash Medical Shahupuri",
+            "address": "Station Road, Shahupuri, Kolhapur",
+            "city": "",
+            "phone": 9876543212,
+            "latitude": 16.708,
+            "longitude": 74.24,
+            "is_active": 1,
+            "created_at": "2026-02-18 01:20:32",
+            "email": "shahupuri@medico.com"
+        },
+        "4": {
+            "id": 4,
+            "name": "Shreyash Medical Tarabai Park",
+            "address": "Near Sasane Ground, Tarabai Park, Kolhapur",
+            "city": "",
+            "phone": 9876543213,
+            "latitude": 16.712,
+            "longitude": 74.235,
+            "is_active": 1,
+            "created_at": "2026-02-18 01:20:32",
+            "email": "tarabaipark@medico.com"
+        },
+        "5": {
+            "id": 5,
+            "name": "Shreyash Medical Ruikar Colony",
+            "address": "Uni Road, Ruikar Colony, Kolhapur",
+            "city": "",
+            "phone": 9876543214,
+            "latitude": 16.702,
+            "longitude": 74.26,
+            "is_active": 1,
+            "created_at": "2026-02-18 01:20:32",
+            "email": "ruikar@medico.com"
+        }
+    },
+    "products": {
+        "1": {
+            "id": 1,
+            "name": "Paracetamol 650mg Tablet",
+            "slug": "paracetamol-650",
+            "description": "Effective for fever and mild to moderate pain relief. Contains Paracetamol IP 650mg.",
+            "price": 30.0,
+            "sku": "MED001",
+            "category_id": null,
+            "image": "https://placehold.co/400x400/e9f5eb/2a6b42?text=Paracetamol",
+            "is_active": 1,
+            "created_at": "2026-02-16 15:31:16",
+            "pack_size": "10 Tablets",
+            "discount": 0,
+            "category": "Medicines",
+            "stock": 201
+        },
+        "2": {
+            "id": 2,
+            "name": "Vitamin C + Zinc Capsules",
+            "slug": "vit-c-zinc",
+            "description": "Boosts immunity and promotes skin health. Daily supplement for adults.",
+            "price": 350.0,
+            "sku": "HEA001",
+            "category_id": null,
+            "image": "https://placehold.co/400x400/e9f5eb/2a6b42?text=Vitamin+C",
+            "is_active": 1,
+            "created_at": "2026-02-16 15:31:16",
+            "pack_size": "60 Capsules",
+            "discount": 10,
+            "category": "Healthcare",
+            "stock": 267
+        },
+        "3": {
+            "id": 3,
+            "name": "Diabetes Care Protein Powder",
+            "slug": "diabetes-protein",
+            "description": "Low GI protein powder for diabetic care. Chocolate flavor.",
+            "price": 699.0,
+            "sku": "HEA002",
+            "category_id": null,
+            "image": "https://placehold.co/400x400/e9f5eb/2a6b42?text=Protein+Powder",
+            "is_active": 1,
+            "created_at": "2026-02-16 15:31:16",
+            "pack_size": "400g Jar",
+            "discount": 5,
+            "category": "Healthcare",
+            "stock": 230
+        },
+        "4": {
+            "id": 4,
+            "name": "Baby Diapers (Medium) - 50 Count",
+            "slug": "baby-diapers-m",
+            "description": "",
+            "price": 899.0,
+            "sku": "BAB001",
+            "category_id": null,
+            "image": "https://via.placeholder.com/150",
+            "is_active": 1,
+            "created_at": "2026-02-16 15:31:16",
+            "pack_size": "Pack of 50",
+            "discount": 15,
+            "category": "Baby Care",
+            "stock": 230
+        },
+        "5": {
+            "id": 5,
+            "name": "Digital Thermometer",
+            "slug": "digi-thermometer",
+            "description": "Fast and accurate reading. Waterproof and unbreakable.",
+            "price": 250.0,
+            "sku": "DEV001",
+            "category_id": null,
+            "image": "https://placehold.co/400x400/e9f5eb/2a6b42?text=Thermometer",
+            "is_active": 1,
+            "created_at": "2026-02-16 15:31:16",
+            "pack_size": "1 Unit",
+            "discount": 0,
+            "category": "Health Devices",
+            "stock": 308
+        },
+        "6": {
+            "id": 6,
+            "name": "Cough Syrup (Ayurvedic)",
+            "slug": "cough-syrup-ayur",
+            "description": "Herbal relief for dry and wet cough. Non-drowsy formula.",
+            "price": 120.0,
+            "sku": "MED002",
+            "category_id": null,
+            "image": "https://placehold.co/400x400/e9f5eb/2a6b42?text=Cough+Syrup",
+            "is_active": 1,
+            "created_at": "2026-02-16 15:31:16",
+            "pack_size": "100ml Bottle",
+            "discount": 0,
+            "category": "Medicines",
+            "stock": 181
+        },
+        "7": {
+            "id": 7,
+            "name": "N95 Face Mask (Pack of 5)",
+            "slug": "n95-mask-5",
+            "description": "5-layer protection against virus and pollution. Reusable and washable.",
+            "price": 199.0,
+            "sku": "HEA003",
+            "category_id": null,
+            "image": "https://placehold.co/400x400/e9f5eb/2a6b42?text=N95+Mask",
+            "is_active": 1,
+            "created_at": "2026-02-16 15:31:16",
+            "pack_size": "Pack of 5",
+            "discount": 20,
+            "category": "Healthcare",
+            "stock": 244
+        },
+        "8": {
+            "id": 8,
+            "name": "bp Monitor (Digital)",
+            "slug": "bp-monitor",
+            "description": "Automatic Blood Pressure Monitor with large display and memory function.",
+            "price": 1800.0,
+            "sku": "DEV002",
+            "category_id": null,
+            "image": "https://placehold.co/400x400/e9f5eb/2a6b42?text=BP+Monitor",
+            "is_active": 1,
+            "created_at": "2026-02-16 15:31:16",
+            "pack_size": "1 Unit",
+            "discount": 25,
+            "category": "Devices",
+            "stock": 355
+        }
+    },
+    "users": {
+        "1": {
+            "id": 1,
+            "fullname": "Super Admin",
+            "email": "super@medico.com",
+            "password": "$2y$10$7AIMPzwJH6I8nyaqlOhSpOIk7qg5JQMwuCYnXEdWI8MoP8bog.roK",
+            "role": "admin",
+            "branch_id": null,
+            "phone": null,
+            "created_at": "2026-02-18 01:20:32"
+        },
+        "2": {
+            "id": 2,
+            "fullname": "Manager Medico Central",
+            "email": "store1@medico.com",
+            "password": "$2y$10$7AIMPzwJH6I8nyaqlOhSpOIk7qg5JQMwuCYnXEdWI8MoP8bog.roK",
+            "role": "manager",
+            "branch_id": 1,
+            "phone": 9988776655,
+            "created_at": "2026-02-18 01:20:32"
+        },
+        "3": {
+            "id": 3,
+            "fullname": "Manager Medico Rajarampuri",
+            "email": "store2@medico.com",
+            "password": "$2y$10$7AIMPzwJH6I8nyaqlOhSpOIk7qg5JQMwuCYnXEdWI8MoP8bog.roK",
+            "role": "manager",
+            "branch_id": 2,
+            "phone": 9988776655,
+            "created_at": "2026-02-18 01:20:32"
+        },
+        "4": {
+            "id": 4,
+            "fullname": "Manager Medico Shahupuri",
+            "email": "store3@medico.com",
+            "password": "$2y$10$7AIMPzwJH6I8nyaqlOhSpOIk7qg5JQMwuCYnXEdWI8MoP8bog.roK",
+            "role": "manager",
+            "branch_id": 3,
+            "phone": 9988776655,
+            "created_at": "2026-02-18 01:20:32"
+        },
+        "5": {
+            "id": 5,
+            "fullname": "Manager Medico Tarabai Park",
+            "email": "store4@medico.com",
+            "password": "$2y$10$7AIMPzwJH6I8nyaqlOhSpOIk7qg5JQMwuCYnXEdWI8MoP8bog.roK",
+            "role": "manager",
+            "branch_id": 4,
+            "phone": 9988776655,
+            "created_at": "2026-02-18 01:20:32"
+        },
+        "6": {
+            "id": 6,
+            "fullname": "Manager Medico Ruikar Colony",
+            "email": "store5@medico.com",
+            "password": "$2y$10$7AIMPzwJH6I8nyaqlOhSpOIk7qg5JQMwuCYnXEdWI8MoP8bog.roK",
+            "role": "manager",
+            "branch_id": 5,
+            "phone": 9988776655,
+            "created_at": "2026-02-18 01:20:32"
+        },
+        "7": {
+            "id": 7,
+            "fullname": "Customer 1",
+            "email": "customer1@gmail.com",
+            "password": "$2y$10$7AIMPzwJH6I8nyaqlOhSpOIk7qg5JQMwuCYnXEdWI8MoP8bog.roK",
+            "role": "customer",
+            "branch_id": null,
+            "phone": 9870000001,
+            "created_at": "2026-02-18 01:20:32"
+        },
+        "8": {
+            "id": 8,
+            "fullname": "Customer 2",
+            "email": "customer2@gmail.com",
+            "password": "$2y$10$7AIMPzwJH6I8nyaqlOhSpOIk7qg5JQMwuCYnXEdWI8MoP8bog.roK",
+            "role": "customer",
+            "branch_id": null,
+            "phone": 9870000002,
+            "created_at": "2026-02-18 01:20:32"
+        },
+        "9": {
+            "id": 9,
+            "fullname": "Customer 3",
+            "email": "customer3@gmail.com",
+            "password": "$2y$10$7AIMPzwJH6I8nyaqlOhSpOIk7qg5JQMwuCYnXEdWI8MoP8bog.roK",
+            "role": "customer",
+            "branch_id": null,
+            "phone": 9870000003,
+            "created_at": "2026-02-18 01:20:32"
+        },
+        "10": {
+            "id": 10,
+            "fullname": "Customer 4",
+            "email": "customer4@gmail.com",
+            "password": "$2y$10$7AIMPzwJH6I8nyaqlOhSpOIk7qg5JQMwuCYnXEdWI8MoP8bog.roK",
+            "role": "customer",
+            "branch_id": null,
+            "phone": 9870000004,
+            "created_at": "2026-02-18 01:20:32"
+        },
+        "11": {
+            "id": 11,
+            "fullname": "Customer 5",
+            "email": "customer5@gmail.com",
+            "password": "$2y$10$7AIMPzwJH6I8nyaqlOhSpOIk7qg5JQMwuCYnXEdWI8MoP8bog.roK",
+            "role": "customer",
+            "branch_id": null,
+            "phone": 9870000005,
+            "created_at": "2026-02-18 01:20:32"
+        },
+        "12": {
+            "id": 12,
+            "fullname": "Customer 6",
+            "email": "customer6@gmail.com",
+            "password": "$2y$10$7AIMPzwJH6I8nyaqlOhSpOIk7qg5JQMwuCYnXEdWI8MoP8bog.roK",
+            "role": "customer",
+            "branch_id": null,
+            "phone": 9870000006,
+            "created_at": "2026-02-18 01:20:32"
+        },
+        "13": {
+            "id": 13,
+            "fullname": "Customer 7",
+            "email": "customer7@gmail.com",
+            "password": "$2y$10$7AIMPzwJH6I8nyaqlOhSpOIk7qg5JQMwuCYnXEdWI8MoP8bog.roK",
+            "role": "customer",
+            "branch_id": null,
+            "phone": 9870000007,
+            "created_at": "2026-02-18 01:20:32"
+        },
+        "14": {
+            "id": 14,
+            "fullname": "Customer 8",
+            "email": "customer8@gmail.com",
+            "password": "$2y$10$7AIMPzwJH6I8nyaqlOhSpOIk7qg5JQMwuCYnXEdWI8MoP8bog.roK",
+            "role": "customer",
+            "branch_id": null,
+            "phone": 9870000008,
+            "created_at": "2026-02-18 01:20:32"
+        },
+        "15": {
+            "id": 15,
+            "fullname": "Customer 9",
+            "email": "customer9@gmail.com",
+            "password": "$2y$10$7AIMPzwJH6I8nyaqlOhSpOIk7qg5JQMwuCYnXEdWI8MoP8bog.roK",
+            "role": "customer",
+            "branch_id": null,
+            "phone": 9870000009,
+            "created_at": "2026-02-18 01:20:32"
+        },
+        "16": {
+            "id": 16,
+            "fullname": "Customer 10",
+            "email": "customer10@gmail.com",
+            "password": "$2y$10$7AIMPzwJH6I8nyaqlOhSpOIk7qg5JQMwuCYnXEdWI8MoP8bog.roK",
+            "role": "customer",
+            "branch_id": null,
+            "phone": 98700000010,
+            "created_at": "2026-02-18 01:20:32"
+        }
+    },
+    "orders": {
+        "1": {
+            "id": 1,
+            "user_id": 11,
+            "total_amount": 9899.0,
+            "status": "pending",
+            "order_date": "2026-02-07 20:50:32",
+            "shipping_address": "Kolhapur",
+            "branch_id": 1,
+            "payment_method": "cod",
+            "items": [
+                {
+                    "id": 1,
+                    "order_id": 1,
+                    "product_id": 8,
+                    "quantity": 3,
+                    "price": 1800.0
+                },
+                {
+                    "id": 2,
+                    "order_id": 1,
+                    "product_id": 8,
+                    "quantity": 2,
+                    "price": 1800.0
+                },
+                {
+                    "id": 3,
+                    "order_id": 1,
+                    "product_id": 4,
+                    "quantity": 1,
+                    "price": 899.0
+                }
+            ]
+        },
+        "2": {
+            "id": 2,
+            "user_id": 14,
+            "total_amount": 3195.0,
+            "status": "processing",
+            "order_date": "2026-01-22 20:50:32",
+            "shipping_address": "Kolhapur",
+            "branch_id": 1,
+            "payment_method": "cod",
+            "items": [
+                {
+                    "id": 4,
+                    "order_id": 2,
+                    "product_id": 4,
+                    "quantity": 1,
+                    "price": 899.0
+                },
+                {
+                    "id": 5,
+                    "order_id": 2,
+                    "product_id": 3,
+                    "quantity": 1,
+                    "price": 699.0
+                },
+                {
+                    "id": 6,
+                    "order_id": 2,
+                    "product_id": 7,
+                    "quantity": 1,
+                    "price": 199.0
+                },
+                {
+                    "id": 7,
+                    "order_id": 2,
+                    "product_id": 3,
+                    "quantity": 2,
+                    "price": 699.0
+                }
+            ]
+        },
+        "3": {
+            "id": 3,
+            "user_id": 14,
+            "total_amount": 738.0,
+            "status": "completed",
+            "order_date": "2026-02-08 20:50:32",
+            "shipping_address": "Kolhapur",
+            "branch_id": 1,
+            "payment_method": "cod",
+            "items": [
+                {
+                    "id": 8,
+                    "order_id": 3,
+                    "product_id": 1,
+                    "quantity": 1,
+                    "price": 30.0
+                },
+                {
+                    "id": 9,
+                    "order_id": 3,
+                    "product_id": 5,
+                    "quantity": 1,
+                    "price": 250.0
+                },
+                {
+                    "id": 10,
+                    "order_id": 3,
+                    "product_id": 7,
+                    "quantity": 2,
+                    "price": 199.0
+                },
+                {
+                    "id": 11,
+                    "order_id": 3,
+                    "product_id": 1,
+                    "quantity": 2,
+                    "price": 30.0
+                }
+            ]
+        },
+        "4": {
+            "id": 4,
+            "user_id": 8,
+            "total_amount": 2817.0,
+            "status": "cancelled",
+            "order_date": "2026-01-31 20:50:32",
+            "shipping_address": "Kolhapur",
+            "branch_id": 1,
+            "payment_method": "cod",
+            "items": [
+                {
+                    "id": 12,
+                    "order_id": 4,
+                    "product_id": 4,
+                    "quantity": 3,
+                    "price": 899.0
+                },
+                {
+                    "id": 13,
+                    "order_id": 4,
+                    "product_id": 6,
+                    "quantity": 1,
+                    "price": 120.0
+                }
+            ]
+        },
+        "5": {
+            "id": 5,
+            "user_id": 13,
+            "total_amount": 789.0,
+            "status": "completed",
+            "order_date": "2026-02-02 20:50:32",
+            "shipping_address": "Kolhapur",
+            "branch_id": 1,
+            "payment_method": "cod",
+            "items": [
+                {
+                    "id": 14,
+                    "order_id": 5,
+                    "product_id": 1,
+                    "quantity": 3,
+                    "price": 30.0
+                },
+                {
+                    "id": 15,
+                    "order_id": 5,
+                    "product_id": 3,
+                    "quantity": 1,
+                    "price": 699.0
+                }
+            ]
+        },
+        "6": {
+            "id": 6,
+            "user_id": 15,
+            "total_amount": 729.0,
+            "status": "pending",
+            "order_date": "2026-02-15 20:50:32",
+            "shipping_address": "Kolhapur",
+            "branch_id": 1,
+            "payment_method": "cod",
+            "items": [
+                {
+                    "id": 16,
+                    "order_id": 6,
+                    "product_id": 1,
+                    "quantity": 1,
+                    "price": 30.0
+                },
+                {
+                    "id": 17,
+                    "order_id": 6,
+                    "product_id": 3,
+                    "quantity": 1,
+                    "price": 699.0
+                }
+            ]
+        },
+        "7": {
+            "id": 7,
+            "user_id": 7,
+            "total_amount": 12198.0,
+            "status": "pending",
+            "order_date": "2026-02-08 20:50:32",
+            "shipping_address": "Kolhapur",
+            "branch_id": 1,
+            "payment_method": "cod",
+            "items": [
+                {
+                    "id": 18,
+                    "order_id": 7,
+                    "product_id": 8,
+                    "quantity": 3,
+                    "price": 1800.0
+                },
+                {
+                    "id": 19,
+                    "order_id": 7,
+                    "product_id": 3,
+                    "quantity": 2,
+                    "price": 699.0
+                },
+                {
+                    "id": 20,
+                    "order_id": 7,
+                    "product_id": 8,
+                    "quantity": 3,
+                    "price": 1800.0
+                }
+            ]
+        },
+        "8": {
+            "id": 8,
+            "user_id": 11,
+            "total_amount": 1750.0,
+            "status": "completed",
+            "order_date": "2026-02-12 20:50:32",
+            "shipping_address": "Kolhapur",
+            "branch_id": 2,
+            "payment_method": "cod",
+            "items": [
+                {
+                    "id": 21,
+                    "order_id": 8,
+                    "product_id": 2,
+                    "quantity": 3,
+                    "price": 350.0
+                },
+                {
+                    "id": 22,
+                    "order_id": 8,
+                    "product_id": 2,
+                    "quantity": 2,
+                    "price": 350.0
+                }
+            ]
+        },
+        "9": {
+            "id": 9,
+            "user_id": 12,
+            "total_amount": 3447.0,
+            "status": "cancelled",
+            "order_date": "2026-01-29 20:50:32",
+            "shipping_address": "Kolhapur",
+            "branch_id": 2,
+            "payment_method": "cod",
+            "items": [
+                {
+                    "id": 23,
+                    "order_id": 9,
+                    "product_id": 2,
+                    "quantity": 1,
+                    "price": 350.0
+                },
+                {
+                    "id": 24,
+                    "order_id": 9,
+                    "product_id": 5,
+                    "quantity": 1,
+                    "price": 250.0
+                },
+                {
+                    "id": 25,
+                    "order_id": 9,
+                    "product_id": 5,
+                    "quantity": 3,
+                    "price": 250.0
+                },
+                {
+                    "id": 26,
+                    "order_id": 9,
+                    "product_id": 3,
+                    "quantity": 3,
+                    "price": 699.0
+                }
+            ]
+        },
+        "10": {
+            "id": 10,
+            "user_id": 7,
+            "total_amount": 589.0,
+            "status": "pending",
+            "order_date": "2026-02-11 20:50:32",
+            "shipping_address": "Kolhapur",
+            "branch_id": 2,
+            "payment_method": "cod",
+            "items": [
+                {
+                    "id": 27,
+                    "order_id": 10,
+                    "product_id": 1,
+                    "quantity": 1,
+                    "price": 30.0
+                },
+                {
+                    "id": 28,
+                    "order_id": 10,
+                    "product_id": 6,
+                    "quantity": 3,
+                    "price": 120.0
+                },
+                {
+                    "id": 29,
+                    "order_id": 10,
+                    "product_id": 7,
+                    "quantity": 1,
+                    "price": 199.0
+                }
+            ]
+        },
+        "11": {
+            "id": 11,
+            "user_id": 11,
+            "total_amount": 1547.0,
+            "status": "cancelled",
+            "order_date": "2026-01-21 20:50:32",
+            "shipping_address": "Kolhapur",
+            "branch_id": 2,
+            "payment_method": "cod",
+            "items": [
+                {
+                    "id": 30,
+                    "order_id": 11,
+                    "product_id": 4,
+                    "quantity": 1,
+                    "price": 899.0
+                },
+                {
+                    "id": 31,
+                    "order_id": 11,
+                    "product_id": 7,
+                    "quantity": 2,
+                    "price": 199.0
+                },
+                {
+                    "id": 32,
+                    "order_id": 11,
+                    "product_id": 5,
+                    "quantity": 1,
+                    "price": 250.0
+                }
+            ]
+        },
+        "12": {
+            "id": 12,
+            "user_id": 12,
+            "total_amount": 8598.0,
+            "status": "cancelled",
+            "order_date": "2026-01-25 20:50:32",
+            "shipping_address": "Kolhapur",
+            "branch_id": 2,
+            "payment_method": "cod",
+            "items": [
+                {
+                    "id": 33,
+                    "order_id": 12,
+                    "product_id": 3,
+                    "quantity": 2,
+                    "price": 699.0
+                },
+                {
+                    "id": 34,
+                    "order_id": 12,
+                    "product_id": 8,
+                    "quantity": 1,
+                    "price": 1800.0
+                },
+                {
+                    "id": 35,
+                    "order_id": 12,
+                    "product_id": 8,
+                    "quantity": 3,
+                    "price": 1800.0
+                }
+            ]
+        },
+        "13": {
+            "id": 13,
+            "user_id": 8,
+            "total_amount": 5788.0,
+            "status": "cancelled",
+            "order_date": "2026-01-22 20:50:32",
+            "shipping_address": "Kolhapur",
+            "branch_id": 2,
+            "payment_method": "cod",
+            "items": [
+                {
+                    "id": 36,
+                    "order_id": 13,
+                    "product_id": 8,
+                    "quantity": 2,
+                    "price": 1800.0
+                },
+                {
+                    "id": 37,
+                    "order_id": 13,
+                    "product_id": 1,
+                    "quantity": 1,
+                    "price": 30.0
+                },
+                {
+                    "id": 38,
+                    "order_id": 13,
+                    "product_id": 6,
+                    "quantity": 3,
+                    "price": 120.0
+                },
+                {
+                    "id": 39,
+                    "order_id": 13,
+                    "product_id": 4,
+                    "quantity": 2,
+                    "price": 899.0
+                }
+            ]
+        },
+        "14": {
+            "id": 14,
+            "user_id": 12,
+            "total_amount": 1297.0,
+            "status": "pending",
+            "order_date": "2026-01-22 20:50:32",
+            "shipping_address": "Kolhapur",
+            "branch_id": 2,
+            "payment_method": "cod",
+            "items": [
+                {
+                    "id": 40,
+                    "order_id": 14,
+                    "product_id": 4,
+                    "quantity": 1,
+                    "price": 899.0
+                },
+                {
+                    "id": 41,
+                    "order_id": 14,
+                    "product_id": 7,
+                    "quantity": 2,
+                    "price": 199.0
+                }
+            ]
+        },
+        "15": {
+            "id": 15,
+            "user_id": 15,
+            "total_amount": 5444.0,
+            "status": "completed",
+            "order_date": "2026-01-21 20:50:32",
+            "shipping_address": "Kolhapur",
+            "branch_id": 2,
+            "payment_method": "cod",
+            "items": [
+                {
+                    "id": 42,
+                    "order_id": 15,
+                    "product_id": 4,
+                    "quantity": 3,
+                    "price": 899.0
+                },
+                {
+                    "id": 43,
+                    "order_id": 15,
+                    "product_id": 8,
+                    "quantity": 1,
+                    "price": 1800.0
+                },
+                {
+                    "id": 44,
+                    "order_id": 15,
+                    "product_id": 2,
+                    "quantity": 1,
+                    "price": 350.0
+                },
+                {
+                    "id": 45,
+                    "order_id": 15,
+                    "product_id": 7,
+                    "quantity": 3,
+                    "price": 199.0
+                }
+            ]
+        },
+        "16": {
+            "id": 16,
+            "user_id": 12,
+            "total_amount": 480.0,
+            "status": "pending",
+            "order_date": "2026-01-30 20:50:32",
+            "shipping_address": "Kolhapur",
+            "branch_id": 2,
+            "payment_method": "cod",
+            "items": [
+                {
+                    "id": 46,
+                    "order_id": 16,
+                    "product_id": 6,
+                    "quantity": 3,
+                    "price": 120.0
+                },
+                {
+                    "id": 47,
+                    "order_id": 16,
+                    "product_id": 6,
+                    "quantity": 1,
+                    "price": 120.0
+                }
+            ]
+        },
+        "17": {
+            "id": 17,
+            "user_id": 12,
+            "total_amount": 720.0,
+            "status": "pending",
+            "order_date": "2026-02-01 20:50:32",
+            "shipping_address": "Kolhapur",
+            "branch_id": 2,
+            "payment_method": "cod",
+            "items": [
+                {
+                    "id": 48,
+                    "order_id": 17,
+                    "product_id": 5,
+                    "quantity": 1,
+                    "price": 250.0
+                },
+                {
+                    "id": 49,
+                    "order_id": 17,
+                    "product_id": 2,
+                    "quantity": 1,
+                    "price": 350.0
+                },
+                {
+                    "id": 50,
+                    "order_id": 17,
+                    "product_id": 6,
+                    "quantity": 1,
+                    "price": 120.0
+                }
+            ]
+        },
+        "18": {
+            "id": 18,
+            "user_id": 9,
+            "total_amount": 6297.0,
+            "status": "cancelled",
+            "order_date": "2026-01-21 20:50:32",
+            "shipping_address": "Kolhapur",
+            "branch_id": 3,
+            "payment_method": "cod",
+            "items": [
+                {
+                    "id": 51,
+                    "order_id": 18,
+                    "product_id": 8,
+                    "quantity": 2,
+                    "price": 1800.0
+                },
+                {
+                    "id": 52,
+                    "order_id": 18,
+                    "product_id": 4,
+                    "quantity": 3,
+                    "price": 899.0
+                }
+            ]
+        },
+        "19": {
+            "id": 19,
+            "user_id": 14,
+            "total_amount": 1039.0,
+            "status": "cancelled",
+            "order_date": "2026-01-23 20:50:32",
+            "shipping_address": "Kolhapur",
+            "branch_id": 3,
+            "payment_method": "cod",
+            "items": [
+                {
+                    "id": 53,
+                    "order_id": 19,
+                    "product_id": 5,
+                    "quantity": 3,
+                    "price": 250.0
+                },
+                {
+                    "id": 54,
+                    "order_id": 19,
+                    "product_id": 7,
+                    "quantity": 1,
+                    "price": 199.0
+                },
+                {
+                    "id": 55,
+                    "order_id": 19,
+                    "product_id": 1,
+                    "quantity": 3,
+                    "price": 30.0
+                }
+            ]
+        },
+        "20": {
+            "id": 20,
+            "user_id": 9,
+            "total_amount": 560.0,
+            "status": "cancelled",
+            "order_date": "2026-02-15 20:50:32",
+            "shipping_address": "Kolhapur",
+            "branch_id": 3,
+            "payment_method": "cod",
+            "items": [
+                {
+                    "id": 56,
+                    "order_id": 20,
+                    "product_id": 1,
+                    "quantity": 2,
+                    "price": 30.0
+                },
+                {
+                    "id": 57,
+                    "order_id": 20,
+                    "product_id": 5,
+                    "quantity": 2,
+                    "price": 250.0
+                }
+            ]
+        },
+        "21": {
+            "id": 21,
+            "user_id": 13,
+            "total_amount": 60.0,
+            "status": "cancelled",
+            "order_date": "2026-01-27 20:50:32",
+            "shipping_address": "Kolhapur",
+            "branch_id": 3,
+            "payment_method": "cod",
+            "items": [
+                {
+                    "id": 58,
+                    "order_id": 21,
+                    "product_id": 1,
+                    "quantity": 2,
+                    "price": 30.0
+                }
+            ]
+        },
+        "22": {
+            "id": 22,
+            "user_id": 11,
+            "total_amount": 2310.0,
+            "status": "completed",
+            "order_date": "2026-02-17 20:50:32",
+            "shipping_address": "Kolhapur",
+            "branch_id": 3,
+            "payment_method": "cod",
+            "items": [
+                {
+                    "id": 59,
+                    "order_id": 22,
+                    "product_id": 6,
+                    "quantity": 1,
+                    "price": 120.0
+                },
+                {
+                    "id": 60,
+                    "order_id": 22,
+                    "product_id": 1,
+                    "quantity": 3,
+                    "price": 30.0
+                },
+                {
+                    "id": 61,
+                    "order_id": 22,
+                    "product_id": 2,
+                    "quantity": 3,
+                    "price": 350.0
+                },
+                {
+                    "id": 62,
+                    "order_id": 22,
+                    "product_id": 2,
+                    "quantity": 3,
+                    "price": 350.0
+                }
+            ]
+        },
+        "23": {
+            "id": 23,
+            "user_id": 16,
+            "total_amount": 2078.0,
+            "status": "completed",
+            "order_date": "2026-02-16 20:50:32",
+            "shipping_address": "Kolhapur",
+            "branch_id": 4,
+            "payment_method": "cod",
+            "items": [
+                {
+                    "id": 63,
+                    "order_id": 23,
+                    "product_id": 5,
+                    "quantity": 1,
+                    "price": 250.0
+                },
+                {
+                    "id": 64,
+                    "order_id": 23,
+                    "product_id": 4,
+                    "quantity": 2,
+                    "price": 899.0
+                },
+                {
+                    "id": 65,
+                    "order_id": 23,
+                    "product_id": 1,
+                    "quantity": 1,
+                    "price": 30.0
+                }
+            ]
+        },
+        "24": {
+            "id": 24,
+            "user_id": 12,
+            "total_amount": 13017.0,
+            "status": "processing",
+            "order_date": "2026-01-21 20:50:32",
+            "shipping_address": "Kolhapur",
+            "branch_id": 4,
+            "payment_method": "cod",
+            "items": [
+                {
+                    "id": 66,
+                    "order_id": 24,
+                    "product_id": 8,
+                    "quantity": 3,
+                    "price": 1800.0
+                },
+                {
+                    "id": 67,
+                    "order_id": 24,
+                    "product_id": 8,
+                    "quantity": 3,
+                    "price": 1800.0
+                },
+                {
+                    "id": 68,
+                    "order_id": 24,
+                    "product_id": 6,
+                    "quantity": 1,
+                    "price": 120.0
+                },
+                {
+                    "id": 69,
+                    "order_id": 24,
+                    "product_id": 3,
+                    "quantity": 3,
+                    "price": 699.0
+                }
+            ]
+        },
+        "25": {
+            "id": 25,
+            "user_id": 16,
+            "total_amount": 3600.0,
+            "status": "cancelled",
+            "order_date": "2026-01-19 20:50:32",
+            "shipping_address": "Kolhapur",
+            "branch_id": 4,
+            "payment_method": "cod",
+            "items": [
+                {
+                    "id": 70,
+                    "order_id": 25,
+                    "product_id": 8,
+                    "quantity": 2,
+                    "price": 1800.0
+                }
+            ]
+        },
+        "26": {
+            "id": 26,
+            "user_id": 10,
+            "total_amount": 1299.0,
+            "status": "completed",
+            "order_date": "2026-02-07 20:50:32",
+            "shipping_address": "Kolhapur",
+            "branch_id": 4,
+            "payment_method": "cod",
+            "items": [
+                {
+                    "id": 71,
+                    "order_id": 26,
+                    "product_id": 6,
+                    "quantity": 3,
+                    "price": 120.0
+                },
+                {
+                    "id": 72,
+                    "order_id": 26,
+                    "product_id": 6,
+                    "quantity": 2,
+                    "price": 120.0
+                },
+                {
+                    "id": 73,
+                    "order_id": 26,
+                    "product_id": 5,
+                    "quantity": 2,
+                    "price": 250.0
+                },
+                {
+                    "id": 74,
+                    "order_id": 26,
+                    "product_id": 7,
+                    "quantity": 1,
+                    "price": 199.0
+                }
+            ]
+        },
+        "27": {
+            "id": 27,
+            "user_id": 13,
+            "total_amount": 2097.0,
+            "status": "completed",
+            "order_date": "2026-02-11 20:50:32",
+            "shipping_address": "Kolhapur",
+            "branch_id": 4,
+            "payment_method": "cod",
+            "items": [
+                {
+                    "id": 75,
+                    "order_id": 27,
+                    "product_id": 3,
+                    "quantity": 3,
+                    "price": 699.0
+                }
+            ]
+        },
+        "28": {
+            "id": 28,
+            "user_id": 12,
+            "total_amount": 60.0,
+            "status": "cancelled",
+            "order_date": "2026-02-03 20:50:32",
+            "shipping_address": "Kolhapur",
+            "branch_id": 4,
+            "payment_method": "cod",
+            "items": [
+                {
+                    "id": 76,
+                    "order_id": 28,
+                    "product_id": 1,
+                    "quantity": 2,
+                    "price": 30.0
+                }
+            ]
+        },
+        "29": {
+            "id": 29,
+            "user_id": 7,
+            "total_amount": 2834.0,
+            "status": "pending",
+            "order_date": "2026-01-26 20:50:32",
+            "shipping_address": "Kolhapur",
+            "branch_id": 5,
+            "payment_method": "cod",
+            "items": [
+                {
+                    "id": 77,
+                    "order_id": 29,
+                    "product_id": 7,
+                    "quantity": 1,
+                    "price": 199.0
+                },
+                {
+                    "id": 78,
+                    "order_id": 29,
+                    "product_id": 4,
+                    "quantity": 2,
+                    "price": 899.0
+                },
+                {
+                    "id": 79,
+                    "order_id": 29,
+                    "product_id": 6,
+                    "quantity": 2,
+                    "price": 120.0
+                },
+                {
+                    "id": 80,
+                    "order_id": 29,
+                    "product_id": 7,
+                    "quantity": 3,
+                    "price": 199.0
+                }
+            ]
+        },
+        "30": {
+            "id": 30,
+            "user_id": 16,
+            "total_amount": 6810.0,
+            "status": "processing",
+            "order_date": "2026-02-01 20:50:32",
+            "shipping_address": "Kolhapur",
+            "branch_id": 5,
+            "payment_method": "cod",
+            "items": [
+                {
+                    "id": 81,
+                    "order_id": 30,
+                    "product_id": 8,
+                    "quantity": 2,
+                    "price": 1800.0
+                },
+                {
+                    "id": 82,
+                    "order_id": 30,
+                    "product_id": 6,
+                    "quantity": 3,
+                    "price": 120.0
+                },
+                {
+                    "id": 83,
+                    "order_id": 30,
+                    "product_id": 8,
+                    "quantity": 1,
+                    "price": 1800.0
+                },
+                {
+                    "id": 84,
+                    "order_id": 30,
+                    "product_id": 2,
+                    "quantity": 3,
+                    "price": 350.0
+                }
+            ]
+        },
+        "31": {
+            "id": 31,
+            "user_id": 12,
+            "total_amount": 947.0,
+            "status": "pending",
+            "order_date": "2026-02-02 20:50:32",
+            "shipping_address": "Kolhapur",
+            "branch_id": 5,
+            "payment_method": "cod",
+            "items": [
+                {
+                    "id": 85,
+                    "order_id": 31,
+                    "product_id": 7,
+                    "quantity": 3,
+                    "price": 199.0
+                },
+                {
+                    "id": 86,
+                    "order_id": 31,
+                    "product_id": 2,
+                    "quantity": 1,
+                    "price": 350.0
+                }
+            ]
+        },
+        "32": {
+            "id": 32,
+            "user_id": 8,
+            "total_amount": 5238.0,
+            "status": "pending",
+            "order_date": "2026-01-27 20:50:32",
+            "shipping_address": "Kolhapur",
+            "branch_id": 5,
+            "payment_method": "cod",
+            "items": [
+                {
+                    "id": 87,
+                    "order_id": 32,
+                    "product_id": 6,
+                    "quantity": 2,
+                    "price": 120.0
+                },
+                {
+                    "id": 88,
+                    "order_id": 32,
+                    "product_id": 3,
+                    "quantity": 2,
+                    "price": 699.0
+                },
+                {
+                    "id": 89,
+                    "order_id": 32,
+                    "product_id": 8,
+                    "quantity": 2,
+                    "price": 1800.0
+                }
+            ]
+        },
+        "33": {
+            "id": 33,
+            "user_id": 11,
+            "total_amount": 3747.0,
+            "status": "pending",
+            "order_date": "2026-02-12 20:50:32",
+            "shipping_address": "Kolhapur",
+            "branch_id": 5,
+            "payment_method": "cod",
+            "items": [
+                {
+                    "id": 90,
+                    "order_id": 33,
+                    "product_id": 4,
+                    "quantity": 3,
+                    "price": 899.0
+                },
+                {
+                    "id": 91,
+                    "order_id": 33,
+                    "product_id": 2,
+                    "quantity": 3,
+                    "price": 350.0
+                }
+            ]
+        },
+        "34": {
+            "id": 34,
+            "user_id": 8,
+            "total_amount": 1050.0,
+            "status": "processing",
+            "order_date": "2026-01-26 20:50:32",
+            "shipping_address": "Kolhapur",
+            "branch_id": 5,
+            "payment_method": "cod",
+            "items": [
+                {
+                    "id": 92,
+                    "order_id": 34,
+                    "product_id": 2,
+                    "quantity": 3,
+                    "price": 350.0
+                }
+            ]
+        }
+    },
+    "inventory": {
+        "1": {
+            "id": 1,
+            "branch_id": 1,
+            "product_id": 4,
+            "quantity": 18,
+            "updated_at": "2026-02-18 01:20:32"
+        },
+        "2": {
+            "id": 2,
+            "branch_id": 1,
+            "product_id": 5,
+            "quantity": 63,
+            "updated_at": "2026-02-18 01:20:32"
+        },
+        "3": {
+            "id": 3,
+            "branch_id": 1,
+            "product_id": 8,
+            "quantity": 90,
+            "updated_at": "2026-02-18 01:20:32"
+        },
+        "4": {
+            "id": 4,
+            "branch_id": 1,
+            "product_id": 2,
+            "quantity": 74,
+            "updated_at": "2026-02-18 01:20:32"
+        },
+        "5": {
+            "id": 5,
+            "branch_id": 1,
+            "product_id": 3,
+            "quantity": 23,
+            "updated_at": "2026-02-18 01:20:32"
+        },
+        "6": {
+            "id": 6,
+            "branch_id": 1,
+            "product_id": 7,
+            "quantity": 56,
+            "updated_at": "2026-02-18 01:20:32"
+        },
+        "7": {
+            "id": 7,
+            "branch_id": 1,
+            "product_id": 1,
+            "quantity": 98,
+            "updated_at": "2026-02-18 01:20:32"
+        },
+        "8": {
+            "id": 8,
+            "branch_id": 1,
+            "product_id": 6,
+            "quantity": 67,
+            "updated_at": "2026-02-18 01:20:32"
+        },
+        "9": {
+            "id": 9,
+            "branch_id": 2,
+            "product_id": 4,
+            "quantity": 87,
+            "updated_at": "2026-02-18 01:20:32"
+        },
+        "10": {
+            "id": 10,
+            "branch_id": 2,
+            "product_id": 5,
+            "quantity": 72,
+            "updated_at": "2026-02-18 01:20:32"
+        },
+        "11": {
+            "id": 11,
+            "branch_id": 2,
+            "product_id": 8,
+            "quantity": 42,
+            "updated_at": "2026-02-18 01:20:32"
+        },
+        "12": {
+            "id": 12,
+            "branch_id": 2,
+            "product_id": 2,
+            "quantity": 35,
+            "updated_at": "2026-02-18 01:20:32"
+        },
+        "13": {
+            "id": 13,
+            "branch_id": 2,
+            "product_id": 3,
+            "quantity": 73,
+            "updated_at": "2026-02-18 01:20:32"
+        },
+        "14": {
+            "id": 14,
+            "branch_id": 2,
+            "product_id": 7,
+            "quantity": 22,
+            "updated_at": "2026-02-18 01:20:32"
+        },
+        "15": {
+            "id": 15,
+            "branch_id": 2,
+            "product_id": 1,
+            "quantity": 5,
+            "updated_at": "2026-02-18 01:20:32"
+        },
+        "16": {
+            "id": 16,
+            "branch_id": 2,
+            "product_id": 6,
+            "quantity": 23,
+            "updated_at": "2026-02-18 01:20:32"
+        },
+        "17": {
+            "id": 17,
+            "branch_id": 3,
+            "product_id": 4,
+            "quantity": 55,
+            "updated_at": "2026-02-18 01:20:32"
+        },
+        "18": {
+            "id": 18,
+            "branch_id": 3,
+            "product_id": 5,
+            "quantity": 85,
+            "updated_at": "2026-02-18 01:20:32"
+        },
+        "19": {
+            "id": 19,
+            "branch_id": 3,
+            "product_id": 8,
+            "quantity": 83,
+            "updated_at": "2026-02-18 01:20:32"
+        },
+        "20": {
+            "id": 20,
+            "branch_id": 3,
+            "product_id": 2,
+            "quantity": 61,
+            "updated_at": "2026-02-18 01:20:32"
+        },
+        "21": {
+            "id": 21,
+            "branch_id": 3,
+            "product_id": 3,
+            "quantity": 7,
+            "updated_at": "2026-02-18 01:20:32"
+        },
+        "22": {
+            "id": 22,
+            "branch_id": 3,
+            "product_id": 7,
+            "quantity": 75,
+            "updated_at": "2026-02-18 01:20:32"
+        },
+        "23": {
+            "id": 23,
+            "branch_id": 3,
+            "product_id": 1,
+            "quantity": 36,
+            "updated_at": "2026-02-18 01:20:32"
+        },
+        "24": {
+            "id": 24,
+            "branch_id": 3,
+            "product_id": 6,
+            "quantity": 46,
+            "updated_at": "2026-02-18 01:20:32"
+        },
+        "25": {
+            "id": 25,
+            "branch_id": 4,
+            "product_id": 4,
+            "quantity": 47,
+            "updated_at": "2026-02-18 01:20:32"
+        },
+        "26": {
+            "id": 26,
+            "branch_id": 4,
+            "product_id": 5,
+            "quantity": 19,
+            "updated_at": "2026-02-18 01:20:32"
+        },
+        "27": {
+            "id": 27,
+            "branch_id": 4,
+            "product_id": 8,
+            "quantity": 93,
+            "updated_at": "2026-02-18 01:20:32"
+        },
+        "28": {
+            "id": 28,
+            "branch_id": 4,
+            "product_id": 2,
+            "quantity": 4,
+            "updated_at": "2026-02-18 01:20:32"
+        },
+        "29": {
+            "id": 29,
+            "branch_id": 4,
+            "product_id": 3,
+            "quantity": 61,
+            "updated_at": "2026-02-18 01:20:32"
+        },
+        "30": {
+            "id": 30,
+            "branch_id": 4,
+            "product_id": 7,
+            "quantity": 16,
+            "updated_at": "2026-02-18 01:20:32"
+        },
+        "31": {
+            "id": 31,
+            "branch_id": 4,
+            "product_id": 1,
+            "quantity": 33,
+            "updated_at": "2026-02-18 01:20:32"
+        },
+        "32": {
+            "id": 32,
+            "branch_id": 4,
+            "product_id": 6,
+            "quantity": 19,
+            "updated_at": "2026-02-18 01:20:32"
+        },
+        "33": {
+            "id": 33,
+            "branch_id": 5,
+            "product_id": 4,
+            "quantity": 23,
+            "updated_at": "2026-02-18 01:20:32"
+        },
+        "34": {
+            "id": 34,
+            "branch_id": 5,
+            "product_id": 5,
+            "quantity": 69,
+            "updated_at": "2026-02-18 01:20:32"
+        },
+        "35": {
+            "id": 35,
+            "branch_id": 5,
+            "product_id": 8,
+            "quantity": 47,
+            "updated_at": "2026-02-18 01:20:32"
+        },
+        "36": {
+            "id": 36,
+            "branch_id": 5,
+            "product_id": 2,
+            "quantity": 93,
+            "updated_at": "2026-02-18 01:20:32"
+        },
+        "37": {
+            "id": 37,
+            "branch_id": 5,
+            "product_id": 3,
+            "quantity": 66,
+            "updated_at": "2026-02-18 01:20:32"
+        },
+        "38": {
+            "id": 38,
+            "branch_id": 5,
+            "product_id": 7,
+            "quantity": 75,
+            "updated_at": "2026-02-18 01:20:32"
+        },
+        "39": {
+            "id": 39,
+            "branch_id": 5,
+            "product_id": 1,
+            "quantity": 29,
+            "updated_at": "2026-02-18 01:20:32"
+        },
+        "40": {
+            "id": 40,
+            "branch_id": 5,
+            "product_id": 6,
+            "quantity": 26,
+            "updated_at": "2026-02-18 01:20:32"
+        }
+    },
+    "categories": {}
+}
