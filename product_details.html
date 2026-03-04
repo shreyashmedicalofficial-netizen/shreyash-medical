@@ -416,7 +416,7 @@
 
     <!-- App Logic -->
     <script type="module">
-        import { db, ref, onValue, query, limitToFirst, orderByChild, equalTo } from '/medico-saas/assets/js/firebase-config.js';
+        import { db, ref, onValue, query, limitToFirst, orderByChild, equalTo } from './assets/js/firebase-config.js';
 
         // Load Header/Footer
         fetch('includes/header.html').then(r => r.text()).then(h => document.getElementById('header-container').innerHTML = h);
